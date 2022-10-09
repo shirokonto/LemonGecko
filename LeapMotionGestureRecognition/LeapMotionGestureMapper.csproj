@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{0A62C8F2-3EDE-49CB-A1BF-DB7145C2CD63}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>LeapMotionGestureRecognition</RootNamespace>
-    <AssemblyName>LeapMotionGestureRecognition</AssemblyName>
+    <RootNamespace>LeapMotionGestureMapper</RootNamespace>
+    <AssemblyName>LeapMotionGestureMapper</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -59,11 +59,14 @@
     <Reference Include="LeapCSharp.NET4.0">
       <HintPath>..\..\..\..\Documents\01 Nebenquest\SampleLeapDotNet\src\SampleLeapDotNet.Console\libs\LeapCSharp.NET4.0.dll</HintPath>
     </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.ServiceProcess" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Events\CircleEvent.cs" />
     <Compile Include="LeapController.cs" />
     <Compile Include="LeapListener.cs" />
-    <Compile Include="Program.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

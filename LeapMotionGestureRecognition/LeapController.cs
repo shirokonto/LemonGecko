@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LeapMotionGestureRecognition
+namespace LeapMotionGestureMapper
 {
     /**
      * Serves as connection to the Leap Motion service/daemon
