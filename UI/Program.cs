@@ -18,7 +18,7 @@ namespace Launcher
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Console.WriteLine("Starting Launcher...");
-            Application.Run(new MenuForm());
+            Application.Run(new LauncherForm());
         }
     }
 }

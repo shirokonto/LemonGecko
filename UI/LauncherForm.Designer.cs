@@ -1,7 +1,7 @@
 ﻿
 namespace Launcher
 {
-    partial class MenuForm
+    partial class LauncherForm
     {
         /// <summary>
         /// Required designer variable.

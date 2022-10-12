@@ -6,14 +6,14 @@ using LeapMotionGestureMapper;
 
 namespace Launcher
 {
-    public partial class MenuForm : Form
+    public partial class LauncherForm : Form
     {
         // Fields
         private static readonly Queue<ItemToPrint> PrintQueue = new Queue<ItemToPrint>();
         private static LeapListener gestureMapper;
 
         // Constructor
-        public MenuForm()
+        public LauncherForm()
         {
             InitializeComponent();
             InitializeBackgroundWorker();            
@@ -46,6 +46,8 @@ namespace Launcher
 
             // Enable the Cancel button while the asynchronous operation runs.
             this.stopGestureControlButton.Enabled = true;
+
+
 
             for (int i = 0; i <= 10; i++)
             {
@@ -83,17 +85,14 @@ namespace Launcher
                     {
                         ItemToPrint item = PrintQueue.Dequeue();
                         Print(item.GetPrintText());
-                        //worker.ReportProgress(PrintQueue.Count, item);
                     }
+                   
                     //gestureMapper.CircleDetected += HandleCircle;
                 }
             }
         }
         private void HandleCircle(object sender, LeapMotionGestureMapper.Events.CircleEvent circle)
         {
-            //System.Management.Automation.PowerShell shell;
-            //shell = System.Management.Automation.PowerShell.Create().AddCommand("explorer.exe").AddArgument("shell:AppsFolder\\Microsoft.OfficeLens_8wekyb3d8bbwe!App");
-            //shell.Invoke();
             Console.WriteLine("CircleEventReceived");
             Print("CircleEventReceived");
         }

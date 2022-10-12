@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeapMotionGestureMapper", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Launcher", "UI\Launcher.csproj", "{983618EE-6A47-438F-91EF-2A601A553909}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestureController", "GestureController\GestureController.csproj", "{B8146771-475E-4AA7-83D6-6D70AA6845B2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,14 @@ Global
 		{983618EE-6A47-438F-91EF-2A601A553909}.Release|Any CPU.Build.0 = Release|Any CPU
 		{983618EE-6A47-438F-91EF-2A601A553909}.Release|x64.ActiveCfg = Release|Any CPU
 		{983618EE-6A47-438F-91EF-2A601A553909}.Release|x64.Build.0 = Release|Any CPU
+		{B8146771-475E-4AA7-83D6-6D70AA6845B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8146771-475E-4AA7-83D6-6D70AA6845B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8146771-475E-4AA7-83D6-6D70AA6845B2}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B8146771-475E-4AA7-83D6-6D70AA6845B2}.Debug|x64.Build.0 = Debug|Any CPU
+		{B8146771-475E-4AA7-83D6-6D70AA6845B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8146771-475E-4AA7-83D6-6D70AA6845B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8146771-475E-4AA7-83D6-6D70AA6845B2}.Release|x64.ActiveCfg = Release|Any CPU
+		{B8146771-475E-4AA7-83D6-6D70AA6845B2}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
