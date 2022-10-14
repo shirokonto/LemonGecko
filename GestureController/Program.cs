@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using LeapMotionGestureMapper;
 using System.Runtime.InteropServices;
@@ -36,26 +35,21 @@ namespace GestureController
                 if (Properties.Settings.Default.Active)
                 {
                     gestureMapper.HandSwipeDetected += HandleHandSwipe;
+                    gestureMapper.CircleDetected += HandleCircle;
+                    gestureMapper.FingerSwipeDetected += HandleFingerSwipe;
+                    gestureMapper.ScreenTapDetected += HandleScreenTap;
+                    gestureMapper.ZoomInDetected += HandleZoomIn;
+                    gestureMapper.ZoomOutDetected += HandleZoomOut;
                 }
                 while (Properties.Settings.Default.Active)
                 {
-                    System.Threading.Thread.Sleep(500); //idle
+                    Thread.Sleep(500); //idle
                 }
-
                 gestureMapper.HandSwipeDetected += HandleHandSwipe;
+                gestureMapper.ScreenTapDetected += HandleScreenTap;
+
+                //TODO: add others?
             }            
-        }
-
-        private void ThisAddIn_StartUp(object sender, EventArgs e)
-        {
-
-            //begin tracking
-            //Application.SlideShowBegin +=
-            //new PowerPoint.EApplication_SlideShowBeginEventHandler(TrackingStart);
-
-            //end tracking
-            //Application.SlideShowEnd +=
-            //  new PowerPoint.EApplication_SlideShowEndEventHandler(SlideShowEnd);
         }
 
         private string GetActiveWindowTitle()
@@ -74,25 +68,45 @@ namespace GestureController
         private void HandleCircle(object sender, LeapMotionGestureMapper.Events.CircleEvent circleEvent)
         {
             Console.WriteLine("Circle event received");
-            Thread.CurrentThread.SetApartmentState(ApartmentState.STA); //allows access to UI
         }
 
         private static void HandleHandSwipe(object sender, LeapMotionGestureMapper.Events.HandSwipeEvent handSwipeEvent)
         {
-            //get current foreground app
-            //navigate to previous or next object
-
-            Console.WriteLine("Hand swipe event received");
-            Thread.CurrentThread.SetApartmentState(ApartmentState.STA); //allows access to UI
+            Console.WriteLine("Hand Swipe event received");
             if (handSwipeEvent.Swipe.Direction.Equals(LeapMotionGestureMapper.Gestures.HandSwipe.SwipeDirection.RIGHT))
             {
                 Console.WriteLine("Next");
-                SendKeys.SendWait("{RIGHT}");
+                SendKeys.SendWait("{TAB}");
             } else if (handSwipeEvent.Swipe.Direction.Equals(LeapMotionGestureMapper.Gestures.HandSwipe.SwipeDirection.LEFT))
             {
                 Console.WriteLine("Previous");
-                SendKeys.SendWait("{LEFT}");
+                //+ is shift
+                SendKeys.SendWait("+{TAB}");
             }
+        }
+
+        private void HandleFingerSwipe(object sender, LeapMotionGestureMapper.Events.FingerSwipeEvent fingerSwipeEvent)
+        {
+            Console.WriteLine("Finger Swipe event received");
+        }
+
+        private void HandleScreenTap(object sender, LeapMotionGestureMapper.Events.ScreenTapEvent screenTapEvent)
+        {
+            Console.WriteLine("Screen Tap event received");
+            bool bo = screenTapEvent.ScreenTap.Hands[0].IsRight;
+            //" " i space key
+            Keys key = Keys.Space;
+            //SendKeys.SendWait("{SPACE}");
+        }
+
+        private void HandleZoomIn(object sender, LeapMotionGestureMapper.Events.ZoomInEvent zoomInEvent)
+        {
+            Console.WriteLine("Zoom In event received");
+        }
+
+        private void HandleZoomOut(object sender, LeapMotionGestureMapper.Events.ZoomOutEvent zoomOutEvent)
+        {
+            Console.WriteLine("Zoom Out event received");
         }
     }
 }
