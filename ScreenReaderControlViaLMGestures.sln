@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeapMotionGestureMapper", "LeapMotionGestureRecognition\LeapMotionGestureMapper.csproj", "{0A62C8F2-3EDE-49CB-A1BF-DB7145C2CD63}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestureRecognition", "LeapMotionGestureRecognition\GestureRecognition.csproj", "{0A62C8F2-3EDE-49CB-A1BF-DB7145C2CD63}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Launcher", "UI\Launcher.csproj", "{983618EE-6A47-438F-91EF-2A601A553909}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestureController", "GestureController\GestureController.csproj", "{B8146771-475E-4AA7-83D6-6D70AA6845B2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestureMapper", "GestureController\GestureMapper.csproj", "{B8146771-475E-4AA7-83D6-6D70AA6845B2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

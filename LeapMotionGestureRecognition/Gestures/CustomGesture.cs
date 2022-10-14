@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LeapMotionGestureMapper.Gestures
+namespace GestureRecognition.Gestures
 {
     public enum CustomGestureType { HAND_SWIPE, ZOOM_IN, ZOOM_OUT };
     public enum GestureState { NA, START, MIDDLE, END };

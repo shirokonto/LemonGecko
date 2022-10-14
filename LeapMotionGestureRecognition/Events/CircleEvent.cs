@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Leap;
 
-namespace LeapMotionGestureMapper.Events
+namespace GestureRecognition.Events
 {
     public class CircleEvent : EventArgs
     {

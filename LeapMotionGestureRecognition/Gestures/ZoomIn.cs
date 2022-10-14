@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LeapMotionGestureMapper.Gestures
+namespace GestureRecognition.Gestures
 {
     public class ZoomIn : CustomGesture
     {

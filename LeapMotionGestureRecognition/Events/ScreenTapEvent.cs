@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LeapMotionGestureMapper.Events
+namespace GestureRecognition.Events
 {
     public class ScreenTapEvent : EventArgs
     {

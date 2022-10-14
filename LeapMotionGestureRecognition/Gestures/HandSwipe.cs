@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Leap;
 
-namespace LeapMotionGestureMapper.Gestures
+namespace GestureRecognition.Gestures
 {
     public class HandSwipe : CustomGesture
     {

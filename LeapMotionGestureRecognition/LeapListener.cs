@@ -1,7 +1,7 @@
 ﻿using Leap;
 using System;
 
-namespace LeapMotionGestureMapper
+namespace GestureRecognition
 {
     public class LeapListener : Listener
     {
@@ -18,8 +18,6 @@ namespace LeapMotionGestureMapper
         public event EventHandler<Events.ZoomInEvent> ZoomInDetected;
         public event EventHandler<Events.ZoomOutEvent> ZoomOutDetected;
 
-
-        //tab, shift+tab, enter, pfeiltaste (up, right, left, down)
         static void Main()
         {
             LeapListener gestureMapper = new LeapListener();

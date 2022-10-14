@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using LeapMotionGestureMapper;
+using GestureRecognition;
 using System.Runtime.InteropServices;
 
-namespace GestureController
+namespace GestureMapper
 {
     class Program
     {
@@ -65,19 +65,19 @@ namespace GestureController
             return null;
         }
 
-        private void HandleCircle(object sender, LeapMotionGestureMapper.Events.CircleEvent circleEvent)
+        private void HandleCircle(object sender, GestureRecognition.Events.CircleEvent circleEvent)
         {
             Console.WriteLine("Circle event received");
         }
 
-        private static void HandleHandSwipe(object sender, LeapMotionGestureMapper.Events.HandSwipeEvent handSwipeEvent)
+        private static void HandleHandSwipe(object sender, GestureRecognition.Events.HandSwipeEvent handSwipeEvent)
         {
             Console.WriteLine("Hand Swipe event received");
-            if (handSwipeEvent.Swipe.Direction.Equals(LeapMotionGestureMapper.Gestures.HandSwipe.SwipeDirection.RIGHT))
+            if (handSwipeEvent.Swipe.Direction.Equals(GestureRecognition.Gestures.HandSwipe.SwipeDirection.RIGHT))
             {
                 Console.WriteLine("Next");
                 SendKeys.SendWait("{TAB}");
-            } else if (handSwipeEvent.Swipe.Direction.Equals(LeapMotionGestureMapper.Gestures.HandSwipe.SwipeDirection.LEFT))
+            } else if (handSwipeEvent.Swipe.Direction.Equals(GestureRecognition.Gestures.HandSwipe.SwipeDirection.LEFT))
             {
                 Console.WriteLine("Previous");
                 //+ is shift
@@ -85,12 +85,12 @@ namespace GestureController
             }
         }
 
-        private void HandleFingerSwipe(object sender, LeapMotionGestureMapper.Events.FingerSwipeEvent fingerSwipeEvent)
+        private void HandleFingerSwipe(object sender, GestureRecognition.Events.FingerSwipeEvent fingerSwipeEvent)
         {
             Console.WriteLine("Finger Swipe event received");
         }
 
-        private void HandleScreenTap(object sender, LeapMotionGestureMapper.Events.ScreenTapEvent screenTapEvent)
+        private void HandleScreenTap(object sender, GestureRecognition.Events.ScreenTapEvent screenTapEvent)
         {
             Console.WriteLine("Screen Tap event received");
             bool bo = screenTapEvent.ScreenTap.Hands[0].IsRight;
@@ -99,12 +99,12 @@ namespace GestureController
             //SendKeys.SendWait("{SPACE}");
         }
 
-        private void HandleZoomIn(object sender, LeapMotionGestureMapper.Events.ZoomInEvent zoomInEvent)
+        private void HandleZoomIn(object sender, GestureRecognition.Events.ZoomInEvent zoomInEvent)
         {
             Console.WriteLine("Zoom In event received");
         }
 
-        private void HandleZoomOut(object sender, LeapMotionGestureMapper.Events.ZoomOutEvent zoomOutEvent)
+        private void HandleZoomOut(object sender, GestureRecognition.Events.ZoomOutEvent zoomOutEvent)
         {
             Console.WriteLine("Zoom Out event received");
         }

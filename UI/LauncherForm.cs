@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
-using LeapMotionGestureMapper;
+using GestureRecognition;
 
 namespace Launcher
 {
@@ -91,7 +91,7 @@ namespace Launcher
                 }
             }
         }
-        private void HandleCircle(object sender, LeapMotionGestureMapper.Events.CircleEvent circle)
+        private void HandleCircle(object sender, GestureRecognition.Events.CircleEvent circle)
         {
             Console.WriteLine("CircleEventReceived");
             Print("CircleEventReceived");
