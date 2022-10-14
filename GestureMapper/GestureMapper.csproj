@@ -87,7 +87,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LeapMotionGestureRecognition\GestureRecognition.csproj">
+    <ProjectReference Include="..\GestureRecognition\GestureRecognition.csproj">
       <Project>{0a62c8f2-3ede-49cb-a1bf-db7145c2cd63}</Project>
       <Name>GestureRecognition</Name>
     </ProjectReference>
