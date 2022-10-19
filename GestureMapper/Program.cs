@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
@@ -95,7 +93,7 @@ namespace GestureMapper
             Console.WriteLine("Screen Tap event received");
             bool bo = screenTapEvent.ScreenTap.Hands[0].IsRight;
             //" " i space key
-            Keys key = Keys.Space;
+            //Keys key = Keys.Space;
             //SendKeys.SendWait("{SPACE}");
         }
 

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Leap;
 
 namespace GestureRecognition.Gestures
@@ -10,7 +6,7 @@ namespace GestureRecognition.Gestures
     public class HandSwipe : CustomGesture
     {
         public enum SwipeDirection { LEFT, RIGHT };
-        private SwipeDirection _diretion;
+        private SwipeDirection _direction;
         private static HandSwipe other = null;
 
         public HandSwipe(CustomGestureType type, Frame frame)
@@ -34,12 +30,12 @@ namespace GestureRecognition.Gestures
 
             other = this;
 
-            foreach (Leap.Hand hand in _handsForGesture)
+            foreach (Hand hand in _handsForGesture)
             {
                 if (hand.PalmVelocity.x > 0)
-                    _diretion = SwipeDirection.RIGHT;
+                    _direction = SwipeDirection.RIGHT;
                 else
-                    _diretion = SwipeDirection.LEFT;
+                    _direction = SwipeDirection.LEFT;
             }
         }
 
@@ -49,7 +45,7 @@ namespace GestureRecognition.Gestures
             {
                 HandList hands = frame.Hands;
 
-                if ((hands[0].IsValid && hands[1].IsValid) && handsTogether(hands[0], hands[1]))
+                if ((hands[0].IsValid && hands[1].IsValid) && HandsTogether(hands[0], hands[1]))
                 {
                     return null;
                 }
@@ -79,16 +75,15 @@ namespace GestureRecognition.Gestures
 
         public SwipeDirection Direction
         {
-            get { return _diretion; }
+            get { return _direction; }
         }
 
-        private static bool handsTogether(Leap.Hand hand1, Leap.Hand hand2)
+        private static bool HandsTogether(Hand hand1, Hand hand2)
         {
             float xdiff = Math.Abs(hand1.PalmPosition.x - hand2.PalmPosition.x),
                 ydiff = Math.Abs(hand1.PalmPosition.y - hand2.PalmPosition.y),
                 zdiff = Math.Abs(hand1.PalmPosition.z - hand2.PalmPosition.z);
 
-            //Console.WriteLine("Pos diffs {0}", (xdiff + ydiff + zdiff));
             if ((xdiff + ydiff + zdiff) < 400)
                 return true;
 

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Leap;
 
 namespace GestureRecognition.Gestures
 {
@@ -32,13 +29,13 @@ namespace GestureRecognition.Gestures
             other = this;
         }
 
-        public static ZoomIn IsZoomIn(Leap.Frame frame)
+        public static ZoomIn IsZoomIn(Frame frame)
         {
             if (frame.IsValid)
             {
-                Leap.HandList hands = frame.Hands;
+                HandList hands = frame.Hands;
 
-                if ((hands[0].IsValid && hands[1].IsValid) && handsTogether(hands[0], hands[1]))
+                if ((hands[0].IsValid && hands[1].IsValid) && HandsTogether(hands[0], hands[1]))
                 {
                     if ((hands.Leftmost.PalmVelocity.x < -500) && (hands.Rightmost.PalmVelocity.x > 500))
                     {
@@ -64,7 +61,7 @@ namespace GestureRecognition.Gestures
             return null;
         }
 
-        private static bool handsTogether(Leap.Hand hand1, Leap.Hand hand2)
+        private static bool HandsTogether(Hand hand1, Hand hand2)
         {
             float xdiff = Math.Abs(hand1.PalmPosition.x - hand2.PalmPosition.x),
                 ydiff = Math.Abs(hand1.PalmPosition.y - hand2.PalmPosition.y),

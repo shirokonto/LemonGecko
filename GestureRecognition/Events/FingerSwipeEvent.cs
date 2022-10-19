@@ -1,21 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Leap;
 
 namespace GestureRecognition.Events
 {
     public class FingerSwipeEvent : EventArgs
     {
-        private Leap.SwipeGesture _swipe;
+        private SwipeGesture _swipe;
 
-        public FingerSwipeEvent(Leap.SwipeGesture swipe)
+        public FingerSwipeEvent(SwipeGesture swipe)
         {
             _swipe = swipe;
         }
 
-        public Leap.SwipeGesture Swipe
+        public SwipeGesture Swipe
         {
             get { return _swipe; }
             set { _swipe = value; }

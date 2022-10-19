@@ -10,6 +10,7 @@ namespace GestureRecognition
         private HandList hands = null;
         private Object thisLock = new Object();
         private Controller controller = null;
+        private bool controllerConnected = false;
 
         public event EventHandler<Events.CircleEvent> CircleDetected;
         public event EventHandler<Events.HandSwipeEvent> HandSwipeDetected;
@@ -29,7 +30,8 @@ namespace GestureRecognition
         public LeapListener()
         {
             controller = new Controller();
-            //track data when app is not in the foreground
+
+            //tracks data when app is not in the foreground
             controller.SetPolicyFlags(Controller.PolicyFlag.POLICY_BACKGROUND_FRAMES);
 
             controller.EnableGesture(Gesture.GestureType.TYPE_SWIPE);
@@ -42,21 +44,30 @@ namespace GestureRecognition
         //destructor
         ~ LeapListener()
         {
-            controller.RemoveListener(this);
-            controller.Dispose();
+            //if app closes leap listener gets removed
+            if (controller != null && controllerConnected)
+            {
+                controller.RemoveListener(this);
+                controller.Dispose();
+            }
         }
 
         public override void OnConnect(Controller controller)
         {
+            controllerConnected = controller.IsConnected;
             Console.WriteLine("Connected");            
+        }
+
+        public bool IsControllerConnected()
+        {
+            return controllerConnected;
         }
 
         public override void OnFrame(Controller controller)
         {
             Frame frame = controller.Frame();
-            //hands = frame.Hands;
+            hands = frame.Hands;
             gestures = frame.Gestures();
-
             foreach (Gesture gesture in gestures)
             {
                 if (gesture.State.Equals(Gesture.GestureState.STATESTOP))

@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using GestureRecognition;
 
@@ -8,149 +8,127 @@ namespace Launcher
 {
     public partial class LauncherForm : Form
     {
-        // Fields
-        private static readonly Queue<ItemToPrint> PrintQueue = new Queue<ItemToPrint>();
         private static LeapListener gestureMapper;
+        private ScreenReaderDetection activeScreenReaders;
+        private bool controllerConnected;
+
+        private const int CB_SETCUEBANNER = 0x1703;
+        [System.Runtime.InteropServices.DllImport("user32.dll", CharSet = System.Runtime.InteropServices.CharSet.Auto)]
+        private static extern int SendMessage(IntPtr hWnd, int msg, int wParam, [System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.LPWStr)] string lParam);
 
         // Constructor
         public LauncherForm()
-        {
+        {            
             InitializeComponent();
-            InitializeBackgroundWorker();            
+            FillUpComboBox();
+            //TODO: does not work since it is not async
+            CheckControllerState();
         }
 
-        // Set up the BackgroundWorker object by attaching event handlers.
-        private void InitializeBackgroundWorker()
+        private void CheckControllerState()
         {
-            backgroundWorker.WorkerReportsProgress = true;
-            backgroundWorker.WorkerSupportsCancellation = true;
-
-            backgroundWorker.DoWork +=
-                new DoWorkEventHandler(BackgroundWorker_DoWork);
-            backgroundWorker.ProgressChanged +=
-                new ProgressChangedEventHandler(BackgroundWorker_ProgressChanged);
-            backgroundWorker.RunWorkerCompleted +=
-                new RunWorkerCompletedEventHandler(
-            BackgroundWorker_RunWorkerCompleted);
+            gestureMapper = new LeapListener();
+            //if controller is not connected gray out start and say that it is not connected
+            controllerConnected = gestureMapper.IsControllerConnected();
+            startGestureControlButton.Enabled = controllerConnected;
+            if (!controllerConnected)
+            {
+                LeapMotionStateLabel.Text = "Leap Motion Controller Not Found";
+            }
         }
 
         private void StartGestureControlButton_Click(Object sender, EventArgs e)
         {
-            gestureMapper = new LeapListener();
+            //TODO: see if gestureMapper is connected
+            //TODO: if listener is not active or no screenreader is detected
+            gestureMapper.CircleDetected += HandleCircle;
+            gestureMapper.HandSwipeDetected += HandleHandSwipe;
+            gestureMapper.FingerSwipeDetected += HandleFingerSwipe;
+            gestureMapper.ScreenTapDetected += HandleScreenTap;
+            gestureMapper.ZoomInDetected += HandleZoomIn;
+            gestureMapper.ZoomOutDetected += HandleZoomOut;
 
-            // Reset the text in the result box.
-            gestureDetectionConsole.Clear();
-
-            // Disable the Start button until the asynchronous operation is done.
             this.startGestureControlButton.Enabled = false;
-
-            // Enable the Cancel button while the asynchronous operation runs.
             this.stopGestureControlButton.Enabled = true;
 
-
-
-            for (int i = 0; i <= 10; i++)
-            {
-                AddItemToPrintQueue(i.ToString());
-            }
-
-            // Start the asynchronous operation.
-            backgroundWorker.RunWorkerAsync();
+            //notice user that gesture starts
+            System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.mixkit_quick_win_video_game_notification_269);
+            player.Play();
+            //minimize window
+            this.WindowState = FormWindowState.Minimized;
         }
 
         private void StopGestureControlButton_Click(Object sender, EventArgs e)
         {
-            // Cancel the asynchronous operation.
-            backgroundWorker.CancelAsync();
-
-            // Disable the Cancel button.
             stopGestureControlButton.Enabled = false;
+            startGestureControlButton.Enabled = true;
+            //TODO: end leap support
         }
-                
-        // This event handler is where the actual, potentially time-consuming work is done.
-        private void BackgroundWorker_DoWork(object sender,
-            DoWorkEventArgs e)
-        {
-            // Get the BackgroundWorker that raised this event.
-            BackgroundWorker worker = sender as BackgroundWorker;
-             
-            Console.WriteLine("Do work...");
 
-            while (!worker.CancellationPending)
-            {
-                //Prevent writing to queue while we are reading /editing it
-                lock (PrintQueue)
-                {
-                    if(PrintQueue.Count > 0)
-                    {
-                        ItemToPrint item = PrintQueue.Dequeue();
-                        Print(item.GetPrintText());
-                    }
-                   
-                    //gestureMapper.CircleDetected += HandleCircle;
-                }
-            }
+        private void ScreenReaderComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //if a different screenreader is selected --> map to those keys
         }
+
+        private void FillUpComboBox()
+        {
+            activeScreenReaders = new ScreenReaderDetection();
+            if (!activeScreenReaders.GetActiveScreenReader().Any()) //if list is empty
+            {
+                SendMessage(ScreenReaderComboBox.Handle, CB_SETCUEBANNER, 0, "No active screen reader");
+            } else
+            {
+                foreach (ScreenReaderItem item in activeScreenReaders.GetActiveScreenReader())
+                {
+                    ScreenReaderComboBox.Items.Add(item.ScreenReaderName);
+                }
+                ScreenReaderComboBox.SelectedIndex = 0;
+            }            
+        }
+
         private void HandleCircle(object sender, GestureRecognition.Events.CircleEvent circle)
         {
             Console.WriteLine("CircleEventReceived");
-            Print("CircleEventReceived");
         }
 
-        private void Print(string item)
+        private static void HandleHandSwipe(object sender, GestureRecognition.Events.HandSwipeEvent handSwipeEvent)
         {
-            gestureDetectionConsole.Invoke(new Action(() =>
+            Console.WriteLine("Hand Swipe event received");
+            if (handSwipeEvent.Swipe.Direction.Equals(GestureRecognition.Gestures.HandSwipe.SwipeDirection.RIGHT))
             {
-                gestureDetectionConsole.AppendText(item);
-                gestureDetectionConsole.AppendText(Environment.NewLine);
-            }));            
-        }
-
-        private void AddItemToPrintQueue(string number)
-        {
-            ItemToPrint item = new ItemToPrint(" Gesture " + number);
-            lock (PrintQueue)
+                Console.WriteLine("Next");
+                SendKeys.SendWait("{TAB}");
+            }
+            else if (handSwipeEvent.Swipe.Direction.Equals(GestureRecognition.Gestures.HandSwipe.SwipeDirection.LEFT))
             {
-                PrintQueue.Enqueue(item);
+                Console.WriteLine("Previous");
+                //+ is shift
+                SendKeys.SendWait("+{TAB}");
             }
         }
 
-        //Maybe not needed since we don't report a progress
-        private void BackgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        private void HandleFingerSwipe(object sender, GestureRecognition.Events.FingerSwipeEvent fingerSwipeEvent)
         {
-            ItemToPrint item = e.UserState as ItemToPrint;
-            Print(item.GetPrintText());
+            Console.WriteLine("Finger Swipe event received");
         }
 
-        // This event handler deals with the results of the
-        // background operation.
-        private void BackgroundWorker_RunWorkerCompleted(
-            object sender, RunWorkerCompletedEventArgs e)
+        private void HandleScreenTap(object sender, GestureRecognition.Events.ScreenTapEvent screenTapEvent)
         {
-            // First, handle the case where an exception was thrown.
-            if (e.Error != null)
-            {
-                // There was an error during the operation.
-                string msg = String.Format("An error occurred: {0}", e.Error.Message);
-                MessageBox.Show(msg);
-            }
-            else if (e.Cancelled)
-            {
-                // Next, handle the case where the user canceled the operation.
-                // Note that due to a race condition in the DoWork event handler, the Cancelled
-                // flag may not have been set, even though CancelAsync was called.
-                MessageBox.Show("Operation was canceled");
-            }
-            else
-            {
-                // Finally, handle the case where the operation succeeded.
-                string msg = String.Format("Result = {0}", e.Result);
-            }
+            Console.WriteLine("Screen Tap event received");
+            bool bo = screenTapEvent.ScreenTap.Hands[0].IsRight;
+            //" " i space key
+            //Keys key = Keys.Space;
+            //SendKeys.SendWait("{SPACE}");
+        }
 
-            // Enable the Start button.
-            startGestureControlButton.Enabled = true;
-            // Disable the Cancel button.
-            stopGestureControlButton.Enabled = false;
+        private void HandleZoomIn(object sender, GestureRecognition.Events.ZoomInEvent zoomInEvent)
+        {
+            Console.WriteLine("Zoom In event received");
+        }
+
+        private void HandleZoomOut(object sender, GestureRecognition.Events.ZoomOutEvent zoomOutEvent)
+        {
+            Console.WriteLine("Zoom Out event received");
         }
     }
 }

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Leap;
 
 namespace GestureRecognition.Gestures
 {
@@ -11,11 +8,11 @@ namespace GestureRecognition.Gestures
     public class CustomGesture
     {
         protected CustomGestureType _type;
-        protected Leap.HandList _handsForGesture;
-        protected Leap.PointableList _pointablesForGesture;
+        protected HandList _handsForGesture;
+        protected PointableList _pointablesForGesture;
         protected GestureState _state;
 
-        public CustomGesture(CustomGestureType type, Leap.Frame frame)
+        public CustomGesture(CustomGestureType type, Frame frame)
         {
             _type = type;
             _handsForGesture = frame.Hands;
@@ -33,12 +30,12 @@ namespace GestureRecognition.Gestures
             get { return _state; }
         }
 
-        public Leap.HandList Hands
+        public HandList Hands
         {
             get { return _handsForGesture; }
         }
 
-        public Leap.PointableList Pointables
+        public PointableList Pointables
         {
             get { return _pointablesForGesture; }
         }
