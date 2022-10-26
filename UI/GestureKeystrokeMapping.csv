@@ -1,0 +1,5 @@
+Name,ScreenTap,HandSwipeRight,HandSwipeLeft
+Narrator,{ENTER},{TAB},+{TAB}
+nvda,{ENTER},{TAB},+{TAB}
+JAWS,{ENTER},{TAB},+{TAB}
+Dolphin SR,{ENTER},{TAB},+{TAB}

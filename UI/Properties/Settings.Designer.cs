@@ -46,5 +46,17 @@ namespace Launcher.Properties {
                 this["Running"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("GestureKeystrokeMapping.csv")]
+        public string GestureKeystrokeMapping {
+            get {
+                return ((string)(this["GestureKeystrokeMapping"]));
+            }
+            set {
+                this["GestureKeystrokeMapping"] = value;
+            }
+        }
     }
 }

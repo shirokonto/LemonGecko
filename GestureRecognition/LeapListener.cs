@@ -1,5 +1,6 @@
 ﻿using Leap;
 using System;
+using System.Threading;
 
 namespace GestureRecognition
 {
@@ -10,7 +11,7 @@ namespace GestureRecognition
         private HandList hands = null;
         private Object thisLock = new Object();
         private Controller controller = null;
-        private bool controllerConnected = false;
+        private bool isConnected;
 
         public event EventHandler<Events.CircleEvent> CircleDetected;
         public event EventHandler<Events.HandSwipeEvent> HandSwipeDetected;
@@ -21,15 +22,14 @@ namespace GestureRecognition
 
         static void Main()
         {
-            LeapListener gestureMapper = new LeapListener();
-
-            Console.ReadKey();
         }
 
         //constructor
         public LeapListener()
         {
             controller = new Controller();
+            Thread.Sleep(5);
+            isConnected = controller.IsConnected;
 
             //tracks data when app is not in the foreground
             controller.SetPolicyFlags(Controller.PolicyFlag.POLICY_BACKGROUND_FRAMES);
@@ -37,7 +37,7 @@ namespace GestureRecognition
             controller.EnableGesture(Gesture.GestureType.TYPE_SWIPE);
             controller.EnableGesture(Gesture.GestureType.TYPE_CIRCLE);
             controller.EnableGesture(Gesture.GestureType.TYPE_SCREEN_TAP);
-
+            
             controller.AddListener(this);
         }
 
@@ -45,7 +45,7 @@ namespace GestureRecognition
         ~ LeapListener()
         {
             //if app closes leap listener gets removed
-            if (controller != null && controllerConnected)
+            if (controller != null && isConnected)
             {
                 controller.RemoveListener(this);
                 controller.Dispose();
@@ -53,14 +53,13 @@ namespace GestureRecognition
         }
 
         public override void OnConnect(Controller controller)
-        {
-            controllerConnected = controller.IsConnected;
+        {            
             Console.WriteLine("Connected");            
         }
 
         public bool IsControllerConnected()
         {
-            return controllerConnected;
+            return controller.IsConnected;
         }
 
         public override void OnFrame(Controller controller)

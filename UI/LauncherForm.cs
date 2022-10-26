@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using GestureRecognition;
 
@@ -10,6 +9,7 @@ namespace Launcher
     {
         private static LeapListener gestureMapper;
         private ScreenReaderDetection activeScreenReaders;
+        private ScreenReaderItem currentScreenReader;
         private bool controllerConnected;
 
         private const int CB_SETCUEBANNER = 0x1703;
@@ -18,25 +18,85 @@ namespace Launcher
 
         // Constructor
         public LauncherForm()
-        {            
+        {
+            gestureMapper = new LeapListener();
             InitializeComponent();
-            FillUpComboBox();
-            //TODO: does not work since it is not async
+            InitializeScreenReaderSettings();
+            CsvParser parser = new CsvParser();
+        }
+
+        private void InitializeScreenReaderSettings()
+        {
+            FillScreenReaderComboBox();
+            SetKeyMappings();
             CheckControllerState();
+        }
+       
+        private void FillScreenReaderComboBox()
+        {
+            activeScreenReaders = new ScreenReaderDetection();
+            if (!activeScreenReaders.GetAllScreenReaders().Any()) //if list is empty
+            {
+                if (ScreenReaderComboBox.Items.Count != 0)
+                {
+                    ScreenReaderComboBox.Items.Clear();
+                    currentScreenReader = null;
+                }
+                SendMessage(ScreenReaderComboBox.Handle, CB_SETCUEBANNER, 0, "No active screen reader");
+                startGestureControlButton.Enabled = false;
+                EnableButtons(false);
+
+            } else
+            {
+                foreach (ScreenReaderItem item in activeScreenReaders.GetAllScreenReaders())
+                {
+                    if (!ScreenReaderComboBox.Items.Contains(item.ScreenReaderName))
+                    {
+                        ScreenReaderComboBox.Items.Add(item.ScreenReaderName);
+                    }                    
+                }
+                ScreenReaderComboBox.SelectedIndex = 0;
+                EnableButtons(true);
+                currentScreenReader = activeScreenReaders.GetScreenReaderByName(ScreenReaderComboBox.SelectedItem.ToString());
+            }            
+        }
+
+        private void EnableButtons(bool enabled)
+        {
+            ScreenTapMappingBtn.Enabled = enabled;
+            SwipeLeftMappingBtn.Enabled = enabled;
+            SwipeRightMappingBtn.Enabled = enabled;
+        }
+        private void SetKeyMappings()
+        {
+            if (currentScreenReader != null)
+            {                
+                KeyMapping.Text = "Key Mapping for " + currentScreenReader.ScreenReaderName;
+                //get data from csv
+                ScreenTapMappingLabel.Text = "Screen Tap:[KEY]" + currentScreenReader.GetKeyStrokeMapping(ScreenReaderItem.Gesture.SCREENTAP);
+            } else
+            {
+                KeyMapping.Text = "Refresh for Key Mapping";
+            }            
         }
 
         private void CheckControllerState()
         {
-            gestureMapper = new LeapListener();
-            //if controller is not connected gray out start and say that it is not connected
-            controllerConnected = gestureMapper.IsControllerConnected();
-            startGestureControlButton.Enabled = controllerConnected;
-            if (!controllerConnected)
+            //if controller is not connected gray out start and state that it is not connected
+            controllerConnected = gestureMapper.IsControllerConnected();    //TODO: add case: IF Controller is removed after refresh!!        
+            if(controllerConnected)
             {
-                LeapMotionStateLabel.Text = "Leap Motion Controller Not Found";
+                LeapMotionStateLabel.Text = "Leap Motion Connected";               
             }
+            else
+            {
+                LeapMotionStateLabel.Text = "Leap Motion Controller Not Found";                
+            }            
         }
 
+        /*
+        * UI ELEMENETS
+        */
         private void StartGestureControlButton_Click(Object sender, EventArgs e)
         {
             //TODO: see if gestureMapper is connected
@@ -51,7 +111,7 @@ namespace Launcher
             this.startGestureControlButton.Enabled = false;
             this.stopGestureControlButton.Enabled = true;
 
-            //notice user that gesture starts
+            //notice user that gesture starts            
             System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.mixkit_quick_win_video_game_notification_269);
             player.Play();
             //minimize window
@@ -62,30 +122,43 @@ namespace Launcher
         {
             stopGestureControlButton.Enabled = false;
             startGestureControlButton.Enabled = true;
+            //notice user that gesture stops
+            //TODO: different sound
+            System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.mixkit_quick_win_video_game_notification_269);
+            player.Play();
             //TODO: end leap support
         }
 
         private void ScreenReaderComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //if a different screenreader is selected --> map to those keys
+        {           
+            if(ScreenReaderComboBox.SelectedItem != null)
+            {
+                currentScreenReader = activeScreenReaders.GetScreenReaderByName(ScreenReaderComboBox.SelectedItem.ToString());
+                if(currentScreenReader != null)
+                {
+                    KeyMapping.Text = "Key Mapping for " + currentScreenReader.ScreenReaderName;
+                }                
+            }
+            
+            // activeScreenReaders
+            // TODO: map gesture to keys -> keyset??
         }
 
-        private void FillUpComboBox()
+        private void RefreshListBtn_Click(object sender, EventArgs e)
         {
-            activeScreenReaders = new ScreenReaderDetection();
-            if (!activeScreenReaders.GetActiveScreenReader().Any()) //if list is empty
+            InitializeScreenReaderSettings();
+            if (controllerConnected && currentScreenReader != null)
             {
-                SendMessage(ScreenReaderComboBox.Handle, CB_SETCUEBANNER, 0, "No active screen reader");
+                startGestureControlButton.Enabled = controllerConnected;
             } else
             {
-                foreach (ScreenReaderItem item in activeScreenReaders.GetActiveScreenReader())
-                {
-                    ScreenReaderComboBox.Items.Add(item.ScreenReaderName);
-                }
-                ScreenReaderComboBox.SelectedIndex = 0;
-            }            
+                startGestureControlButton.Enabled = false;
+            }
         }
 
+        /**
+         * HANDLE EVENTS 
+         */
         private void HandleCircle(object sender, GestureRecognition.Events.CircleEvent circle)
         {
             Console.WriteLine("CircleEventReceived");
@@ -97,6 +170,11 @@ namespace Launcher
             if (handSwipeEvent.Swipe.Direction.Equals(GestureRecognition.Gestures.HandSwipe.SwipeDirection.RIGHT))
             {
                 Console.WriteLine("Next");
+                //currentScreenReader GetSwipeRightKey
+                //SendKeys.SendWait(currentScreenReader.SwipeRight)
+                //
+                //GestureKeystrokeMapping
+
                 SendKeys.SendWait("{TAB}");
             }
             else if (handSwipeEvent.Swipe.Direction.Equals(GestureRecognition.Gestures.HandSwipe.SwipeDirection.LEFT))
@@ -116,9 +194,7 @@ namespace Launcher
         {
             Console.WriteLine("Screen Tap event received");
             bool bo = screenTapEvent.ScreenTap.Hands[0].IsRight;
-            //" " i space key
-            //Keys key = Keys.Space;
-            //SendKeys.SendWait("{SPACE}");
+            //SendKeys.SendWait("{ENTER}");
         }
 
         private void HandleZoomIn(object sender, GestureRecognition.Events.ZoomInEvent zoomInEvent)
@@ -130,5 +206,7 @@ namespace Launcher
         {
             Console.WriteLine("Zoom Out event received");
         }
+
+        
     }
 }

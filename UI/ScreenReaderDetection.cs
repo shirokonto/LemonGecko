@@ -9,7 +9,7 @@ namespace Launcher
 {
     /**
      * Detects the currently running screen reader
-     * include JAWS, NVDA, Narrator and co. 
+     * including JAWS, NVDA, Narrator and Dolphin ScreenReader 
      */
     class ScreenReaderDetection
     {
@@ -20,11 +20,9 @@ namespace Launcher
         public ScreenReaderDetection()
         {
             activeScreenReaders = new List<ScreenReaderItem>();
-            Process[] narratorProcesses = Process.GetProcessesByName("Narrator");
-            Process[] nvdaProcesses = Process.GetProcessesByName("nvda"); //add others "Jaws"
 
             IEnumerable<Process> processes =
-                new[] { "Narrator", "nvda" }
+                new[] { "Narrator", "nvda", "jfw", "Hal" }
                 .SelectMany(Process.GetProcessesByName);
 
             Process[] screenReaderProcesses = processes.ToArray();
@@ -35,32 +33,32 @@ namespace Launcher
             {
                 foreach(Process process in screenReaderProcesses)
                 {
-                    activeScreenReaders.Add(new ScreenReaderItem() { Id = process.Id, ScreenReaderName = process.ProcessName });
+                    string processName = process.ProcessName;
+                    if (process.ProcessName == "jfw")
+                    {
+                        processName = "JAWS";
+                    }
+                    if(process.ProcessName == "Hal")
+                    {
+                        processName = "Dolphin SR";
+                    }
+                    activeScreenReaders.Add(new ScreenReaderItem() { Id = process.Id, ScreenReaderName = processName });
                 }
-            }
-
-            //if there are two 
-
-            /*if (Process.GetProcessesByName("nvda").Any() && Process.GetProcessesByName("Narrator").Any()) //Narrator
-            {
-                currentScreenReader = ScreenReader.NVDA;
-                Console.WriteLine("NVDA and Narrator are active");
-                // if more than one screen reader is active ask the user which one should be focused?
-                // Set the current screen reader as first value in dropdown
-                // and set the default values in the gesture mapper in the UI
-                // (!!! if the user has mapped own keys, dont change that)
-            } else if(Process.GetProcessesByName("Narrator").Any())
-            {
-                Console.WriteLine("Narrator is active");
-            } else
-            {
-                Console.WriteLine("No screen reader detected");
-            }*/
+            }            
         }
 
-        public List<ScreenReaderItem> GetActiveScreenReader()
+        public List<ScreenReaderItem> GetAllScreenReaders()
         {
             return activeScreenReaders;
+        }
+
+        public ScreenReaderItem GetScreenReaderByName(string name)
+        {  
+            if(activeScreenReaders.Count != 0)
+            {
+                return activeScreenReaders.Where(i => i.ScreenReaderName.Equals(name)).First();
+            }
+            return null;
         }
 
     }

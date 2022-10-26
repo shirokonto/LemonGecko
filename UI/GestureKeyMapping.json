@@ -1,0 +1,26 @@
+[
+  {
+    "Name": "Narrator",
+    "ScreenTap": "{ENTER}",
+    "HandSwipeRight": "{TAB}",
+    "HandSwipeLeft": "+{TAB}"
+  },
+  {
+    "Name": "nvda",
+    "ScreenTap": "{ENTER}",
+    "HandSwipeRight": "{TAB}",
+    "HandSwipeLeft": "+{TAB}"
+  },
+  {
+    "Name": "JAWS",
+    "ScreenTap": "{ENTER}",
+    "HandSwipeRight": "{TAB}",
+    "HandSwipeLeft": "+{TAB}"
+  },
+  {
+    "Name": "Dolphin SR",
+    "ScreenTap": "{ENTER}",
+    "HandSwipeRight": "{TAB}",
+    "HandSwipeLeft": "+{TAB}"
+  }
+]
