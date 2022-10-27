@@ -13,14 +13,13 @@ namespace Launcher
      */
     class ScreenReaderDetection
     {
-        public enum ScreenReader {NVDA, NARRATOR, JAWS};
-        private ScreenReader currentScreenReader;
         private List<ScreenReaderItem> activeScreenReaders;
+        private JsonParser jsonParser = null;
 
         public ScreenReaderDetection()
         {
             activeScreenReaders = new List<ScreenReaderItem>();
-
+            jsonParser = new JsonParser();
             IEnumerable<Process> processes =
                 new[] { "Narrator", "nvda", "jfw", "Hal" }
                 .SelectMany(Process.GetProcessesByName);
@@ -42,7 +41,14 @@ namespace Launcher
                     {
                         processName = "Dolphin SR";
                     }
-                    activeScreenReaders.Add(new ScreenReaderItem() { Id = process.Id, ScreenReaderName = processName });
+                    // TODO:
+                    // search for processName in json and map keys
+                    // jsonParser.GetMapping(processName)
+                    ScreenReaderMapping mapping = jsonParser.GetMappingForScreenReader(processName);
+                    if(mapping != null)
+                    {
+                        activeScreenReaders.Add(new ScreenReaderItem() { Id = process.Id, ScreenReaderName = processName, GestureMapping = mapping });
+                    }
                 }
             }            
         }
@@ -60,6 +66,5 @@ namespace Launcher
             }
             return null;
         }
-
     }
 }

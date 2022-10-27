@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows.Forms;
 using GestureRecognition;
+using System.Runtime.InteropServices;
 
 namespace Launcher
 {
@@ -11,10 +12,11 @@ namespace Launcher
         private ScreenReaderDetection activeScreenReaders;
         private ScreenReaderItem currentScreenReader;
         private bool controllerConnected;
-
         private const int CB_SETCUEBANNER = 0x1703;
-        [System.Runtime.InteropServices.DllImport("user32.dll", CharSet = System.Runtime.InteropServices.CharSet.Auto)]
-        private static extern int SendMessage(IntPtr hWnd, int msg, int wParam, [System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.LPWStr)] string lParam);
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        private static extern int SendMessage(IntPtr hWnd, int msg, int wParam, [MarshalAs(UnmanagedType.LPWStr)] string lParam);
+        [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
+        public static extern short GetKeyState(int keyCode);
 
         // Constructor
         public LauncherForm()
@@ -22,7 +24,6 @@ namespace Launcher
             gestureMapper = new LeapListener();
             InitializeComponent();
             InitializeScreenReaderSettings();
-            CsvParser parser = new CsvParser();
         }
 
         private void InitializeScreenReaderSettings()
@@ -73,24 +74,30 @@ namespace Launcher
             {                
                 KeyMapping.Text = "Key Mapping for " + currentScreenReader.ScreenReaderName;
                 //get data from csv
-                ScreenTapMappingLabel.Text = "Screen Tap:[KEY]" + currentScreenReader.GetKeyStrokeMapping(ScreenReaderItem.Gesture.SCREENTAP);
+                ScreenTapMappingLabel.Text = "Screen Tap:" + currentScreenReader.GestureMapping.ScreenTap;
+                SwipeRightMappingLabel.Text = "Swipe Right:" + currentScreenReader.GestureMapping.HandSwipeRight;
+                SwipeLeftMappingLabel.Text = "Swipe Left:" + currentScreenReader.GestureMapping.HandSwipeLeft;
             } else
             {
                 KeyMapping.Text = "Refresh for Key Mapping";
+                ScreenTapMappingLabel.Text = "Screen Tap";
+                SwipeRightMappingLabel.Text = "Swipe Right";
+                SwipeLeftMappingLabel.Text = "Swipe Left";
             }            
         }
 
         private void CheckControllerState()
         {
-            //if controller is not connected gray out start and state that it is not connected
-            controllerConnected = gestureMapper.IsControllerConnected();    //TODO: add case: IF Controller is removed after refresh!!        
+            controllerConnected = gestureMapper.IsControllerConnected();    
+            // TODO: add case: IF Controller is removed after refresh!!        
             if(controllerConnected)
             {
                 LeapMotionStateLabel.Text = "Leap Motion Connected";               
             }
             else
             {
-                LeapMotionStateLabel.Text = "Leap Motion Controller Not Found";                
+                LeapMotionStateLabel.Text = "Leap Motion Not Connected";
+                startGestureControlButton.Enabled = false;
             }            
         }
 
@@ -99,8 +106,6 @@ namespace Launcher
         */
         private void StartGestureControlButton_Click(Object sender, EventArgs e)
         {
-            //TODO: see if gestureMapper is connected
-            //TODO: if listener is not active or no screenreader is detected
             gestureMapper.CircleDetected += HandleCircle;
             gestureMapper.HandSwipeDetected += HandleHandSwipe;
             gestureMapper.FingerSwipeDetected += HandleFingerSwipe;
@@ -110,23 +115,25 @@ namespace Launcher
 
             this.startGestureControlButton.Enabled = false;
             this.stopGestureControlButton.Enabled = true;
-
-            //notice user that gesture starts            
-            System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.mixkit_quick_win_video_game_notification_269);
+          
+            System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.StartGestureControlSound);
             player.Play();
-            //minimize window
             this.WindowState = FormWindowState.Minimized;
         }
 
         private void StopGestureControlButton_Click(Object sender, EventArgs e)
         {
+            gestureMapper.CircleDetected -= HandleCircle;
+            gestureMapper.HandSwipeDetected -= HandleHandSwipe;
+            gestureMapper.FingerSwipeDetected -= HandleFingerSwipe;
+            gestureMapper.ScreenTapDetected -= HandleScreenTap;
+            gestureMapper.ZoomInDetected -= HandleZoomIn;
+            gestureMapper.ZoomOutDetected -= HandleZoomOut;
             stopGestureControlButton.Enabled = false;
             startGestureControlButton.Enabled = true;
-            //notice user that gesture stops
-            //TODO: different sound
-            System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.mixkit_quick_win_video_game_notification_269);
+
+            System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.StopGestureControlSound);
             player.Play();
-            //TODO: end leap support
         }
 
         private void ScreenReaderComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -156,6 +163,25 @@ namespace Launcher
             }
         }
 
+        private void ScreenTapMappingBtn_Click(object sender, EventArgs e)
+        {
+            // listen to keystroke(s)
+            ScreenTapTxtBox.Text = "button clicked";
+            // map new key to gesture
+            // currentScreenReader.
+        }
+
+
+        private void SwipeRightMappingBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SwipeLeftMappingBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
         /**
          * HANDLE EVENTS 
          */
@@ -164,24 +190,22 @@ namespace Launcher
             Console.WriteLine("CircleEventReceived");
         }
 
-        private static void HandleHandSwipe(object sender, GestureRecognition.Events.HandSwipeEvent handSwipeEvent)
+        private void HandleHandSwipe(object sender, GestureRecognition.Events.HandSwipeEvent handSwipeEvent)
         {
             Console.WriteLine("Hand Swipe event received");
             if (handSwipeEvent.Swipe.Direction.Equals(GestureRecognition.Gestures.HandSwipe.SwipeDirection.RIGHT))
             {
-                Console.WriteLine("Next");
-                //currentScreenReader GetSwipeRightKey
-                //SendKeys.SendWait(currentScreenReader.SwipeRight)
-                //
-                //GestureKeystrokeMapping
-
-                SendKeys.SendWait("{TAB}");
+                Console.WriteLine("Next");      
+                if(currentScreenReader != null)
+                {
+                    SendKeys.SendWait(currentScreenReader.GestureMapping.HandSwipeRight);
+                }                
             }
             else if (handSwipeEvent.Swipe.Direction.Equals(GestureRecognition.Gestures.HandSwipe.SwipeDirection.LEFT))
             {
                 Console.WriteLine("Previous");
                 //+ is shift
-                SendKeys.SendWait("+{TAB}");
+                SendKeys.SendWait(currentScreenReader.GestureMapping.HandSwipeLeft);
             }
         }
 
@@ -192,9 +216,12 @@ namespace Launcher
 
         private void HandleScreenTap(object sender, GestureRecognition.Events.ScreenTapEvent screenTapEvent)
         {
-            Console.WriteLine("Screen Tap event received");
-            bool bo = screenTapEvent.ScreenTap.Hands[0].IsRight;
-            //SendKeys.SendWait("{ENTER}");
+            
+            if (screenTapEvent.ScreenTap.Hands[0].IsRight)
+            {
+                Console.WriteLine("Screen Tap event received with right hand");
+                SendKeys.SendWait(currentScreenReader.GestureMapping.ScreenTap);
+            }
         }
 
         private void HandleZoomIn(object sender, GestureRecognition.Events.ZoomInEvent zoomInEvent)
@@ -206,7 +233,5 @@ namespace Launcher
         {
             Console.WriteLine("Zoom Out event received");
         }
-
-        
     }
 }

@@ -25,37 +25,13 @@ namespace Launcher.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Active {
+        [global::System.Configuration.DefaultSettingValueAttribute("GestureKeyMapping.json")]
+        public string GestureKeyMapping {
             get {
-                return ((bool)(this["Active"]));
+                return ((string)(this["GestureKeyMapping"]));
             }
             set {
-                this["Active"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Running {
-            get {
-                return ((bool)(this["Running"]));
-            }
-            set {
-                this["Running"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("GestureKeystrokeMapping.csv")]
-        public string GestureKeystrokeMapping {
-            get {
-                return ((string)(this["GestureKeystrokeMapping"]));
-            }
-            set {
-                this["GestureKeystrokeMapping"] = value;
+                this["GestureKeyMapping"] = value;
             }
         }
     }

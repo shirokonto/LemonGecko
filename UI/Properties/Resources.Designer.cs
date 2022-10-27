@@ -77,5 +77,23 @@ namespace Launcher.Properties {
                 return ResourceManager.GetString("Sound", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream StartGestureControlSound {
+            get {
+                return ResourceManager.GetStream("StartGestureControlSound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream StopGestureControlSound {
+            get {
+                return ResourceManager.GetStream("StopGestureControlSound", resourceCulture);
+            }
+        }
     }
 }

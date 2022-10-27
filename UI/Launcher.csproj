@@ -70,7 +70,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CsvParser.cs" />
+    <Compile Include="JsonParser.cs" />
     <Compile Include="ScreenReaderItem.cs" />
     <Compile Include="ScreenReaderDetection.cs" />
     <Compile Include="LauncherForm.cs">
@@ -94,7 +94,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="GestureKeystrokeMapping.csv">
+    <None Include="GestureKeyMapping.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
@@ -118,7 +118,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\" />
+    <None Include="Resources\StartGestureControlSound.wav" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\mixkit-quick-win-video-game-notification-269.wav" />
@@ -134,6 +134,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\StopGestureControlSound.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

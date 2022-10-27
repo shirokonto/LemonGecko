@@ -53,6 +53,7 @@ namespace Launcher
             this.panel1 = new System.Windows.Forms.Panel();
             this.SelectedScreenReaderPanel = new System.Windows.Forms.Panel();
             this.RefreshListBtn = new System.Windows.Forms.Button();
+            this.ScreenTapTxtBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.SwipeToLeftImage)).BeginInit();
             this.SwipeLeftPanel.SuspendLayout();
             this.SwipeRightPanel.SuspendLayout();
@@ -159,6 +160,7 @@ namespace Launcher
             this.SwipeLeftMappingBtn.TabIndex = 18;
             this.SwipeLeftMappingBtn.Text = "Map to key";
             this.SwipeLeftMappingBtn.UseVisualStyleBackColor = true;
+            this.SwipeLeftMappingBtn.Click += new System.EventHandler(this.SwipeLeftMappingBtn_Click);
             // 
             // SwipeLeftMappingLabel
             // 
@@ -208,6 +210,7 @@ namespace Launcher
             this.SwipeRightMappingBtn.TabIndex = 18;
             this.SwipeRightMappingBtn.Text = "Map to key";
             this.SwipeRightMappingBtn.UseVisualStyleBackColor = true;
+            this.SwipeRightMappingBtn.Click += new System.EventHandler(this.SwipeRightMappingBtn_Click);
             // 
             // SwipeToRightImage
             // 
@@ -223,6 +226,7 @@ namespace Launcher
             // 
             // ScreenTapPanel
             // 
+            this.ScreenTapPanel.Controls.Add(this.ScreenTapTxtBox);
             this.ScreenTapPanel.Controls.Add(this.ScreenTapMappingLabel);
             this.ScreenTapPanel.Controls.Add(this.ScreenTapMappingBtn);
             this.ScreenTapPanel.Controls.Add(this.ScreenTapImage);
@@ -247,10 +251,11 @@ namespace Launcher
             this.ScreenTapMappingBtn.Location = new System.Drawing.Point(55, 22);
             this.ScreenTapMappingBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ScreenTapMappingBtn.Name = "ScreenTapMappingBtn";
-            this.ScreenTapMappingBtn.Size = new System.Drawing.Size(171, 23);
+            this.ScreenTapMappingBtn.Size = new System.Drawing.Size(82, 23);
             this.ScreenTapMappingBtn.TabIndex = 18;
             this.ScreenTapMappingBtn.Text = "Map to key";
             this.ScreenTapMappingBtn.UseVisualStyleBackColor = true;
+            this.ScreenTapMappingBtn.Click += new System.EventHandler(this.ScreenTapMappingBtn_Click);
             // 
             // ScreenTapImage
             // 
@@ -317,6 +322,13 @@ namespace Launcher
             this.RefreshListBtn.UseVisualStyleBackColor = true;
             this.RefreshListBtn.Click += new System.EventHandler(this.RefreshListBtn_Click);
             // 
+            // ScreenTapTxtBox
+            // 
+            this.ScreenTapTxtBox.Location = new System.Drawing.Point(143, 22);
+            this.ScreenTapTxtBox.Name = "ScreenTapTxtBox";
+            this.ScreenTapTxtBox.Size = new System.Drawing.Size(100, 22);
+            this.ScreenTapTxtBox.TabIndex = 22;
+            // 
             // LauncherForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -375,6 +387,7 @@ namespace Launcher
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel SelectedScreenReaderPanel;
         private System.Windows.Forms.Button RefreshListBtn;
+        private System.Windows.Forms.TextBox ScreenTapTxtBox;
     }
 }
 
