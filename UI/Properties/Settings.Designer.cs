@@ -34,5 +34,17 @@ namespace Launcher.Properties {
                 this["GestureKeyMapping"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("KeyCodeMapping.json")]
+        public string KeyCodeMapping {
+            get {
+                return ((string)(this["KeyCodeMapping"]));
+            }
+            set {
+                this["KeyCodeMapping"] = value;
+            }
+        }
     }
 }

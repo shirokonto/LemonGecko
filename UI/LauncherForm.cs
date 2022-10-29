@@ -8,6 +8,7 @@ namespace Launcher
 {
     public partial class LauncherForm : Form
     {
+        public event Action simpleEvent;
         private static LeapListener gestureMapper;
         private ScreenReaderDetection activeScreenReaders;
         private ScreenReaderItem currentScreenReader;
@@ -15,13 +16,12 @@ namespace Launcher
         private const int CB_SETCUEBANNER = 0x1703;
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         private static extern int SendMessage(IntPtr hWnd, int msg, int wParam, [MarshalAs(UnmanagedType.LPWStr)] string lParam);
-        [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
-        public static extern short GetKeyState(int keyCode);
 
         // Constructor
         public LauncherForm()
         {
             gestureMapper = new LeapListener();
+            simpleEvent += () => MyMethod();
             InitializeComponent();
             InitializeScreenReaderSettings();
         }
@@ -68,6 +68,7 @@ namespace Launcher
             SwipeLeftMappingBtn.Enabled = enabled;
             SwipeRightMappingBtn.Enabled = enabled;
         }
+        
         private void SetKeyMappings()
         {
             if (currentScreenReader != null)
@@ -99,6 +100,58 @@ namespace Launcher
                 LeapMotionStateLabel.Text = "Leap Motion Not Connected";
                 startGestureControlButton.Enabled = false;
             }            
+        }
+
+        /**
+         * HANDLE EVENTS 
+         */
+        private void HandleCircle(object sender, GestureRecognition.Events.CircleEvent circle)
+        {
+            Console.WriteLine("CircleEventReceived");
+        }
+
+        private void HandleHandSwipe(object sender, GestureRecognition.Events.HandSwipeEvent handSwipeEvent)
+        {
+            Console.WriteLine("Hand Swipe event received");
+            if (handSwipeEvent.Swipe.Direction.Equals(GestureRecognition.Gestures.HandSwipe.SwipeDirection.RIGHT))
+            {
+                Console.WriteLine("Next");
+                if (currentScreenReader != null)
+                {
+                    SendKeys.SendWait(currentScreenReader.GestureMapping.HandSwipeRight);
+                }
+            }
+            else if (handSwipeEvent.Swipe.Direction.Equals(GestureRecognition.Gestures.HandSwipe.SwipeDirection.LEFT))
+            {
+                Console.WriteLine("Previous");
+                //+ is shift
+                SendKeys.SendWait(currentScreenReader.GestureMapping.HandSwipeLeft);
+            }
+        }
+
+        private void HandleFingerSwipe(object sender, GestureRecognition.Events.FingerSwipeEvent fingerSwipeEvent)
+        {
+            Console.WriteLine("Finger Swipe event received");
+        }
+
+        private void HandleScreenTap(object sender, GestureRecognition.Events.ScreenTapEvent screenTapEvent)
+        {
+
+            if (screenTapEvent.ScreenTap.Hands[0].IsRight)
+            {
+                Console.WriteLine("Screen Tap event received with right hand");                
+                SendKeys.SendWait(currentScreenReader.GestureMapping.ScreenTap);
+            }
+        }
+
+        private void HandleZoomIn(object sender, GestureRecognition.Events.ZoomInEvent zoomInEvent)
+        {
+            Console.WriteLine("Zoom In event received");
+        }
+
+        private void HandleZoomOut(object sender, GestureRecognition.Events.ZoomOutEvent zoomOutEvent)
+        {
+            Console.WriteLine("Zoom Out event received");
         }
 
         /*
@@ -146,9 +199,6 @@ namespace Launcher
                     KeyMapping.Text = "Key Mapping for " + currentScreenReader.ScreenReaderName;
                 }                
             }
-            
-            // activeScreenReaders
-            // TODO: map gesture to keys -> keyset??
         }
 
         private void RefreshListBtn_Click(object sender, EventArgs e)
@@ -166,11 +216,20 @@ namespace Launcher
         private void ScreenTapMappingBtn_Click(object sender, EventArgs e)
         {
             // listen to keystroke(s)
+            Button button = (Button)sender;
             ScreenTapTxtBox.Text = "button clicked";
+            if (simpleEvent != null) simpleEvent();            
+            //MessageBox.Show(button.Name);
             // map new key to gesture
             // currentScreenReader.
         }
 
+        private void MyMethod()
+        {
+            // TODO Remove 
+            //listen to key input???  
+            Console.Read();
+        }
 
         private void SwipeRightMappingBtn_Click(object sender, EventArgs e)
         {
@@ -182,56 +241,20 @@ namespace Launcher
 
         }
 
-        /**
-         * HANDLE EVENTS 
-         */
-        private void HandleCircle(object sender, GestureRecognition.Events.CircleEvent circle)
+        private void ScreenTapTxtBox_KeyDown(object sender, KeyEventArgs e)
         {
-            Console.WriteLine("CircleEventReceived");
-        }
-
-        private void HandleHandSwipe(object sender, GestureRecognition.Events.HandSwipeEvent handSwipeEvent)
-        {
-            Console.WriteLine("Hand Swipe event received");
-            if (handSwipeEvent.Swipe.Direction.Equals(GestureRecognition.Gestures.HandSwipe.SwipeDirection.RIGHT))
+            // TODO: map incoming key and 
+            // TODO: if no screenreader is active: gray out or something
+            //incoming keys are these: https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.keys?view=windowsdesktop-7.0
+            //(Keys Enum)
+            // TAP cannot be used since the user springs to the next item!
+            ScreenTapTxtBox.Text = e.KeyCode.ToString();
+            if(currentScreenReader != null)
             {
-                Console.WriteLine("Next");      
-                if(currentScreenReader != null)
-                {
-                    SendKeys.SendWait(currentScreenReader.GestureMapping.HandSwipeRight);
-                }                
+                currentScreenReader.GestureMapping.ScreenTap = e.KeyCode.ToString();
+                Console.WriteLine(currentScreenReader.GestureMapping.ScreenTap);
             }
-            else if (handSwipeEvent.Swipe.Direction.Equals(GestureRecognition.Gestures.HandSwipe.SwipeDirection.LEFT))
-            {
-                Console.WriteLine("Previous");
-                //+ is shift
-                SendKeys.SendWait(currentScreenReader.GestureMapping.HandSwipeLeft);
-            }
-        }
-
-        private void HandleFingerSwipe(object sender, GestureRecognition.Events.FingerSwipeEvent fingerSwipeEvent)
-        {
-            Console.WriteLine("Finger Swipe event received");
-        }
-
-        private void HandleScreenTap(object sender, GestureRecognition.Events.ScreenTapEvent screenTapEvent)
-        {
             
-            if (screenTapEvent.ScreenTap.Hands[0].IsRight)
-            {
-                Console.WriteLine("Screen Tap event received with right hand");
-                SendKeys.SendWait(currentScreenReader.GestureMapping.ScreenTap);
-            }
-        }
-
-        private void HandleZoomIn(object sender, GestureRecognition.Events.ZoomInEvent zoomInEvent)
-        {
-            Console.WriteLine("Zoom In event received");
-        }
-
-        private void HandleZoomOut(object sender, GestureRecognition.Events.ZoomOutEvent zoomOutEvent)
-        {
-            Console.WriteLine("Zoom Out event received");
         }
     }
 }

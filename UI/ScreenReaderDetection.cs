@@ -41,13 +41,11 @@ namespace Launcher
                     {
                         processName = "Dolphin SR";
                     }
-                    // TODO:
                     // search for processName in json and map keys
-                    // jsonParser.GetMapping(processName)
-                    ScreenReaderMapping mapping = jsonParser.GetMappingForScreenReader(processName);
+                    GestureMapping mapping = jsonParser.GetMappingForScreenReader(processName);
                     if(mapping != null)
                     {
-                        activeScreenReaders.Add(new ScreenReaderItem() { Id = process.Id, ScreenReaderName = processName, GestureMapping = mapping });
+                        activeScreenReaders.Add(new ScreenReaderItem() { ScreenReaderName = processName, GestureMapping = mapping });
                     }
                 }
             }            

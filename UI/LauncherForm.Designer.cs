@@ -45,15 +45,15 @@ namespace Launcher
             this.SwipeRightMappingBtn = new System.Windows.Forms.Button();
             this.SwipeToRightImage = new System.Windows.Forms.PictureBox();
             this.ScreenTapPanel = new System.Windows.Forms.Panel();
+            this.ScreenTapTxtBox = new System.Windows.Forms.TextBox();
             this.ScreenTapMappingLabel = new System.Windows.Forms.Label();
             this.ScreenTapMappingBtn = new System.Windows.Forms.Button();
             this.ScreenTapImage = new System.Windows.Forms.PictureBox();
             this.KeyMappingPanel = new System.Windows.Forms.Panel();
             this.GestureControlPanel = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.SelectedScreenReaderPanel = new System.Windows.Forms.Panel();
+            this.ControllerScreenReaderStatePanel = new System.Windows.Forms.Panel();
             this.RefreshListBtn = new System.Windows.Forms.Button();
-            this.ScreenTapTxtBox = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.SwipeToLeftImage)).BeginInit();
             this.SwipeLeftPanel.SuspendLayout();
             this.SwipeRightPanel.SuspendLayout();
@@ -62,17 +62,17 @@ namespace Launcher
             ((System.ComponentModel.ISupportInitialize)(this.ScreenTapImage)).BeginInit();
             this.KeyMappingPanel.SuspendLayout();
             this.GestureControlPanel.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.SelectedScreenReaderPanel.SuspendLayout();
+            this.ControllerScreenReaderStatePanel.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // startGestureControlButton
             // 
-            this.startGestureControlButton.Location = new System.Drawing.Point(20, 33);
+            this.startGestureControlButton.Location = new System.Drawing.Point(35, 66);
             this.startGestureControlButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.startGestureControlButton.Name = "startGestureControlButton";
             this.startGestureControlButton.Size = new System.Drawing.Size(167, 23);
-            this.startGestureControlButton.TabIndex = 0;
+            this.startGestureControlButton.TabIndex = 24;
             this.startGestureControlButton.Text = "Start";
             this.startGestureControlButton.UseVisualStyleBackColor = true;
             this.startGestureControlButton.Click += new System.EventHandler(this.StartGestureControlButton_Click);
@@ -80,11 +80,11 @@ namespace Launcher
             // stopGestureControlButton
             // 
             this.stopGestureControlButton.Enabled = false;
-            this.stopGestureControlButton.Location = new System.Drawing.Point(20, 60);
+            this.stopGestureControlButton.Location = new System.Drawing.Point(35, 93);
             this.stopGestureControlButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.stopGestureControlButton.Name = "stopGestureControlButton";
             this.stopGestureControlButton.Size = new System.Drawing.Size(167, 23);
-            this.stopGestureControlButton.TabIndex = 1;
+            this.stopGestureControlButton.TabIndex = 12;
             this.stopGestureControlButton.Text = "Stop";
             this.stopGestureControlButton.UseVisualStyleBackColor = true;
             this.stopGestureControlButton.Click += new System.EventHandler(this.StopGestureControlButton_Click);
@@ -92,10 +92,10 @@ namespace Launcher
             // gestureControlLabel
             // 
             this.gestureControlLabel.AutoSize = true;
-            this.gestureControlLabel.Location = new System.Drawing.Point(20, 11);
+            this.gestureControlLabel.Location = new System.Drawing.Point(35, 44);
             this.gestureControlLabel.Name = "gestureControlLabel";
             this.gestureControlLabel.Size = new System.Drawing.Size(100, 16);
-            this.gestureControlLabel.TabIndex = 4;
+            this.gestureControlLabel.TabIndex = 11;
             this.gestureControlLabel.Text = "Gesture Control";
             this.gestureControlLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
@@ -112,30 +112,32 @@ namespace Launcher
             // selectedScreenReader
             // 
             this.selectedScreenReader.AutoSize = true;
-            this.selectedScreenReader.Location = new System.Drawing.Point(20, 13);
+            this.selectedScreenReader.Location = new System.Drawing.Point(6, 54);
             this.selectedScreenReader.Name = "selectedScreenReader";
-            this.selectedScreenReader.Size = new System.Drawing.Size(157, 16);
-            this.selectedScreenReader.TabIndex = 9;
-            this.selectedScreenReader.Text = "Selected Screen Reader";
+            this.selectedScreenReader.Size = new System.Drawing.Size(160, 16);
+            this.selectedScreenReader.TabIndex = 2;
+            this.selectedScreenReader.Text = "Selected Screen Reader:";
             // 
             // ScreenReaderComboBox
             // 
             this.ScreenReaderComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ScreenReaderComboBox.FormattingEnabled = true;
-            this.ScreenReaderComboBox.Location = new System.Drawing.Point(20, 40);
+            this.ScreenReaderComboBox.Location = new System.Drawing.Point(172, 51);
             this.ScreenReaderComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ScreenReaderComboBox.Name = "ScreenReaderComboBox";
-            this.ScreenReaderComboBox.Size = new System.Drawing.Size(167, 24);
-            this.ScreenReaderComboBox.TabIndex = 11;
+            this.ScreenReaderComboBox.Size = new System.Drawing.Size(122, 24);
+            this.ScreenReaderComboBox.TabIndex = 3;
             this.ScreenReaderComboBox.SelectedIndexChanged += new System.EventHandler(this.ScreenReaderComboBox_SelectedIndexChanged);
             // 
             // LeapMotionStateLabel
             // 
+            this.LeapMotionStateLabel.AccessibleDescription = "States if the Leap Motion Controller is plugged in";
+            this.LeapMotionStateLabel.AccessibleName = "Leap Motion Controller State";
             this.LeapMotionStateLabel.AutoSize = true;
-            this.LeapMotionStateLabel.Location = new System.Drawing.Point(20, 19);
+            this.LeapMotionStateLabel.Location = new System.Drawing.Point(6, 27);
             this.LeapMotionStateLabel.Name = "LeapMotionStateLabel";
             this.LeapMotionStateLabel.Size = new System.Drawing.Size(122, 16);
-            this.LeapMotionStateLabel.TabIndex = 12;
+            this.LeapMotionStateLabel.TabIndex = 1;
             this.LeapMotionStateLabel.Text = "Leap Motion Status";
             // 
             // SwipeToLeftImage
@@ -235,20 +237,29 @@ namespace Launcher
             this.ScreenTapPanel.Size = new System.Drawing.Size(248, 50);
             this.ScreenTapPanel.TabIndex = 21;
             // 
+            // ScreenTapTxtBox
+            // 
+            this.ScreenTapTxtBox.Location = new System.Drawing.Point(56, 22);
+            this.ScreenTapTxtBox.MaxLength = 2;
+            this.ScreenTapTxtBox.Name = "ScreenTapTxtBox";
+            this.ScreenTapTxtBox.Size = new System.Drawing.Size(42, 22);
+            this.ScreenTapTxtBox.TabIndex = 22;
+            this.ScreenTapTxtBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ScreenTapTxtBox_KeyDown);
+            // 
             // ScreenTapMappingLabel
             // 
             this.ScreenTapMappingLabel.AutoSize = true;
             this.ScreenTapMappingLabel.Location = new System.Drawing.Point(51, 3);
             this.ScreenTapMappingLabel.Name = "ScreenTapMappingLabel";
             this.ScreenTapMappingLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.ScreenTapMappingLabel.Size = new System.Drawing.Size(122, 16);
+            this.ScreenTapMappingLabel.Size = new System.Drawing.Size(119, 16);
             this.ScreenTapMappingLabel.TabIndex = 17;
-            this.ScreenTapMappingLabel.Text = "Screen Tap:  [KEY]";
+            this.ScreenTapMappingLabel.Text = "Screen Tap: [KEY]";
             // 
             // ScreenTapMappingBtn
             // 
             this.ScreenTapMappingBtn.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.ScreenTapMappingBtn.Location = new System.Drawing.Point(55, 22);
+            this.ScreenTapMappingBtn.Location = new System.Drawing.Point(115, 21);
             this.ScreenTapMappingBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ScreenTapMappingBtn.Name = "ScreenTapMappingBtn";
             this.ScreenTapMappingBtn.Size = new System.Drawing.Size(82, 23);
@@ -276,9 +287,9 @@ namespace Launcher
             this.KeyMappingPanel.Controls.Add(this.SwipeRightPanel);
             this.KeyMappingPanel.Controls.Add(this.SwipeLeftPanel);
             this.KeyMappingPanel.Dock = System.Windows.Forms.DockStyle.Right;
-            this.KeyMappingPanel.Location = new System.Drawing.Point(279, 58);
+            this.KeyMappingPanel.Location = new System.Drawing.Point(279, 163);
             this.KeyMappingPanel.Name = "KeyMappingPanel";
-            this.KeyMappingPanel.Size = new System.Drawing.Size(286, 392);
+            this.KeyMappingPanel.Size = new System.Drawing.Size(286, 287);
             this.KeyMappingPanel.TabIndex = 22;
             // 
             // GestureControlPanel
@@ -287,47 +298,42 @@ namespace Launcher
             this.GestureControlPanel.Controls.Add(this.stopGestureControlButton);
             this.GestureControlPanel.Controls.Add(this.gestureControlLabel);
             this.GestureControlPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.GestureControlPanel.Location = new System.Drawing.Point(0, 148);
+            this.GestureControlPanel.Location = new System.Drawing.Point(0, 163);
             this.GestureControlPanel.Name = "GestureControlPanel";
             this.GestureControlPanel.Size = new System.Drawing.Size(279, 292);
             this.GestureControlPanel.TabIndex = 23;
             // 
-            // panel1
+            // ControllerScreenReaderStatePanel
             // 
-            this.panel1.Controls.Add(this.LeapMotionStateLabel);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(565, 58);
-            this.panel1.TabIndex = 24;
-            // 
-            // SelectedScreenReaderPanel
-            // 
-            this.SelectedScreenReaderPanel.Controls.Add(this.RefreshListBtn);
-            this.SelectedScreenReaderPanel.Controls.Add(this.selectedScreenReader);
-            this.SelectedScreenReaderPanel.Controls.Add(this.ScreenReaderComboBox);
-            this.SelectedScreenReaderPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.SelectedScreenReaderPanel.Location = new System.Drawing.Point(0, 58);
-            this.SelectedScreenReaderPanel.Name = "SelectedScreenReaderPanel";
-            this.SelectedScreenReaderPanel.Size = new System.Drawing.Size(279, 90);
-            this.SelectedScreenReaderPanel.TabIndex = 25;
+            this.ControllerScreenReaderStatePanel.Controls.Add(this.groupBox1);
+            this.ControllerScreenReaderStatePanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ControllerScreenReaderStatePanel.Location = new System.Drawing.Point(0, 0);
+            this.ControllerScreenReaderStatePanel.Name = "ControllerScreenReaderStatePanel";
+            this.ControllerScreenReaderStatePanel.Size = new System.Drawing.Size(565, 163);
+            this.ControllerScreenReaderStatePanel.TabIndex = 0;
             // 
             // RefreshListBtn
             // 
-            this.RefreshListBtn.Location = new System.Drawing.Point(194, 40);
+            this.RefreshListBtn.Location = new System.Drawing.Point(9, 76);
             this.RefreshListBtn.Name = "RefreshListBtn";
             this.RefreshListBtn.Size = new System.Drawing.Size(67, 23);
-            this.RefreshListBtn.TabIndex = 12;
+            this.RefreshListBtn.TabIndex = 4;
             this.RefreshListBtn.Text = "Refresh";
             this.RefreshListBtn.UseVisualStyleBackColor = true;
             this.RefreshListBtn.Click += new System.EventHandler(this.RefreshListBtn_Click);
             // 
-            // ScreenTapTxtBox
+            // groupBox1
             // 
-            this.ScreenTapTxtBox.Location = new System.Drawing.Point(143, 22);
-            this.ScreenTapTxtBox.Name = "ScreenTapTxtBox";
-            this.ScreenTapTxtBox.Size = new System.Drawing.Size(100, 22);
-            this.ScreenTapTxtBox.TabIndex = 22;
+            this.groupBox1.Controls.Add(this.LeapMotionStateLabel);
+            this.groupBox1.Controls.Add(this.RefreshListBtn);
+            this.groupBox1.Controls.Add(this.ScreenReaderComboBox);
+            this.groupBox1.Controls.Add(this.selectedScreenReader);
+            this.groupBox1.Location = new System.Drawing.Point(50, 36);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(413, 109);
+            this.groupBox1.TabIndex = 5;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "State";
             // 
             // LauncherForm
             // 
@@ -335,9 +341,8 @@ namespace Launcher
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(565, 450);
             this.Controls.Add(this.GestureControlPanel);
-            this.Controls.Add(this.SelectedScreenReaderPanel);
             this.Controls.Add(this.KeyMappingPanel);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.ControllerScreenReaderStatePanel);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "LauncherForm";
             this.Text = "Screen Reader Gesture Controller";
@@ -354,10 +359,9 @@ namespace Launcher
             this.KeyMappingPanel.PerformLayout();
             this.GestureControlPanel.ResumeLayout(false);
             this.GestureControlPanel.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.SelectedScreenReaderPanel.ResumeLayout(false);
-            this.SelectedScreenReaderPanel.PerformLayout();
+            this.ControllerScreenReaderStatePanel.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -384,10 +388,10 @@ namespace Launcher
         private System.Windows.Forms.PictureBox ScreenTapImage;
         private System.Windows.Forms.Panel KeyMappingPanel;
         private System.Windows.Forms.Panel GestureControlPanel;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel SelectedScreenReaderPanel;
+        private System.Windows.Forms.Panel ControllerScreenReaderStatePanel;
         private System.Windows.Forms.Button RefreshListBtn;
         private System.Windows.Forms.TextBox ScreenTapTxtBox;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
 

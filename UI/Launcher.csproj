@@ -70,6 +70,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GestureMapping.cs" />
+    <Compile Include="KeyCodeMapping.cs" />
     <Compile Include="JsonParser.cs" />
     <Compile Include="ScreenReaderItem.cs" />
     <Compile Include="ScreenReaderDetection.cs" />
@@ -97,6 +99,9 @@
     <None Include="GestureKeyMapping.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="KeyCodeMapping.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -118,12 +123,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\StartGestureControlSound.wav" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\mixkit-quick-win-video-game-notification-269.wav" />
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
@@ -137,6 +136,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\StopGestureControlSound.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\StartGestureControlSound.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

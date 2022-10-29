@@ -61,15 +61,6 @@ namespace Launcher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
-        /// </summary>
-        internal static System.IO.UnmanagedMemoryStream mixkit_quick_win_video_game_notification_269 {
-            get {
-                return ResourceManager.GetStream("mixkit_quick_win_video_game_notification_269", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
         internal static string Sound {

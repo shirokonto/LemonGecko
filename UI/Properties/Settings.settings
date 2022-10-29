@@ -5,5 +5,8 @@
     <Setting Name="GestureKeyMapping" Type="System.String" Scope="User">
       <Value Profile="(Default)">GestureKeyMapping.json</Value>
     </Setting>
+    <Setting Name="KeyCodeMapping" Type="System.String" Scope="User">
+      <Value Profile="(Default)">KeyCodeMapping.json</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

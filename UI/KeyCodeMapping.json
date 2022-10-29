@@ -1,0 +1,178 @@
+[
+  {
+    "Key": "BACKSPACE",
+    "Code": "{BACKSPACE}"
+  },
+  {
+    "Key": "BREAK",
+    "Code": "{BREAK}"
+  },
+  {
+    "Key": "CAPS LOCK",
+    "Code": "{CAPSLOCK}"
+  },
+  {
+    "Key": "DELETE",
+    "Code": "{DELETE}"
+  },
+  {
+    "Key": "DOWN",
+    "Code": "{DOWN}"
+  },
+  {
+    "Key": "END",
+    "Code": "{END}"
+  },
+  {
+    "Key": "ENTER",
+    "Code": "{ENTER}"
+  },
+  {
+    "Key": "ESC",
+    "Code": "{ESC}"
+  },
+  {
+    "Key": "HELP",
+    "Code": "{HELP}"
+  },
+  {
+    "Key": "HOME",
+    "Code": "{HOME}"
+  },
+  {
+    "Key": "INS or INSERT",
+    "Code": "{INSERT}"
+  },
+  {
+    "Key": "LEFT ARROW",
+    "Code": "{LEFT}"
+  },
+  {
+    "Key": "NUM LOCK",
+    "Code": "{NUMLOCK}"
+  },
+  {
+    "Key": "PAGE DOWN",
+    "Code": "{PGDN}"
+  },
+  {
+    "Key": "PAGE UP",
+    "Code": "{PGUP}"
+  },
+  {
+    "Key": "NEXT",
+    "Code": "{NEXT}"
+  },
+  {
+    "Key": "RIGHT",
+    "Code": "{RIGHT}"
+  },
+  {
+    "Key": "SCROLL LOCK",
+    "Code": "{SCROLLLOCK}"
+  },
+  {
+    "Key": "TAB",
+    "Code": "{TAB}"
+  },
+  {
+    "Key": "UP",
+    "Code": "{UP}"
+  },
+  {
+    "Key": "F1",
+    "Code": "{F1}"
+  },
+  {
+    "Key": "F2",
+    "Code": "{F2}"
+  },
+  {
+    "Key": "F3",
+    "Code": "{F3}"
+  },
+  {
+    "Key": "F4",
+    "Code": "{F4}"
+  },
+  {
+    "Key": "F5",
+    "Code": "{F5}"
+  },
+  {
+    "Key": "F6",
+    "Code": "{F6}"
+  },
+  {
+    "Key": "F7",
+    "Code": "{F7}"
+  },
+  {
+    "Key": "F8",
+    "Code": "{F8}"
+  },
+  {
+    "Key": "F9",
+    "Code": "{F9}"
+  },
+  {
+    "Key": "F10",
+    "Code": "{F10}"
+  },
+  {
+    "Key": "F11",
+    "Code": "{F11}"
+  },
+  {
+    "Key": "F12",
+    "Code": "{F12}"
+  },
+  {
+    "Key": "F13",
+    "Code": "{F13}"
+  },
+  {
+    "Key": "F14",
+    "Code": "{F14}"
+  },
+  {
+    "Key": "F15",
+    "Code": "{F15}"
+  },
+  {
+    "Key": "F16",
+    "Code": "{F16}"
+  },
+  {
+    "Key": "ADD",
+    "Code": "{ADD}"
+  },
+  {
+    "Key": "SUBTRACT",
+    "Code": "{SUBTRACT}"
+  },
+  {
+    "Key": "MULTIPLY",
+    "Code": "{MULTIPLY}"
+  },
+  {
+    "Key": "DIVIDE",
+    "Code": "{DIVIDE}"
+  },
+  {
+    "Key": "OEMPLUS",
+    "Code": "{ADD}"
+  },
+  {
+    "Key": "ControlKey",
+    "Code": "^"
+  },
+  {
+    "Key": "ShiftKey",
+    "Code": "+"
+  },
+  {
+    "Key": "Menu",
+    "Code": "%"
+  }
+]

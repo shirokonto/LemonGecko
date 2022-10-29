@@ -8,10 +8,8 @@ namespace Launcher
 {
     public class ScreenReaderItem
     {
-        public enum Gesture { SCREENTAP, SWIPERIGHT, SWIPELEFT }; //TODO: add more gestures
-        private ScreenReaderMapping _gestureMapping;
+        private GestureMapping _gestureMapping;
         private string _screenReaderName;
-        private int _id;
 
         public ScreenReaderItem()
         {
@@ -23,16 +21,10 @@ namespace Launcher
             set { _screenReaderName = value; }
         }
 
-        public ScreenReaderMapping GestureMapping
+        public GestureMapping GestureMapping
         {
             get { return _gestureMapping; }
             set { _gestureMapping = value; }
-        }
-
-        public int Id
-        {
-            get { return _id; }
-            set { _id = value; }
         }
     }
 }
