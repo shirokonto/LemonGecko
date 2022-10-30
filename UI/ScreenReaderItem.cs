@@ -8,23 +8,13 @@ namespace Launcher
 {
     public class ScreenReaderItem
     {
-        private GestureMapping _gestureMapping;
-        private string _screenReaderName;
-
         public ScreenReaderItem()
         {
         }
 
-        public string ScreenReaderName
-        {
-            get { return _screenReaderName; }
-            set { _screenReaderName = value; }
-        }
-
-        public GestureMapping GestureMapping
-        {
-            get { return _gestureMapping; }
-            set { _gestureMapping = value; }
-        }
+        public string Name { get; set; }
+        public string ScreenTap { get; set; }
+        public string HandSwipeRight { get; set; }
+        public string HandSwipeLeft { get; set; }
     }
 }

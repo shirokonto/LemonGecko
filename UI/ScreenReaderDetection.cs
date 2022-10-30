@@ -42,10 +42,10 @@ namespace Launcher
                         processName = "Dolphin SR";
                     }
                     // search for processName in json and map keys
-                    GestureMapping mapping = jsonParser.GetMappingForScreenReader(processName);
-                    if(mapping != null)
+                    ScreenReaderItem screenReader = jsonParser.GetMappingForScreenReader(processName);
+                    if(screenReader != null)
                     {
-                        activeScreenReaders.Add(new ScreenReaderItem() { ScreenReaderName = processName, GestureMapping = mapping });
+                        activeScreenReaders.Add(screenReader);
                     }
                 }
             }            
@@ -60,7 +60,7 @@ namespace Launcher
         {  
             if(activeScreenReaders.Count != 0)
             {
-                return activeScreenReaders.Where(i => i.ScreenReaderName.Equals(name)).First();
+                return activeScreenReaders.Where(i => i.Name.Equals(name)).First();
             }
             return null;
         }

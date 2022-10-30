@@ -24,6 +24,10 @@
     "Code": "{END}"
   },
   {
+    "Key": "RETURN",
+    "Code": "{ENTER}"
+  },
+  {
     "Key": "ENTER",
     "Code": "{ENTER}"
   },
@@ -40,7 +44,7 @@
     "Code": "{HOME}"
   },
   {
-    "Key": "INS or INSERT",
+    "Key": "INSERT",
     "Code": "{INSERT}"
   },
   {
@@ -164,15 +168,19 @@
     "Code": "{ADD}"
   },
   {
-    "Key": "ControlKey",
+    "Key": "CONTROLKEY",
     "Code": "^"
   },
   {
-    "Key": "ShiftKey",
+    "Key": "SHIFTKEY",
     "Code": "+"
   },
   {
-    "Key": "Menu",
+    "Key": "MENU",
     "Code": "%"
+  },
+  {
+    "Key": "SPACE",
+    "Code": " "
   }
 ]

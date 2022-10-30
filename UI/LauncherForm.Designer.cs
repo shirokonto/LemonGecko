@@ -40,7 +40,9 @@ namespace Launcher
             this.SwipeLeftMappingBtn = new System.Windows.Forms.Button();
             this.SwipeLeftMappingLabel = new System.Windows.Forms.Label();
             this.SwipeLeftPanel = new System.Windows.Forms.Panel();
+            this.SwipeLeftTxtBox = new System.Windows.Forms.TextBox();
             this.SwipeRightPanel = new System.Windows.Forms.Panel();
+            this.SwipeRightTxtBox = new System.Windows.Forms.TextBox();
             this.SwipeRightMappingLabel = new System.Windows.Forms.Label();
             this.SwipeRightMappingBtn = new System.Windows.Forms.Button();
             this.SwipeToRightImage = new System.Windows.Forms.PictureBox();
@@ -52,8 +54,8 @@ namespace Launcher
             this.KeyMappingPanel = new System.Windows.Forms.Panel();
             this.GestureControlPanel = new System.Windows.Forms.Panel();
             this.ControllerScreenReaderStatePanel = new System.Windows.Forms.Panel();
-            this.RefreshListBtn = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.RefreshListBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.SwipeToLeftImage)).BeginInit();
             this.SwipeLeftPanel.SuspendLayout();
             this.SwipeRightPanel.SuspendLayout();
@@ -155,10 +157,10 @@ namespace Launcher
             // SwipeLeftMappingBtn
             // 
             this.SwipeLeftMappingBtn.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.SwipeLeftMappingBtn.Location = new System.Drawing.Point(56, 22);
+            this.SwipeLeftMappingBtn.Location = new System.Drawing.Point(115, 21);
             this.SwipeLeftMappingBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.SwipeLeftMappingBtn.Name = "SwipeLeftMappingBtn";
-            this.SwipeLeftMappingBtn.Size = new System.Drawing.Size(171, 23);
+            this.SwipeLeftMappingBtn.Size = new System.Drawing.Size(82, 23);
             this.SwipeLeftMappingBtn.TabIndex = 18;
             this.SwipeLeftMappingBtn.Text = "Map to key";
             this.SwipeLeftMappingBtn.UseVisualStyleBackColor = true;
@@ -175,6 +177,7 @@ namespace Launcher
             // 
             // SwipeLeftPanel
             // 
+            this.SwipeLeftPanel.Controls.Add(this.SwipeLeftTxtBox);
             this.SwipeLeftPanel.Controls.Add(this.SwipeLeftMappingLabel);
             this.SwipeLeftPanel.Controls.Add(this.SwipeLeftMappingBtn);
             this.SwipeLeftPanel.Controls.Add(this.SwipeToLeftImage);
@@ -183,8 +186,18 @@ namespace Launcher
             this.SwipeLeftPanel.Size = new System.Drawing.Size(248, 54);
             this.SwipeLeftPanel.TabIndex = 19;
             // 
+            // SwipeLeftTxtBox
+            // 
+            this.SwipeLeftTxtBox.Location = new System.Drawing.Point(56, 21);
+            this.SwipeLeftTxtBox.MaxLength = 2;
+            this.SwipeLeftTxtBox.Name = "SwipeLeftTxtBox";
+            this.SwipeLeftTxtBox.Size = new System.Drawing.Size(42, 22);
+            this.SwipeLeftTxtBox.TabIndex = 24;
+            this.SwipeLeftTxtBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SwipeLeftTxtBox_KeyDown);
+            // 
             // SwipeRightPanel
             // 
+            this.SwipeRightPanel.Controls.Add(this.SwipeRightTxtBox);
             this.SwipeRightPanel.Controls.Add(this.SwipeRightMappingLabel);
             this.SwipeRightPanel.Controls.Add(this.SwipeRightMappingBtn);
             this.SwipeRightPanel.Controls.Add(this.SwipeToRightImage);
@@ -192,6 +205,15 @@ namespace Launcher
             this.SwipeRightPanel.Name = "SwipeRightPanel";
             this.SwipeRightPanel.Size = new System.Drawing.Size(248, 51);
             this.SwipeRightPanel.TabIndex = 20;
+            // 
+            // SwipeRightTxtBox
+            // 
+            this.SwipeRightTxtBox.Location = new System.Drawing.Point(56, 21);
+            this.SwipeRightTxtBox.MaxLength = 2;
+            this.SwipeRightTxtBox.Name = "SwipeRightTxtBox";
+            this.SwipeRightTxtBox.Size = new System.Drawing.Size(42, 22);
+            this.SwipeRightTxtBox.TabIndex = 23;
+            this.SwipeRightTxtBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SwipeRightTxtBox_KeyDown);
             // 
             // SwipeRightMappingLabel
             // 
@@ -205,10 +227,10 @@ namespace Launcher
             // SwipeRightMappingBtn
             // 
             this.SwipeRightMappingBtn.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.SwipeRightMappingBtn.Location = new System.Drawing.Point(56, 22);
+            this.SwipeRightMappingBtn.Location = new System.Drawing.Point(115, 21);
             this.SwipeRightMappingBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.SwipeRightMappingBtn.Name = "SwipeRightMappingBtn";
-            this.SwipeRightMappingBtn.Size = new System.Drawing.Size(171, 23);
+            this.SwipeRightMappingBtn.Size = new System.Drawing.Size(82, 23);
             this.SwipeRightMappingBtn.TabIndex = 18;
             this.SwipeRightMappingBtn.Text = "Map to key";
             this.SwipeRightMappingBtn.UseVisualStyleBackColor = true;
@@ -239,7 +261,7 @@ namespace Launcher
             // 
             // ScreenTapTxtBox
             // 
-            this.ScreenTapTxtBox.Location = new System.Drawing.Point(56, 22);
+            this.ScreenTapTxtBox.Location = new System.Drawing.Point(56, 21);
             this.ScreenTapTxtBox.MaxLength = 2;
             this.ScreenTapTxtBox.Name = "ScreenTapTxtBox";
             this.ScreenTapTxtBox.Size = new System.Drawing.Size(42, 22);
@@ -312,16 +334,6 @@ namespace Launcher
             this.ControllerScreenReaderStatePanel.Size = new System.Drawing.Size(565, 163);
             this.ControllerScreenReaderStatePanel.TabIndex = 0;
             // 
-            // RefreshListBtn
-            // 
-            this.RefreshListBtn.Location = new System.Drawing.Point(9, 76);
-            this.RefreshListBtn.Name = "RefreshListBtn";
-            this.RefreshListBtn.Size = new System.Drawing.Size(67, 23);
-            this.RefreshListBtn.TabIndex = 4;
-            this.RefreshListBtn.Text = "Refresh";
-            this.RefreshListBtn.UseVisualStyleBackColor = true;
-            this.RefreshListBtn.Click += new System.EventHandler(this.RefreshListBtn_Click);
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.LeapMotionStateLabel);
@@ -334,6 +346,16 @@ namespace Launcher
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "State";
+            // 
+            // RefreshListBtn
+            // 
+            this.RefreshListBtn.Location = new System.Drawing.Point(9, 76);
+            this.RefreshListBtn.Name = "RefreshListBtn";
+            this.RefreshListBtn.Size = new System.Drawing.Size(67, 23);
+            this.RefreshListBtn.TabIndex = 4;
+            this.RefreshListBtn.Text = "Refresh";
+            this.RefreshListBtn.UseVisualStyleBackColor = true;
+            this.RefreshListBtn.Click += new System.EventHandler(this.RefreshListBtn_Click);
             // 
             // LauncherForm
             // 
@@ -392,6 +414,8 @@ namespace Launcher
         private System.Windows.Forms.Button RefreshListBtn;
         private System.Windows.Forms.TextBox ScreenTapTxtBox;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TextBox SwipeLeftTxtBox;
+        private System.Windows.Forms.TextBox SwipeRightTxtBox;
     }
 }
 

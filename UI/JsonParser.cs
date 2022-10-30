@@ -1,61 +1,82 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.IO;
-using Json.Net;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Launcher
 {
     class JsonParser
     {
-        List<GestureMapping> screenReaders;
-        List<KeyCodeMapping> keyCodes;
-        public JsonParser()
-        {
-            LoadJson();
-            LoadJsonForKeyMapping();
+        List<ScreenReaderItem> screenReaders;
+        List<KeyCodeObj> keyCodes;
+        JArray array;
+        public JsonParser() {
+            LoadJsonForGestureMapping();
         }
 
-        private void LoadJson()
+        public void LoadJsonForGestureMapping()
         {
             string filePath = Properties.Settings.Default.GestureKeyMapping;
             string json = File.ReadAllText(filePath);
-            screenReaders = JsonNet.Deserialize<List<GestureMapping>>(json);
+            
+            screenReaders = JsonConvert.DeserializeObject<List<ScreenReaderItem>>(json);
         }
 
-        private void LoadJsonForKeyMapping()
+        public void LoadJsonForKeyMapping()
         {
             string filePath = Properties.Settings.Default.KeyCodeMapping;
             string json = File.ReadAllText(filePath);
-            keyCodes = JsonNet.Deserialize<List<KeyCodeMapping>>(json);
+            keyCodes = JsonConvert.DeserializeObject<List<KeyCodeObj>>(json);
         }
 
-        public void SaveChangesToJson(string change)
+        
+        public void SaveChangesToJson(ScreenReaderItem item)
         {
-            var newMapping = new GestureMapping
+            array = JArray.FromObject(screenReaders);
+            JToken newToken = JToken.FromObject(item);
+
+            foreach(JToken t in array)
             {
-                Name = change,
-                ScreenTap = change,
-                HandSwipeRight = change,
-                HandSwipeLeft = change
-            };
-            string json = JsonNet.Serialize(newMapping);
+                if(t["Name"].ToString() == (item.Name))
+                {
+                    t.Replace(newToken);
+                    break;
+                }                
+            }
+            FileStream fs = null;
+            try
+            {
+                fs = new FileStream(Properties.Settings.Default.GestureKeyMapping, FileMode.Open);
+                using (StreamWriter file = new StreamWriter(fs))
+                {
+                    JsonSerializer serializer = new JsonSerializer();
+                    serializer.Serialize(file, array);
+                }
+            }
+            finally
+            {
+                if (fs != null) fs.Dispose();
+            }
+            //https://stackoverflow.com/questions/21695185/change-values-in-json-file-writing-files#21695462
+            
+            //close stream!
         }
 
-        public GestureMapping GetMappingForScreenReader(string processName)
+        public ScreenReaderItem GetMappingForScreenReader(string processName)
         {
-            List<GestureMapping> mapping = screenReaders.Where(screenReader => screenReader.Name == processName).ToList();
-            if(mapping.Count == 1)
+            List<ScreenReaderItem> items = screenReaders.Where(screenReader => screenReader.Name == processName).ToList();
+            if(items.Count == 1)
             {
-                return mapping[0];
+                return items[0];
             }
             return null;
         }
 
-        public KeyCodeMapping GetCodeForKey(string key)
+        public KeyCodeObj GetCodeForKey(string key)
         {
-            List<KeyCodeMapping> mapping = keyCodes.Where(keyCode => keyCode.Key == key).ToList();
+            List<KeyCodeObj> mapping = keyCodes.Where(keyCode => keyCode.Key == key).ToList();
             if(mapping.Count == 1)
             {
                 return mapping[0];

@@ -3,17 +3,19 @@ using System.Linq;
 using System.Windows.Forms;
 using GestureRecognition;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 
 namespace Launcher
 {
     public partial class LauncherForm : Form
     {
-        public event Action simpleEvent;
         private static LeapListener gestureMapper;
         private ScreenReaderDetection activeScreenReaders;
         private ScreenReaderItem currentScreenReader;
         private bool controllerConnected;
         private const int CB_SETCUEBANNER = 0x1703;
+        private JsonParser jsonParser;
+        private Regex alphaNumRegex = new Regex("^[a-zA-Z][a-zA-Z0-9]*$");
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         private static extern int SendMessage(IntPtr hWnd, int msg, int wParam, [MarshalAs(UnmanagedType.LPWStr)] string lParam);
 
@@ -21,7 +23,8 @@ namespace Launcher
         public LauncherForm()
         {
             gestureMapper = new LeapListener();
-            simpleEvent += () => MyMethod();
+            jsonParser = new JsonParser();
+            jsonParser.LoadJsonForKeyMapping();
             InitializeComponent();
             InitializeScreenReaderSettings();
         }
@@ -51,9 +54,9 @@ namespace Launcher
             {
                 foreach (ScreenReaderItem item in activeScreenReaders.GetAllScreenReaders())
                 {
-                    if (!ScreenReaderComboBox.Items.Contains(item.ScreenReaderName))
+                    if (!ScreenReaderComboBox.Items.Contains(item.Name))
                     {
-                        ScreenReaderComboBox.Items.Add(item.ScreenReaderName);
+                        ScreenReaderComboBox.Items.Add(item.Name);
                     }                    
                 }
                 ScreenReaderComboBox.SelectedIndex = 0;
@@ -73,11 +76,11 @@ namespace Launcher
         {
             if (currentScreenReader != null)
             {                
-                KeyMapping.Text = "Key Mapping for " + currentScreenReader.ScreenReaderName;
+                KeyMapping.Text = "Key Mapping for " + currentScreenReader.Name;
                 //get data from csv
-                ScreenTapMappingLabel.Text = "Screen Tap:" + currentScreenReader.GestureMapping.ScreenTap;
-                SwipeRightMappingLabel.Text = "Swipe Right:" + currentScreenReader.GestureMapping.HandSwipeRight;
-                SwipeLeftMappingLabel.Text = "Swipe Left:" + currentScreenReader.GestureMapping.HandSwipeLeft;
+                ScreenTapMappingLabel.Text = "Screen Tap:" + currentScreenReader.ScreenTap;
+                SwipeRightMappingLabel.Text = "Swipe Right:" + currentScreenReader.HandSwipeRight;
+                SwipeLeftMappingLabel.Text = "Swipe Left:" + currentScreenReader.HandSwipeLeft;
             } else
             {
                 KeyMapping.Text = "Refresh for Key Mapping";
@@ -118,14 +121,14 @@ namespace Launcher
                 Console.WriteLine("Next");
                 if (currentScreenReader != null)
                 {
-                    SendKeys.SendWait(currentScreenReader.GestureMapping.HandSwipeRight);
+                    SendKeys.SendWait(currentScreenReader.HandSwipeRight);
                 }
             }
             else if (handSwipeEvent.Swipe.Direction.Equals(GestureRecognition.Gestures.HandSwipe.SwipeDirection.LEFT))
             {
                 Console.WriteLine("Previous");
                 //+ is shift
-                SendKeys.SendWait(currentScreenReader.GestureMapping.HandSwipeLeft);
+                SendKeys.SendWait(currentScreenReader.HandSwipeLeft);
             }
         }
 
@@ -140,7 +143,7 @@ namespace Launcher
             if (screenTapEvent.ScreenTap.Hands[0].IsRight)
             {
                 Console.WriteLine("Screen Tap event received with right hand");                
-                SendKeys.SendWait(currentScreenReader.GestureMapping.ScreenTap);
+                SendKeys.SendWait(currentScreenReader.ScreenTap);
             }
         }
 
@@ -196,7 +199,7 @@ namespace Launcher
                 currentScreenReader = activeScreenReaders.GetScreenReaderByName(ScreenReaderComboBox.SelectedItem.ToString());
                 if(currentScreenReader != null)
                 {
-                    KeyMapping.Text = "Key Mapping for " + currentScreenReader.ScreenReaderName;
+                    KeyMapping.Text = "Key Mapping for " + currentScreenReader.Name;
                 }                
             }
         }
@@ -215,20 +218,6 @@ namespace Launcher
 
         private void ScreenTapMappingBtn_Click(object sender, EventArgs e)
         {
-            // listen to keystroke(s)
-            Button button = (Button)sender;
-            ScreenTapTxtBox.Text = "button clicked";
-            if (simpleEvent != null) simpleEvent();            
-            //MessageBox.Show(button.Name);
-            // map new key to gesture
-            // currentScreenReader.
-        }
-
-        private void MyMethod()
-        {
-            // TODO Remove 
-            //listen to key input???  
-            Console.Read();
         }
 
         private void SwipeRightMappingBtn_Click(object sender, EventArgs e)
@@ -243,18 +232,55 @@ namespace Launcher
 
         private void ScreenTapTxtBox_KeyDown(object sender, KeyEventArgs e)
         {
-            // TODO: map incoming key and 
-            // TODO: if no screenreader is active: gray out or something
-            //incoming keys are these: https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.keys?view=windowsdesktop-7.0
-            //(Keys Enum)
-            // TAP cannot be used since the user springs to the next item!
             ScreenTapTxtBox.Text = e.KeyCode.ToString();
+            if (currentScreenReader != null)
+            {
+                currentScreenReader.ScreenTap = SetNewKey(e.KeyCode.ToString());
+                jsonParser.SaveChangesToJson(currentScreenReader);
+                SetKeyMappings();
+            }
+        }
+
+        private void SwipeRightTxtBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            SwipeRightTxtBox.Text = e.KeyCode.ToString();
+            if (currentScreenReader != null)
+            {
+                currentScreenReader.HandSwipeRight = SetNewKey(e.KeyCode.ToString());
+                jsonParser.SaveChangesToJson(currentScreenReader);
+                SetKeyMappings();
+            }
+        }
+
+        private void SwipeLeftTxtBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            SwipeLeftTxtBox.Text = e.KeyCode.ToString();
             if(currentScreenReader != null)
             {
-                currentScreenReader.GestureMapping.ScreenTap = e.KeyCode.ToString();
-                Console.WriteLine(currentScreenReader.GestureMapping.ScreenTap);
+                currentScreenReader.HandSwipeLeft = SetNewKey(e.KeyCode.ToString());
+                jsonParser.SaveChangesToJson(currentScreenReader);
+                SetKeyMappings();
+            }            
+        }
+
+        private string SetNewKey(string keyCode)
+        {
+            //incoming keys are: https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.keys?view=windowsdesktop-7.0
+            //(Keys Enum)
+            // TAP cannot be used since the user springs to the next item!
+            //special keys:
+            // left [alt] is menu -> SendKeys.Send("+({F10})");
+            // right [alt gr] key -> ControlKey (keys.Control | Keys.Alt ) )
+            //(if not alphabet -> {} is used https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.sendkeys.send?view=windowsdesktop-7.0
+            if (keyCode.Length > 1 || !alphaNumRegex.IsMatch(keyCode))
+            {
+                KeyCodeObj mapping = jsonParser.GetCodeForKey(keyCode.ToUpper());
+                if (mapping != null)
+                {
+                    return mapping.Code;
+                }
             }
-            
+            return keyCode;
         }
     }
 }
