@@ -83,5 +83,10 @@ namespace Launcher
             } 
             return null;
         }
+
+        public List<ScreenReaderItem> GetAllScreenReader()
+        {
+            return screenReaders;
+        }
     }
 }
