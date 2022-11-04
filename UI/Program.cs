@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Launcher
@@ -18,7 +15,7 @@ namespace Launcher
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Console.WriteLine("Starting Launcher...");
-            Application.Run(new LauncherForm());
+            Application.Run(new Forms.Launcher());
         }
     }
 }

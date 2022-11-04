@@ -8,13 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Launcher
+namespace Launcher.Forms
 {
-    public partial class KeyMapping : Form
+    public partial class About : Form
     {
-        public KeyMapping()
+        public About()
         {
             InitializeComponent();
+        }
+
+        private void BackToNavButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

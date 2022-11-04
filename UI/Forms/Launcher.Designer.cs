@@ -1,5 +1,5 @@
 ﻿
-namespace Launcher
+namespace Launcher.Forms
 {
     partial class Launcher
     {
@@ -122,19 +122,20 @@ namespace Launcher
             this.HelpPanel.Size = new System.Drawing.Size(167, 45);
             this.HelpPanel.TabIndex = 3;
             // 
-            // HelpButton
+            // HelpBtn
             // 
             this.HelpBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.HelpBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.HelpBtn.ForeColor = System.Drawing.Color.White;
             this.HelpBtn.Location = new System.Drawing.Point(0, 0);
-            this.HelpBtn.Name = "HelpButton";
+            this.HelpBtn.Name = "HelpBtn";
             this.HelpBtn.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
             this.HelpBtn.Size = new System.Drawing.Size(167, 45);
             this.HelpBtn.TabIndex = 0;
             this.HelpBtn.Text = "Help";
             this.HelpBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.HelpBtn.UseVisualStyleBackColor = true;
+            this.HelpBtn.Click += new System.EventHandler(this.HelpBtn_Click);
             // 
             // AboutPanel
             // 
@@ -157,6 +158,7 @@ namespace Launcher
             this.AboutButton.Text = "About";
             this.AboutButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.AboutButton.UseVisualStyleBackColor = true;
+            this.AboutButton.Click += new System.EventHandler(this.AboutButton_Click);
             // 
             // ContentPanel
             // 
@@ -177,7 +179,7 @@ namespace Launcher
             this.IsMdiContainer = true;
             this.Name = "Launcher";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "LemonGeko";
+            this.Text = "Lemon Gecko";
             this.Sidebar.ResumeLayout(false);
             this.HomePanel.ResumeLayout(false);
             this.SettingsPanel.ResumeLayout(false);

@@ -1,5 +1,5 @@
 ﻿
-namespace Launcher
+namespace Launcher.Forms
 {
     partial class Home
     {
@@ -71,7 +71,7 @@ namespace Launcher
             this.LeapMotionStateTxt.Location = new System.Drawing.Point(233, 40);
             this.LeapMotionStateTxt.Name = "LeapMotionStateTxt";
             this.LeapMotionStateTxt.ReadOnly = true;
-            this.LeapMotionStateTxt.Size = new System.Drawing.Size(100, 29);
+            this.LeapMotionStateTxt.Size = new System.Drawing.Size(207, 29);
             this.LeapMotionStateTxt.TabIndex = 1;
             // 
             // SelectedScreenReader
@@ -132,9 +132,10 @@ namespace Launcher
             // 
             // BackToNavBtn
             // 
+            this.BackToNavBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BackToNavBtn.Location = new System.Drawing.Point(13, 13);
             this.BackToNavBtn.Name = "BackToNavBtn";
-            this.BackToNavBtn.Size = new System.Drawing.Size(205, 23);
+            this.BackToNavBtn.Size = new System.Drawing.Size(205, 32);
             this.BackToNavBtn.TabIndex = 0;
             this.BackToNavBtn.Text = "Back To Navigation";
             this.BackToNavBtn.UseVisualStyleBackColor = true;

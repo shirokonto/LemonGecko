@@ -1,17 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using GestureRecognition;
 using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
 
-namespace Launcher
+namespace Launcher.Forms
 {
     public partial class Home : Form
     {
@@ -43,6 +36,7 @@ namespace Launcher
         private void FillScreenReaderComboBox()
         {
             activeScreenReaders = new ScreenReaderDetection();
+            StopGestureControlButton.Enabled = false;
             if (!activeScreenReaders.GetAllScreenReaders().Any()) //if list is empty
             {
                 if (ScreenReaderComboBox.Items.Count != 0)
@@ -51,8 +45,7 @@ namespace Launcher
                     currentScreenReader = null;
                 }
                 SendMessage(ScreenReaderComboBox.Handle, CB_SETCUEBANNER, 0, "No active screen reader");
-                StartGestureControlButton.Enabled = false;
-                //EnableButtons(false);
+                StartGestureControlButton.Enabled = false;                
             }
             else
             {
@@ -64,7 +57,6 @@ namespace Launcher
                     }
                 }
                 ScreenReaderComboBox.SelectedIndex = 0;
-                //EnableButtons(true);
                 currentScreenReader = activeScreenReaders.GetScreenReaderByName(ScreenReaderComboBox.SelectedItem.ToString());
             }
         }
@@ -161,13 +153,12 @@ namespace Launcher
 
         private void BackToNavBtn_Click(object sender, EventArgs e)
         {
-            //switch back to navbar
+            this.Close();
         }
 
         private void RefreshBtn_Click(object sender, EventArgs e)
         {
             InitializeScreenReaderSettings();
-            // TODO: check cases!
             StartGestureControlButton.Enabled = 
                 (controllerConnected && currentScreenReader != null) && controllerConnected;
         }
@@ -188,7 +179,7 @@ namespace Launcher
 
                 System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.StartGestureControlSound);
                 player.Play();
-                this.WindowState = FormWindowState.Minimized;
+                this.ParentForm.WindowState = FormWindowState.Minimized;
             }
         }
 
