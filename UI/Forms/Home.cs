@@ -9,7 +9,6 @@ namespace Launcher.Forms
     public partial class Home : Form
     {
         private static LeapListener gestureMapper;
-        private JsonParser jsonParser;
         private ScreenReaderDetection activeScreenReaders;
         private ScreenReaderItem currentScreenReader;
         private bool controllerConnected;
@@ -21,8 +20,6 @@ namespace Launcher.Forms
         public Home()
         {
             gestureMapper = new LeapListener();
-            jsonParser = new JsonParser();
-            jsonParser.LoadJsonForKeyMapping();
             InitializeComponent();
             InitializeScreenReaderSettings();
         }
