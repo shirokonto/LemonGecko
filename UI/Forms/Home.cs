@@ -8,10 +8,11 @@ namespace Launcher.Forms
 {
     public partial class Home : Form
     {
-        private static LeapListener gestureMapper;
+        private static LeapListener listener;
         private ScreenReaderDetection activeScreenReaders;
         private ScreenReaderItem currentScreenReader;
         private bool controllerConnected;
+        private bool sessionInProgress = false;
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         private static extern int SendMessage(IntPtr hWnd, int msg, int wParam, [MarshalAs(UnmanagedType.LPWStr)] string lParam);
         private const int CB_SETCUEBANNER = 0x1703;
@@ -19,7 +20,7 @@ namespace Launcher.Forms
         // Constructor
         public Home()
         {
-            gestureMapper = new LeapListener();
+            listener = new LeapListener();
             InitializeComponent();
             InitializeScreenReaderSettings();
         }
@@ -60,7 +61,7 @@ namespace Launcher.Forms
 
         private void CheckControllerState()
         {
-            controllerConnected = gestureMapper.IsControllerConnected();
+            controllerConnected = listener.IsControllerConnected();
             // TODO: add case: IF Controller is removed after refresh!!        
             if (controllerConnected)
             {
@@ -76,77 +77,51 @@ namespace Launcher.Forms
         /**
         * HANDLE EVENTS 
         */
-        private void HandleCircle(object sender, GestureRecognition.Events.CircleEvent circle)
+        private void HandleCircle(object sender, GestureRecognition.Events.CircleEvent circleEvent)
         {
-            Console.WriteLine("CircleEventReceived");
+            Console.WriteLine("Circle event received");
+            if(circleEvent.Circle.Pointable.Direction.AngleTo(circleEvent.Circle.Normal) <= Math.PI/2)
+            {
+                //clockwise
+                Console.WriteLine("Clockwise");
+            } else
+            {
+                //counter clockwise
+                Console.WriteLine("Counter Clockwise");
+            }
         }
 
         private void HandleHandSwipe(object sender, GestureRecognition.Events.HandSwipeEvent handSwipeEvent)
         {
-            if (handSwipeEvent.Swipe.Hands.Count == 1)
+            Console.WriteLine("Hand Swipe event received");
+            
+            if (handSwipeEvent.Swipe.Direction.Equals(GestureRecognition.Gestures.HandSwipe.SwipeDirection.RIGHT))
             {
-                if (handSwipeEvent.Swipe.Hands[0].IsLeft)
-                {
-                    Console.WriteLine("Hand Swipe event received LEFT");
-                    if (handSwipeEvent.Swipe.Direction.Equals(GestureRecognition.Gestures.HandSwipe.SwipeDirection.RIGHT))
-                    {
-                        Console.WriteLine("Next");
-                        SendKeys.SendWait(currentScreenReader.HandSwipeRight);
-                    }
-                    else if (handSwipeEvent.Swipe.Direction.Equals(GestureRecognition.Gestures.HandSwipe.SwipeDirection.LEFT))
-                    {
-                        Console.WriteLine("Previous");
-                        //+ is shift
-                        SendKeys.SendWait(currentScreenReader.HandSwipeLeft);
-                    }
-                }
-                else if (handSwipeEvent.Swipe.Hands[0].IsRight)
-                {
-                    Console.WriteLine("Hand Swipe event received RIGHT");
-                    if (handSwipeEvent.Swipe.Direction.Equals(GestureRecognition.Gestures.HandSwipe.SwipeDirection.RIGHT))
-                    {
-                        Console.WriteLine("Next");
-                        //SendKeys.SendWait(currentScreenReader.RightHandSwipeRight);
-                    }
-                    else if (handSwipeEvent.Swipe.Direction.Equals(GestureRecognition.Gestures.HandSwipe.SwipeDirection.LEFT))
-                    {
-                        Console.WriteLine("Previous");
-                        //+ is shift
-                        //SendKeys.SendWait(currentScreenReader.RightHandSwipeLeft);
-                    }
-                }
+                Console.WriteLine("Next");
+                SendKeys.SendWait(currentScreenReader.HandSwipeRight);
             }
-            else
+            else if(handSwipeEvent.Swipe.Direction.Equals(GestureRecognition.Gestures.HandSwipe.SwipeDirection.LEFT))
             {
-                Console.WriteLine("Hand Swipe event received BOTH or null");
+                Console.WriteLine("Previous");
+                //+ is shift
+                SendKeys.SendWait(currentScreenReader.HandSwipeLeft);
             }
-        }
-
-        private void HandleFingerSwipe(object sender, GestureRecognition.Events.FingerSwipeEvent fingerSwipeEvent)
-        {
-            Console.WriteLine("Finger Swipe event received");
+            else if(handSwipeEvent.Swipe.Direction.Equals(GestureRecognition.Gestures.HandSwipe.SwipeDirection.UP))
+            {
+                Console.WriteLine("UP");
+                SendKeys.SendWait(currentScreenReader.HandSwipeUp);
+            } else
+            {
+                Console.WriteLine("DOWN");
+                SendKeys.SendWait(currentScreenReader.HandSwipeDown);
+            }
         }
 
         private void HandleScreenTap(object sender, GestureRecognition.Events.ScreenTapEvent screenTapEvent)
         {
-
-            if (screenTapEvent.ScreenTap.Hands[0].IsRight)
-            {
-                Console.WriteLine("Screen Tap event received with right hand");
-                SendKeys.SendWait(currentScreenReader.ScreenTap);
-            }
+            Console.WriteLine("Screen Tap event received");
+            SendKeys.SendWait(currentScreenReader.ScreenTap);
         }
-
-        private void HandleZoomIn(object sender, GestureRecognition.Events.ZoomInEvent zoomInEvent)
-        {
-            Console.WriteLine("Zoom In event received");
-        }
-
-        private void HandleZoomOut(object sender, GestureRecognition.Events.ZoomOutEvent zoomOutEvent)
-        {
-            Console.WriteLine("Zoom Out event received");
-        }
-
 
         private void BackToNavBtn_Click(object sender, EventArgs e)
         {
@@ -155,24 +130,29 @@ namespace Launcher.Forms
 
         private void RefreshBtn_Click(object sender, EventArgs e)
         {
-            InitializeScreenReaderSettings();
-            StartGestureControlButton.Enabled = 
-                (controllerConnected && currentScreenReader != null) && controllerConnected;
+            if (!sessionInProgress)
+            {
+                InitializeScreenReaderSettings();
+                StartGestureControlButton.Enabled =
+                    (controllerConnected && currentScreenReader != null) && controllerConnected;
+            }
+            else
+            {
+                MessageBox.Show("Stop current session first");
+            }            
         }
 
         private void StartGestureControlButton_Click(object sender, EventArgs e)
         {
             if (currentScreenReader != null)
             {
-                gestureMapper.CircleDetected += HandleCircle;
-                gestureMapper.HandSwipeDetected += HandleHandSwipe;
-                gestureMapper.FingerSwipeDetected += HandleFingerSwipe;
-                gestureMapper.ScreenTapDetected += HandleScreenTap;
-                gestureMapper.ZoomInDetected += HandleZoomIn;
-                gestureMapper.ZoomOutDetected += HandleZoomOut;
+                listener.CircleDetected += HandleCircle;
+                listener.HandSwipeDetected += HandleHandSwipe;
+                listener.ScreenTapDetected += HandleScreenTap;
 
                 this.StartGestureControlButton.Enabled = false;
                 this.StopGestureControlButton.Enabled = true;
+                sessionInProgress = true;
 
                 System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.StartGestureControlSound);
                 player.Play();
@@ -182,15 +162,13 @@ namespace Launcher.Forms
 
         private void StopGestureControlButton_Click(object sender, EventArgs e)
         {
-            gestureMapper.CircleDetected -= HandleCircle;
-            gestureMapper.HandSwipeDetected -= HandleHandSwipe;
-            gestureMapper.FingerSwipeDetected -= HandleFingerSwipe;
-            gestureMapper.ScreenTapDetected -= HandleScreenTap;
-            gestureMapper.ZoomInDetected -= HandleZoomIn;
-            gestureMapper.ZoomOutDetected -= HandleZoomOut;
+            listener.CircleDetected -= HandleCircle;
+            listener.HandSwipeDetected -= HandleHandSwipe;
+            listener.ScreenTapDetected -= HandleScreenTap;
 
             StopGestureControlButton.Enabled = false;
             StartGestureControlButton.Enabled = true;
+            sessionInProgress = false;
 
             System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.StopGestureControlSound);
             player.Play();

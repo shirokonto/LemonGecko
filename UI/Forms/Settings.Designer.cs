@@ -167,11 +167,11 @@ namespace Launcher.Forms
             this.SaveButton.UseVisualStyleBackColor = true;
             this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
-            // CancelButton
+            // CancelBtn
             // 
             this.CancelBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CancelBtn.Location = new System.Drawing.Point(32, 116);
-            this.CancelBtn.Name = "CancelButton";
+            this.CancelBtn.Name = "CancelBtn";
             this.CancelBtn.Size = new System.Drawing.Size(81, 31);
             this.CancelBtn.TabIndex = 9;
             this.CancelBtn.Text = "Cancel";
@@ -198,7 +198,7 @@ namespace Launcher.Forms
             this.panel5.Controls.Add(this.LanguageLabel);
             this.panel5.Location = new System.Drawing.Point(3, 400);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(524, 104);
+            this.panel5.Size = new System.Drawing.Size(524, 116);
             this.panel5.TabIndex = 5;
             // 
             // LanguageComboBox
@@ -206,7 +206,7 @@ namespace Launcher.Forms
             this.LanguageComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.LanguageComboBox.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LanguageComboBox.FormattingEnabled = true;
-            this.LanguageComboBox.Location = new System.Drawing.Point(137, 35);
+            this.LanguageComboBox.Location = new System.Drawing.Point(137, 29);
             this.LanguageComboBox.Name = "LanguageComboBox";
             this.LanguageComboBox.Size = new System.Drawing.Size(121, 29);
             this.LanguageComboBox.TabIndex = 9;
@@ -215,7 +215,7 @@ namespace Launcher.Forms
             // 
             this.LanguageLabel.AutoSize = true;
             this.LanguageLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LanguageLabel.Location = new System.Drawing.Point(28, 38);
+            this.LanguageLabel.Location = new System.Drawing.Point(28, 32);
             this.LanguageLabel.Name = "LanguageLabel";
             this.LanguageLabel.Size = new System.Drawing.Size(85, 21);
             this.LanguageLabel.TabIndex = 8;

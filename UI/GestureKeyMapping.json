@@ -3,24 +3,32 @@
     "Name": "Narrator",
     "ScreenTap": "{ENTER}",
     "HandSwipeRight": "{TAB}",
-    "HandSwipeLeft": "+{TAB}"
+    "HandSwipeLeft": "+{TAB}",
+    "HandSwipeUp": "{PGUP}",
+    "HandSwipeDown": "{PGDN}"
   },
   {
     "Name": "nvda",
     "ScreenTap": "{ENTER}",
     "HandSwipeRight": "{TAB}",
-    "HandSwipeLeft": "+{TAB}"
+    "HandSwipeLeft": "+{TAB}",
+    "HandSwipeUp": "{PGUP}",
+    "HandSwipeDown": "{PGDN}"
   },
   {
     "Name": "JAWS",
     "ScreenTap": "{ENTER}",
     "HandSwipeRight": "{TAB}",
-    "HandSwipeLeft": "+{TAB}"
+    "HandSwipeLeft": "+{TAB}",
+    "HandSwipeUp": "{PGUP}",
+    "HandSwipeDown": "{PGDN}"
   },
   {
     "Name": "Dolphin SR",
     "ScreenTap": "{ENTER}",
     "HandSwipeRight": "{TAB}",
-    "HandSwipeLeft": "+{TAB}"
+    "HandSwipeLeft": "+{TAB}",
+    "HandSwipeUp": "{PGUP}",
+    "HandSwipeDown": "{PGDN}"
   }
 ]

@@ -9,7 +9,7 @@ namespace GestureMapper
 {
     class Program
     {
-        private LeapListener gestureMapper;
+        private LeapListener listener;
 
         [DllImport("user32.dll")]
         static extern IntPtr GetForegroundWindow();
@@ -27,24 +27,21 @@ namespace GestureMapper
 
         public Program()
         {
-            gestureMapper = new LeapListener();
+            listener = new LeapListener();
             while (Properties.Settings.Default.Running)
             {
                 if (Properties.Settings.Default.Active)
                 {
-                    gestureMapper.HandSwipeDetected += HandleHandSwipe;
-                    gestureMapper.CircleDetected += HandleCircle;
-                    gestureMapper.FingerSwipeDetected += HandleFingerSwipe;
-                    gestureMapper.ScreenTapDetected += HandleScreenTap;
-                    gestureMapper.ZoomInDetected += HandleZoomIn;
-                    gestureMapper.ZoomOutDetected += HandleZoomOut;
+                    listener.HandSwipeDetected += HandleHandSwipe;
+                    listener.CircleDetected += HandleCircle;
+                    listener.ScreenTapDetected += HandleScreenTap;
                 }
                 while (Properties.Settings.Default.Active)
                 {
                     Thread.Sleep(500); //idle
                 }
-                gestureMapper.HandSwipeDetected += HandleHandSwipe;
-                gestureMapper.ScreenTapDetected += HandleScreenTap;
+                listener.HandSwipeDetected += HandleHandSwipe;
+                listener.ScreenTapDetected += HandleScreenTap;
 
                 //TODO: add others?
             }            
@@ -83,28 +80,9 @@ namespace GestureMapper
             }
         }
 
-        private void HandleFingerSwipe(object sender, GestureRecognition.Events.FingerSwipeEvent fingerSwipeEvent)
-        {
-            Console.WriteLine("Finger Swipe event received");
-        }
-
         private void HandleScreenTap(object sender, GestureRecognition.Events.ScreenTapEvent screenTapEvent)
         {
             Console.WriteLine("Screen Tap event received");
-            bool bo = screenTapEvent.ScreenTap.Hands[0].IsRight;
-            //" " i space key
-            //Keys key = Keys.Space;
-            //SendKeys.SendWait("{SPACE}");
-        }
-
-        private void HandleZoomIn(object sender, GestureRecognition.Events.ZoomInEvent zoomInEvent)
-        {
-            Console.WriteLine("Zoom In event received");
-        }
-
-        private void HandleZoomOut(object sender, GestureRecognition.Events.ZoomOutEvent zoomOutEvent)
-        {
-            Console.WriteLine("Zoom Out event received");
         }
     }
 }

@@ -5,20 +5,19 @@ namespace GestureRecognition.Gestures
 {
     public class HandSwipe : CustomGesture
     {
-        public enum SwipeDirection { LEFT, RIGHT };
+        public enum SwipeDirection { LEFT, RIGHT, DOWN, UP };
         private SwipeDirection _direction;
-        private static HandSwipe other = null;
+        private static HandSwipe swipe = null;
 
-        public HandSwipe(CustomGestureType type, Frame frame)
-            : base(type, frame)
+        public HandSwipe(CustomGestureType type, Frame frame) : base(type, frame)
         {
-            if (other != null)
+            if (swipe != null)
             {
-                if (other.State.Equals(GestureState.NA))
+                if (swipe.State.Equals(GestureState.NA))
                 {
                     _state = GestureState.START;
                 }
-                else if (other.State.Equals(GestureState.END))
+                else if (swipe.State.Equals(GestureState.END))
                 {
                     _state = GestureState.NA;
                 }
@@ -28,14 +27,26 @@ namespace GestureRecognition.Gestures
                 }
             }
 
-            other = this;
+            swipe = this;
 
             foreach (Hand hand in _handsForGesture)
             {
-                if (hand.PalmVelocity.x > 0)
-                    _direction = SwipeDirection.RIGHT;
+                float xVelocity = hand.PalmVelocity.x;
+                float yVelocity = hand.PalmVelocity.y;
+                if (Math.Abs(xVelocity) > Math.Abs(yVelocity))
+                {
+                    if (hand.PalmVelocity.x > 0)
+                        _direction = SwipeDirection.RIGHT;
+                    else
+                        _direction = SwipeDirection.LEFT;
+                }
                 else
-                    _direction = SwipeDirection.LEFT;
+                {
+                    if (hand.PalmVelocity.y > 0)
+                        _direction = SwipeDirection.UP;
+                    else
+                        _direction = SwipeDirection.DOWN;
+                }
             }
         }
 
@@ -50,26 +61,25 @@ namespace GestureRecognition.Gestures
                     return null;
                 }
 
-                if (Math.Abs(hands.Frontmost.PalmVelocity.x) > 900)
+                if (Math.Abs(hands.Frontmost.PalmVelocity.x) > 900 || Math.Abs(hands.Frontmost.PalmVelocity.y) > 900)
                 {
                     HandSwipe handSwipe = new HandSwipe(CustomGestureType.HAND_SWIPE, frame);
                     return handSwipe;
                 }
-                else if ((other != null))
+                else if (swipe != null)
                 {
-                    if (other.State.Equals(GestureState.END) || other.State.Equals(GestureState.NA))
+                    if (swipe.State.Equals(GestureState.END) || swipe.State.Equals(GestureState.NA))
                     {
-                        other._state = GestureState.NA;
-                        return other;
+                        swipe._state = GestureState.NA;
+                        return swipe;
                     }
                     else
                     {
-                        other._state = GestureState.END;
-                        return other;
+                        swipe._state = GestureState.END;
+                        return swipe;
                     }
                 }
             }
-
             return null;
         }
 

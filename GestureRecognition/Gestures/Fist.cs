@@ -3,14 +3,13 @@ using Leap;
 
 namespace GestureRecognition.Gestures
 {
-    public class ZoomIn : CustomGesture
+    public class Fist : CustomGesture
     {
-        private static ZoomIn other = null;
+        private static Fist other = null;
 
-        public ZoomIn(CustomGestureType type, Leap.Frame frame)
-            : base(type, frame)
+        public Fist (CustomGestureType type, Frame frame) : base(type, frame)
         {
-            if (other != null)
+            if(other != null)
             {
                 if (other.State.Equals(GestureState.NA))
                 {
@@ -25,11 +24,10 @@ namespace GestureRecognition.Gestures
                     _state = GestureState.MIDDLE;
                 }
             }
-
             other = this;
         }
 
-        public static ZoomIn IsZoomIn(Frame frame)
+        public static Fist IsFist(Frame frame)
         {
             if (frame.IsValid)
             {
@@ -37,27 +35,14 @@ namespace GestureRecognition.Gestures
 
                 if ((hands[0].IsValid && hands[1].IsValid) && HandsTogether(hands[0], hands[1]))
                 {
-                    if ((hands.Leftmost.PalmVelocity.x < -500) && (hands.Rightmost.PalmVelocity.x > 500))
-                    {
-                        ZoomIn zoomIn = new ZoomIn(CustomGestureType.ZOOM_IN, frame);
-                        return zoomIn;
-                    }
-                    else if (other != null)
-                    {
-                        if (other.State.Equals(GestureState.END) || other.State.Equals(GestureState.NA))
-                        {
-                            other._state = GestureState.NA;
-                            return other;
-                        }
-                        else
-                        {
-                            other._state = GestureState.END;
-                            return other;
-                        }
-                    }
+                    return null;
                 }
-            }
 
+                //if()
+                //if hand is formed to fist
+
+
+            }
             return null;
         }
 

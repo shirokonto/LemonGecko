@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using Newtonsoft.Json;
@@ -31,39 +30,6 @@ namespace Launcher
             keyCodes = JsonConvert.DeserializeObject<List<KeyCodeObj>>(json);
         }
 
-        public void SaveChangesToJson2(ScreenReaderItem item)
-        {
-            int index = screenReaders.FindIndex(searchedItem => searchedItem.Name == item.Name);
-            if(index != -1)
-            {
-                screenReaders[index] = item;
-            }
-            string json = JsonConvert.SerializeObject(screenReaders, Formatting.Indented);
-            Console.WriteLine("new json: " + json);
-
-            string path = Properties.Settings.Default.GestureKeyMapping;
-            FileStream fs = null;
-            try
-            {
-                fs = new FileStream(Properties.Settings.Default.GestureKeyMapping, FileMode.Open);
-                using (StreamWriter writer = new StreamWriter(path, false))
-                {
-                    //JsonConvert.SerializeObject
-                    JsonSerializer serializer = new JsonSerializer();
-                    serializer.Serialize(writer, array);
-                    Console.WriteLine(writer.ToString());
-                    writer.Close();
-                }
-            }
-            finally
-            {
-                if (fs != null) fs.Dispose();
-            }
-            //https://stackoverflow.com/questions/21695185/change-values-in-json-file-writing-files#21695462
-            fs.Close();
-
-        }
-
         public void SaveChangesToJson(ScreenReaderItem item)
         {
             int index = screenReaders.FindIndex(searchedItem => searchedItem.Name == item.Name);
@@ -76,7 +42,6 @@ namespace Launcher
             string path = Properties.Settings.Default.GestureKeyMapping;
             using (StreamWriter writer = new StreamWriter(path, false))
             {
-                //JsonConvert.SerializeObject
                 JsonSerializer serializer = new JsonSerializer();
                 serializer.Serialize(writer, array);
                 writer.Close();

@@ -3,7 +3,7 @@ using Leap;
 
 namespace GestureRecognition.Gestures
 {
-    public enum CustomGestureType { HAND_SWIPE, ZOOM_IN, ZOOM_OUT };
+    public enum CustomGestureType { HAND_SWIPE, FIST, OPEN_FIST, THUMBS_UP };
     public enum GestureState { NA, START, MIDDLE, END };
     public class CustomGesture
     {

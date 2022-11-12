@@ -29,8 +29,10 @@ namespace Launcher.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Launcher));
             this.Sidebar = new System.Windows.Forms.FlowLayoutPanel();
             this.IconPanel = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.HomePanel = new System.Windows.Forms.Panel();
             this.HomeButton = new System.Windows.Forms.Button();
             this.SettingsPanel = new System.Windows.Forms.Panel();
@@ -41,6 +43,8 @@ namespace Launcher.Forms
             this.AboutButton = new System.Windows.Forms.Button();
             this.ContentPanel = new System.Windows.Forms.Panel();
             this.Sidebar.SuspendLayout();
+            this.IconPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.HomePanel.SuspendLayout();
             this.SettingsPanel.SuspendLayout();
             this.HelpPanel.SuspendLayout();
@@ -63,10 +67,21 @@ namespace Launcher.Forms
             // 
             // IconPanel
             // 
+            this.IconPanel.Controls.Add(this.pictureBox1);
             this.IconPanel.Location = new System.Drawing.Point(3, 3);
             this.IconPanel.Name = "IconPanel";
             this.IconPanel.Size = new System.Drawing.Size(167, 106);
             this.IconPanel.TabIndex = 0;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.ImageLocation = @"UI\Resources\LemonGeckoIcon.png";
+            this.pictureBox1.InitialImage = global::Launcher.Properties.Resources.LemonGeckoIcon;
+            this.pictureBox1.Location = new System.Drawing.Point(34, 9);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(85, 85);
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
             // 
             // HomePanel
             // 
@@ -176,11 +191,14 @@ namespace Launcher.Forms
             this.Controls.Add(this.ContentPanel);
             this.Controls.Add(this.Sidebar);
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.Name = "Launcher";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Lemon Gecko";
             this.Sidebar.ResumeLayout(false);
+            this.IconPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.HomePanel.ResumeLayout(false);
             this.SettingsPanel.ResumeLayout(false);
             this.HelpPanel.ResumeLayout(false);
@@ -202,5 +220,6 @@ namespace Launcher.Forms
         private System.Windows.Forms.Panel AboutPanel;
         private System.Windows.Forms.Button AboutButton;
         private System.Windows.Forms.Panel ContentPanel;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

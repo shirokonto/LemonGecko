@@ -17,6 +17,5 @@ namespace GestureRecognition.Events
             get { return _circle; }
             set { _circle = value; }
         }
-       
     }
 }

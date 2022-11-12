@@ -178,6 +178,12 @@
   <ItemGroup>
     <None Include="Resources\StartGestureControlSound.wav" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LemonGeckoLogo.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LemonGeckoIcon.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy /yr "$(LEAP_SDK)\lib\x64\Leap.dll" "$(TargetDir)"

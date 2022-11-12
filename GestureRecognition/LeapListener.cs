@@ -1,6 +1,5 @@
 ﻿using Leap;
 using System;
-using System.Threading;
 
 namespace GestureRecognition
 {
@@ -15,11 +14,11 @@ namespace GestureRecognition
 
         public event EventHandler<Events.CircleEvent> CircleDetected;
         public event EventHandler<Events.HandSwipeEvent> HandSwipeDetected;
-        public event EventHandler<Events.FingerSwipeEvent> FingerSwipeDetected;
         public event EventHandler<Events.ScreenTapEvent> ScreenTapDetected;
-        public event EventHandler<Events.ZoomInEvent> ZoomInDetected;
-        public event EventHandler<Events.ZoomOutEvent> ZoomOutDetected;
 
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
         static void Main()
         {
         }
@@ -28,13 +27,10 @@ namespace GestureRecognition
         public LeapListener()
         {
             controller = new Controller();
-            Thread.Sleep(5);
             isConnected = controller.IsConnected;
 
             //tracks data when app is not in the foreground
             controller.SetPolicyFlags(Controller.PolicyFlag.POLICY_BACKGROUND_FRAMES);
-
-            controller.EnableGesture(Gesture.GestureType.TYPE_SWIPE);
             controller.EnableGesture(Gesture.GestureType.TYPE_CIRCLE);
             controller.EnableGesture(Gesture.GestureType.TYPE_SCREEN_TAP);
             
@@ -57,6 +53,18 @@ namespace GestureRecognition
             Console.WriteLine("Connected");            
         }
 
+        public override void OnServiceDisconnect(Controller controller)
+        {
+            Console.WriteLine("Service disconnected");
+            base.OnServiceDisconnect(controller);
+        }
+
+        public override void OnDisconnect(Controller controller)
+        {
+            Console.WriteLine("Disconnected");
+            base.OnDisconnect(controller);
+        }
+
         public bool IsControllerConnected()
         {
             return controller.IsConnected;
@@ -65,30 +73,35 @@ namespace GestureRecognition
         public override void OnFrame(Controller controller)
         {
             Frame frame = controller.Frame();
-            hands = frame.Hands;
+            Hand hand = frame.Hands[0];
+
+            if (hand.IsValid)
+            {
+
+            }
+            /*Console.WriteLine("Hand palm position: " + hand.PalmPosition);
+            for (int i = 0; i < hand.Fingers.Count; i++)
+            {
+                Console.WriteLine(hand.Fingers[i].Type + " Finger position: " + hand.Fingers[i].StabilizedTipPosition);
+            }
+            Console.WriteLine("###############################");*/
+
             gestures = frame.Gestures();
             foreach (Gesture gesture in gestures)
             {
                 if (gesture.State.Equals(Gesture.GestureState.STATESTOP))
                 {
-                    if (gesture.Type.Equals(Gesture.GestureType.TYPE_SWIPE))
-                    {
-                        Print("Swipe Detected With ");
-                        SwipeGesture swipe = new SwipeGesture(gesture);
-                        Events.FingerSwipeEvent swipeEvent = new Events.FingerSwipeEvent(swipe);
-                        OnFingerSwipeDetected(swipeEvent);
-                    }
                     if (gesture.Type.Equals(Gesture.GestureType.TYPE_CIRCLE))
                     {
-                        Print("Circle Gesture Detected With ");
+                        Print("Circle Gesture Detected ");
                         CircleGesture circle = new CircleGesture(gesture);
                         Events.CircleEvent circleEvent = new Events.CircleEvent(circle);
                         OnCircleDetected(circleEvent);
                     }
                     if (gesture.Type.Equals(Gesture.GestureType.TYPE_SCREEN_TAP))
                     {
-                        Print("Screen Tap Detected With");
-                        Leap.ScreenTapGesture screenTap = new Leap.ScreenTapGesture(gesture);
+                        Print("Screen Tap Detected ");
+                        ScreenTapGesture screenTap = new ScreenTapGesture(gesture);
                         Events.ScreenTapEvent screenTapEvent = new Events.ScreenTapEvent(screenTap);
                         OnScreenTapDetected(screenTapEvent);
                     }
@@ -104,36 +117,7 @@ namespace GestureRecognition
                     Events.HandSwipeEvent swipeEvent = new Events.HandSwipeEvent(handSwipe);
                     OnHandSwipeDetected(swipeEvent);
                 }
-            }
-            Gestures.ZoomIn zoomIn = Gestures.ZoomIn.IsZoomIn(frame);
-            if (zoomIn != null)
-            {
-                if (zoomIn.State.Equals(Gestures.GestureState.END))
-                {
-                    Print("ZoomIn Detected");
-
-                    Events.ZoomInEvent zoomInEvent = new Events.ZoomInEvent(zoomIn);
-                    OnZoomInDetected(zoomInEvent);
-                }
-            }
-            Gestures.ZoomOut zoomOut = Gestures.ZoomOut.IsZoomOut(frame);
-            if (zoomOut != null)
-            {
-                if (zoomOut.State.Equals(Gestures.GestureState.END))
-                {
-                    Print("ZoomOut Detected");
-
-                    Events.ZoomOutEvent zoomOutEvent = new Events.ZoomOutEvent(zoomOut);
-                    OnZoomOutDetected(zoomOutEvent);
-                }
-            }
-            /*if (hands.Count.Equals(1))
-            {
-                string handName = hands[0].IsLeft ? "Left Hand" : "Right Hand";
-                
-            } else if (hands.Count.Equals(2)){
-                Print("Both hands up!");
-            }               */
+            }            
         }
 
         protected virtual void OnCircleDetected(Events.CircleEvent circle)
@@ -158,17 +142,6 @@ namespace GestureRecognition
             }
         }
 
-        protected virtual void OnFingerSwipeDetected(Events.FingerSwipeEvent fingerSwipe)
-        {
-            EventHandler<Events.FingerSwipeEvent> handler = FingerSwipeDetected;
-
-            if (handler != null)
-            {
-                Print("Finger Swipe Event Called");
-                handler(this, fingerSwipe);
-            }
-        }
-
         protected virtual void OnScreenTapDetected(Events.ScreenTapEvent screenTap)
         {
             EventHandler<Events.ScreenTapEvent> handler = ScreenTapDetected;
@@ -177,26 +150,6 @@ namespace GestureRecognition
             {
                 Print("Screen Tap Event Called");
                 handler(this, screenTap);
-            }
-        }
-        protected virtual void OnZoomInDetected(Events.ZoomInEvent zoomIn)
-        {
-            EventHandler<Events.ZoomInEvent> handler = ZoomInDetected;
-
-            if (handler != null)
-            {
-                Print("Zoom In Event Called");
-                handler(this, zoomIn);
-            }
-        }
-        protected virtual void OnZoomOutDetected(Events.ZoomOutEvent zoomOutSwipe)
-        {
-            EventHandler<Events.ZoomOutEvent> handler = ZoomOutDetected;
-
-            if (handler != null)
-            {
-                Print("Zoom Out Event Called");
-                handler(this, zoomOutSwipe);
             }
         }
 
