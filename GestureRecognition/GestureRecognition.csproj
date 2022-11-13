@@ -64,10 +64,10 @@
     <Reference Include="System.ServiceProcess" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Events\FistEvent.cs" />
     <Compile Include="Events\ScreenTapEvent.cs" />
     <Compile Include="Events\HandSwipeEvent.cs" />
     <Compile Include="Gestures\Fist.cs" />
-    <Compile Include="Gestures\OpenFist.cs" />
     <Compile Include="Gestures\ThumbsUp.cs" />
     <Compile Include="Gestures\CustomGesture.cs" />
     <Compile Include="Gestures\HandSwipe.cs" />

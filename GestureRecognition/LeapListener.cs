@@ -7,7 +7,6 @@ namespace GestureRecognition
     {
         //fields
         private GestureList gestures = null;
-        private HandList hands = null;
         private Object thisLock = new Object();
         private Controller controller = null;
         private bool isConnected;
@@ -15,6 +14,7 @@ namespace GestureRecognition
         public event EventHandler<Events.CircleEvent> CircleDetected;
         public event EventHandler<Events.HandSwipeEvent> HandSwipeDetected;
         public event EventHandler<Events.ScreenTapEvent> ScreenTapDetected;
+        public event EventHandler<Events.FistEvent> FistDetected;
 
         /// <summary>
         /// The main entry point for the application.
@@ -74,48 +74,50 @@ namespace GestureRecognition
         {
             Frame frame = controller.Frame();
             Hand hand = frame.Hands[0];
-
             if (hand.IsValid)
             {
-
-            }
-            /*Console.WriteLine("Hand palm position: " + hand.PalmPosition);
-            for (int i = 0; i < hand.Fingers.Count; i++)
-            {
-                Console.WriteLine(hand.Fingers[i].Type + " Finger position: " + hand.Fingers[i].StabilizedTipPosition);
-            }
-            Console.WriteLine("###############################");*/
-
-            gestures = frame.Gestures();
-            foreach (Gesture gesture in gestures)
-            {
-                if (gesture.State.Equals(Gesture.GestureState.STATESTOP))
+                gestures = frame.Gestures();
+                foreach (Gesture gesture in gestures)
                 {
-                    if (gesture.Type.Equals(Gesture.GestureType.TYPE_CIRCLE))
+                    if (gesture.State.Equals(Gesture.GestureState.STATESTOP))
                     {
-                        Print("Circle Gesture Detected ");
-                        CircleGesture circle = new CircleGesture(gesture);
-                        Events.CircleEvent circleEvent = new Events.CircleEvent(circle);
-                        OnCircleDetected(circleEvent);
-                    }
-                    if (gesture.Type.Equals(Gesture.GestureType.TYPE_SCREEN_TAP))
-                    {
-                        Print("Screen Tap Detected ");
-                        ScreenTapGesture screenTap = new ScreenTapGesture(gesture);
-                        Events.ScreenTapEvent screenTapEvent = new Events.ScreenTapEvent(screenTap);
-                        OnScreenTapDetected(screenTapEvent);
+                        if (gesture.Type.Equals(Gesture.GestureType.TYPE_CIRCLE))
+                        {
+                            Print("Circle Gesture Detected ");
+                            CircleGesture circle = new CircleGesture(gesture);
+                            Events.CircleEvent circleEvent = new Events.CircleEvent(circle);
+                            OnCircleDetected(circleEvent);
+                        }
+                        if (gesture.Type.Equals(Gesture.GestureType.TYPE_SCREEN_TAP))
+                        {
+                            Print("Screen Tap Detected ");
+                            ScreenTapGesture screenTap = new ScreenTapGesture(gesture);
+                            Events.ScreenTapEvent screenTapEvent = new Events.ScreenTapEvent(screenTap);
+                            OnScreenTapDetected(screenTapEvent);
+                        }
                     }
                 }
-            }
-            Gestures.HandSwipe handSwipe = Gestures.HandSwipe.IsHandSwipe(frame);
-            if (handSwipe != null)
-            {
-                if (handSwipe.State.Equals(Gestures.GestureState.END))
+                Gestures.HandSwipe handSwipe = Gestures.HandSwipe.IsHandSwipe(frame);
+                if (handSwipe != null)
                 {
-                    Print("Hand Swipe Detected");
+                    if (handSwipe.State.Equals(Gestures.GestureState.END))
+                    {
+                        Print("Hand Swipe Detected");
 
-                    Events.HandSwipeEvent swipeEvent = new Events.HandSwipeEvent(handSwipe);
-                    OnHandSwipeDetected(swipeEvent);
+                        Events.HandSwipeEvent swipeEvent = new Events.HandSwipeEvent(handSwipe);
+                        OnHandSwipeDetected(swipeEvent);
+                    }
+                }
+                Gestures.Fist fist = Gestures.Fist.IsFist(frame);
+                if (fist != null)
+                {
+                    if (fist.State.Equals(Gestures.GestureState.END))
+                    {
+                        Print("Fist Detected");
+
+                        Events.FistEvent fistEvent = new Events.FistEvent(fist);
+                        OnFistDetected(fistEvent);
+                    }
                 }
             }            
         }
@@ -150,6 +152,17 @@ namespace GestureRecognition
             {
                 Print("Screen Tap Event Called");
                 handler(this, screenTap);
+            }
+        }
+
+        protected virtual void OnFistDetected(Events.FistEvent fist)
+        {
+            EventHandler<Events.FistEvent> handler = FistDetected;
+
+            if(handler != null)
+            {
+                Print("Fist Event Called");
+                handler(this, fist);
             }
         }
 

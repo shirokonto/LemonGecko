@@ -7,17 +7,17 @@ namespace GestureRecognition.Gestures
     {
         public enum SwipeDirection { LEFT, RIGHT, DOWN, UP };
         private SwipeDirection _direction;
-        private static HandSwipe swipe = null;
+        private static HandSwipe _swipe = null;
 
         public HandSwipe(CustomGestureType type, Frame frame) : base(type, frame)
         {
-            if (swipe != null)
+            if (_swipe != null)
             {
-                if (swipe.State.Equals(GestureState.NA))
+                if (_swipe.State.Equals(GestureState.NA))
                 {
                     _state = GestureState.START;
                 }
-                else if (swipe.State.Equals(GestureState.END))
+                else if (_swipe.State.Equals(GestureState.END))
                 {
                     _state = GestureState.NA;
                 }
@@ -27,7 +27,7 @@ namespace GestureRecognition.Gestures
                 }
             }
 
-            swipe = this;
+            _swipe = this;
 
             foreach (Hand hand in _handsForGesture)
             {
@@ -66,17 +66,17 @@ namespace GestureRecognition.Gestures
                     HandSwipe handSwipe = new HandSwipe(CustomGestureType.HAND_SWIPE, frame);
                     return handSwipe;
                 }
-                else if (swipe != null)
+                else if (_swipe != null)
                 {
-                    if (swipe.State.Equals(GestureState.END) || swipe.State.Equals(GestureState.NA))
+                    if (_swipe.State.Equals(GestureState.END) || _swipe.State.Equals(GestureState.NA))
                     {
-                        swipe._state = GestureState.NA;
-                        return swipe;
+                        _swipe._state = GestureState.NA;
+                        return _swipe;
                     }
                     else
                     {
-                        swipe._state = GestureState.END;
-                        return swipe;
+                        _swipe._state = GestureState.END;
+                        return _swipe;
                     }
                 }
             }

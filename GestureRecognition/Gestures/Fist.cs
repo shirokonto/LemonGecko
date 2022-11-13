@@ -5,17 +5,16 @@ namespace GestureRecognition.Gestures
 {
     public class Fist : CustomGesture
     {
-        private static Fist other = null;
+        private static Fist _fist = null;        
 
-        public Fist (CustomGestureType type, Frame frame) : base(type, frame)
+        public Fist(CustomGestureType type, Frame frame) : base(type, frame)
         {
-            if(other != null)
-            {
-                if (other.State.Equals(GestureState.NA))
+            if(_fist != null){
+                if (_fist.State.Equals(GestureState.NA))
                 {
                     _state = GestureState.START;
                 }
-                else if (other.State.Equals(GestureState.END))
+                else if (_fist.State.Equals(GestureState.END))
                 {
                     _state = GestureState.NA;
                 }
@@ -24,7 +23,7 @@ namespace GestureRecognition.Gestures
                     _state = GestureState.MIDDLE;
                 }
             }
-            other = this;
+            _fist = this;
         }
 
         public static Fist IsFist(Frame frame)
@@ -32,30 +31,54 @@ namespace GestureRecognition.Gestures
             if (frame.IsValid)
             {
                 HandList hands = frame.Hands;
+                Hand hand = hands[0];
+                double threshold = 260.0;
+                double sumDistance = 0;
+                Vector palmPositionVector = hand.PalmPosition;
 
-                if ((hands[0].IsValid && hands[1].IsValid) && HandsTogether(hands[0], hands[1]))
+                if (hand.IsValid && hands[1].IsValid)
                 {
                     return null;
                 }
-
-                //if()
-                //if hand is formed to fist
-
-
+                
+                for (int i = 0; i < hand.Fingers.Count; i++)
+                {
+                    if(hand.Fingers[i].Type == Finger.FingerType.TYPE_INDEX && hand.Fingers[i].IsExtended)
+                    {
+                        return null;
+                    }
+                    double distance = CalculateDistance(palmPositionVector, hand.Fingers[i].StabilizedTipPosition);
+                    sumDistance += distance;
+                }
+                if (sumDistance < threshold)
+                {
+                    Fist fist = new Fist(CustomGestureType.FIST, frame);
+                    return fist;
+                }
+                else if (_fist != null)
+                {
+                    if (_fist.State.Equals(GestureState.END) || _fist.State.Equals(GestureState.NA))
+                    {
+                        _fist._state = GestureState.NA;
+                        return _fist;
+                    }
+                    else
+                    {
+                        _fist._state = GestureState.END;
+                        return _fist;
+                    }
+                }
+                
             }
             return null;
         }
 
-        private static bool HandsTogether(Hand hand1, Hand hand2)
+        private static Double CalculateDistance(Vector palmPos, Vector fingerTipPos)
         {
-            float xdiff = Math.Abs(hand1.PalmPosition.x - hand2.PalmPosition.x),
-                ydiff = Math.Abs(hand1.PalmPosition.y - hand2.PalmPosition.y),
-                zdiff = Math.Abs(hand1.PalmPosition.z - hand2.PalmPosition.z);
-
-            if ((xdiff + ydiff + zdiff) < 400)
-                return true;
-
-            return false;
+            var distanceX = Math.Pow(fingerTipPos.x - palmPos.x, 2);
+            var distanceY = Math.Pow(fingerTipPos.y - palmPos.y, 2);
+            var distanceZ = Math.Pow(fingerTipPos.z - palmPos.z, 2);
+            return Math.Sqrt(distanceX + distanceY + distanceZ);
         }
     }
 }

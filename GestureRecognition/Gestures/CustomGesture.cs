@@ -1,9 +1,8 @@
-﻿using System;
-using Leap;
+﻿using Leap;
 
 namespace GestureRecognition.Gestures
 {
-    public enum CustomGestureType { HAND_SWIPE, FIST, OPEN_FIST, THUMBS_UP };
+    public enum CustomGestureType { HAND_SWIPE, FIST };
     public enum GestureState { NA, START, MIDDLE, END };
     public class CustomGesture
     {

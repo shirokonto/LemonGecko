@@ -84,10 +84,12 @@ namespace Launcher.Forms
             {
                 //clockwise
                 Console.WriteLine("Clockwise");
+                SendKeys.SendWait(currentScreenReader.CircleClockwise);
             } else
             {
                 //counter clockwise
                 Console.WriteLine("Counter Clockwise");
+                SendKeys.SendWait(currentScreenReader.CircleCounterClockwise);
             }
         }
 
@@ -123,6 +125,11 @@ namespace Launcher.Forms
             SendKeys.SendWait(currentScreenReader.ScreenTap);
         }
 
+        private void HandleFist(object sender, GestureRecognition.Events.FistEvent fistEvent)
+        {
+            Console.WriteLine("Fist event received");
+            SendKeys.SendWait(currentScreenReader.Fist);
+        }
         private void BackToNavBtn_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -149,6 +156,7 @@ namespace Launcher.Forms
                 listener.CircleDetected += HandleCircle;
                 listener.HandSwipeDetected += HandleHandSwipe;
                 listener.ScreenTapDetected += HandleScreenTap;
+                listener.FistDetected += HandleFist;
 
                 this.StartGestureControlButton.Enabled = false;
                 this.StopGestureControlButton.Enabled = true;
@@ -165,6 +173,7 @@ namespace Launcher.Forms
             listener.CircleDetected -= HandleCircle;
             listener.HandSwipeDetected -= HandleHandSwipe;
             listener.ScreenTapDetected -= HandleScreenTap;
+            listener.FistDetected -= HandleFist;
 
             StopGestureControlButton.Enabled = false;
             StartGestureControlButton.Enabled = true;

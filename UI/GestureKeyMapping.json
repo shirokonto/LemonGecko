@@ -5,7 +5,10 @@
     "HandSwipeRight": "{TAB}",
     "HandSwipeLeft": "+{TAB}",
     "HandSwipeUp": "{PGUP}",
-    "HandSwipeDown": "{PGDN}"
+    "HandSwipeDown": "{PGDN}",
+    "CircleClockwise": "{DOWN}",
+    "CircleCounterClockwise": "{UP}",
+    "Fist": " "
   },
   {
     "Name": "nvda",
@@ -13,7 +16,10 @@
     "HandSwipeRight": "{TAB}",
     "HandSwipeLeft": "+{TAB}",
     "HandSwipeUp": "{PGUP}",
-    "HandSwipeDown": "{PGDN}"
+    "HandSwipeDown": "{PGDN}",
+    "CircleClockwise": "{DOWN}",
+    "CircleCounterClockwise": "{UP}",
+    "Fist": " "
   },
   {
     "Name": "JAWS",
@@ -21,7 +27,10 @@
     "HandSwipeRight": "{TAB}",
     "HandSwipeLeft": "+{TAB}",
     "HandSwipeUp": "{PGUP}",
-    "HandSwipeDown": "{PGDN}"
+    "HandSwipeDown": "{PGDN}",
+    "CircleClockwise": "{DOWN}",
+    "CircleCounterClockwise": "{UP}",
+    "Fist": " "
   },
   {
     "Name": "Dolphin SR",
@@ -29,6 +38,9 @@
     "HandSwipeRight": "{TAB}",
     "HandSwipeLeft": "+{TAB}",
     "HandSwipeUp": "{PGUP}",
-    "HandSwipeDown": "{PGDN}"
+    "HandSwipeDown": "{PGDN}",
+    "CircleClockwise": "{DOWN}",
+    "CircleCounterClockwise": "{UP}",
+    "Fist": " "
   }
 ]

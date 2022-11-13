@@ -107,6 +107,15 @@ namespace Launcher.Forms
                         case "SwipeRight":
                             selectedScreenReader.HandSwipeRight = SetNewKey(e.KeyCode.ToString());
                             break;
+                        case "SwipeUp":
+                            selectedScreenReader.HandSwipeUp = SetNewKey(e.KeyCode.ToString());
+                            break;
+                        case "SwipeDown":
+                            selectedScreenReader.HandSwipeDown = SetNewKey(e.KeyCode.ToString());
+                            break;
+                        case "Fist":
+                            selectedScreenReader.Fist = SetNewKey(e.KeyCode.ToString());
+                            break;
                     }                    
                     jsonParser.SaveChangesToJson(selectedScreenReader);
                     LoadTableWithMapping();
