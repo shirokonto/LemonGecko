@@ -42,12 +42,12 @@ namespace GestureRecognition.Gestures
                 }
                 
                 for (int i = 0; i < hand.Fingers.Count; i++)
-                {
+                {                    
+                    double distance = CalculateDistance(palmPositionVector, hand.Fingers[i].StabilizedTipPosition);
                     if(hand.Fingers[i].Type == Finger.FingerType.TYPE_INDEX && hand.Fingers[i].IsExtended)
                     {
                         return null;
                     }
-                    double distance = CalculateDistance(palmPositionVector, hand.Fingers[i].StabilizedTipPosition);
                     sumDistance += distance;
                 }
                 if (sumDistance < threshold)

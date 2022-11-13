@@ -179,10 +179,20 @@
     <None Include="Resources\StartGestureControlSound.wav" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\LemonGeckoLogo.bmp" />
+    <None Include="Resources\LemonGeckoLogo.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\LemonGeckoIcon.png" />
+    <None Include="Resources\LemonGeckoIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\hqdefault.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LemonGeckoImg.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
