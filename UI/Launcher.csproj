@@ -97,6 +97,7 @@
     <Compile Include="Forms\Home.Designer.cs">
       <DependentUpon>Home.cs</DependentUpon>
     </Compile>
+    <Compile Include="KeyMappingHelper.cs" />
     <Compile Include="KeyCodeObj.cs" />
     <Compile Include="JsonParser.cs" />
     <Compile Include="ScreenReaderItem.cs" />
@@ -187,9 +188,6 @@
     <None Include="Resources\LemonGeckoIcon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\hqdefault.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\LemonGeckoImg.png" />

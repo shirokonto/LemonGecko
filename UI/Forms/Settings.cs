@@ -2,34 +2,35 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Text.RegularExpressions;
-using System.Runtime.InteropServices;
+
 
 namespace Launcher.Forms
 {
     public partial class Settings : Form
     {
         private JsonParser jsonParser;
-        private Regex alphaNumRegex = new Regex("^[a-zA-Z][a-zA-Z0-9]*$");
+        private KeyMappingHelper keyCodeMappingHelper;
         private List<ScreenReaderItem> allScreenReader;
         private ScreenReaderItem selectedScreenReader;
+        private ScreenReaderItem defaultScreenReaderSettings;
+        private bool TextWasChanged = false;
 
         public Settings()
         {
             InitializeComponent();
+            keyCodeMappingHelper = new KeyMappingHelper();
             jsonParser = new JsonParser();
+            jsonParser.LoadJsonForGestureMapping();
             jsonParser.LoadJsonForKeyMapping();            
             LoadScreenReaderComboBox();
-            LoadTableWithMapping();
+            LoadKeyMappings();
         }
 
         private void LoadScreenReaderComboBox()
         {
+            //allScreenReader =JsonParser.GetAllScreenReader
             allScreenReader = jsonParser.GetAllScreenReader();
             foreach (ScreenReaderItem item in allScreenReader)
             {
@@ -40,41 +41,42 @@ namespace Launcher.Forms
             }
             ScreenReaderComboBox.SelectedIndex = 0;
             selectedScreenReader = allScreenReader.Where(item => item.Name.Equals(ScreenReaderComboBox.SelectedItem.ToString())).First();
+            defaultScreenReaderSettings = selectedScreenReader;
         }
 
-        private void LoadTableWithMapping()
+        private void LoadKeyMappings()
         {
-            DataTable dataTable = ConvertToDataTable(allScreenReader);
-            DataTable filteredResult = dataTable.Select(string.Format("Name='{0}'", 
-                ScreenReaderComboBox.SelectedItem.ToString())).CopyToDataTable();
-            KeyMappingDataGridView.DataSource = filteredResult;
-            KeyMappingDataGridView.Columns["Name"].ReadOnly = true;
+            FillTextboxes(ScreenTapTextBox, ScreenTapTextBox2, selectedScreenReader.ScreenTap);
+            FillTextboxes(SwipeRightTextBox, SwipeRightTextBox2, selectedScreenReader.HandSwipeRight);
+            FillTextboxes(SwipeLeftTextBox, SwipeLeftTextBox2, selectedScreenReader.HandSwipeLeft);
+            FillTextboxes(SwipeUpTextBox, SwipeUpTextBox2, selectedScreenReader.HandSwipeUp);
+            FillTextboxes(SwipeDownTextBox, SwipeDownTextBox2, selectedScreenReader.HandSwipeDown);
+            FillTextboxes(CircleClockwiseTextBox, CircleClockwiseTextBox2, selectedScreenReader.CircleClockwise);
+            FillTextboxes(CircleCounterClockwiseTextBox, CircleCounterClockwiseTextBox2, selectedScreenReader.CircleCounterClockwise);
+            FillTextboxes(FistTextBox, FistTextBox2, selectedScreenReader.Fist);
         }
 
-        // from here https://stackoverflow.com/questions/65823788/convert-json-data-into-datagridview-c-sharp
-        public static DataTable ConvertToDataTable<T>(IList<T> data)
+        private void FillTextboxes(TextBox firstBox, TextBox secondBox, string gesture)
         {
-            PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(typeof(T));
-            DataTable table = new DataTable();
-            foreach (PropertyDescriptor prop in properties)
-                table.Columns.Add(prop.Name, Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType);
-            if (data != null)
+            // TODO : second box does not get refreshed
+            firstBox.ReadOnly = true;
+            secondBox.ReadOnly = true;
+            List<string> commands = keyCodeMappingHelper.GetKeysForCode(gesture);
+            if(commands.Count != 0)
             {
-                foreach (T item in data)
-                {
-                    DataRow row = table.NewRow();
-                    foreach (PropertyDescriptor prop in properties)
-                        row[prop.Name] = prop.GetValue(item) ?? DBNull.Value;
-                    table.Rows.Add(row);
-                }
-            }
-            return table;
+                firstBox.Text = commands[0];
+                secondBox.Clear();
+                if (commands.Count == 2)
+                    secondBox.Text = commands[1];
+            }            
         }
 
         private void ScreenReaderComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // TODO: if changed state is dirty MessageBox abort changes?
             selectedScreenReader = allScreenReader.Where(item => item.Name.Equals(ScreenReaderComboBox.SelectedItem.ToString())).First();
-            LoadTableWithMapping();
+            defaultScreenReaderSettings = selectedScreenReader;
+            LoadKeyMappings();
         }
 
         private void BackToNavButton_Click(object sender, EventArgs e)
@@ -82,68 +84,23 @@ namespace Launcher.Forms
             this.Close();
         }
 
-        private void KeyMappingDataGridView_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
-        {
-            DataGridViewTextBoxEditingControl tb = (DataGridViewTextBoxEditingControl)e.Control;
-            tb.KeyDown += new KeyEventHandler(KeyMappingDataGridView_KeyDown);
-            e.Control.KeyDown += new KeyEventHandler(KeyMappingDataGridView_KeyDown);
-        }
-
-        private void KeyMappingDataGridView_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode != Keys.Tab)
-            {          
-                if (selectedScreenReader != null)
-                {
-                    string currentColumnName = KeyMappingDataGridView.Columns[KeyMappingDataGridView.CurrentCell.ColumnIndex].Name;
-                    switch (currentColumnName)
-                    {
-                        case "ScreenTap":
-                            selectedScreenReader.ScreenTap = SetNewKey(e.KeyCode.ToString());
-                            break;
-                        case "SwipeLeft":
-                            selectedScreenReader.HandSwipeLeft = SetNewKey(e.KeyCode.ToString());
-                            break;
-                        case "SwipeRight":
-                            selectedScreenReader.HandSwipeRight = SetNewKey(e.KeyCode.ToString());
-                            break;
-                        case "SwipeUp":
-                            selectedScreenReader.HandSwipeUp = SetNewKey(e.KeyCode.ToString());
-                            break;
-                        case "SwipeDown":
-                            selectedScreenReader.HandSwipeDown = SetNewKey(e.KeyCode.ToString());
-                            break;
-                        case "Fist":
-                            selectedScreenReader.Fist = SetNewKey(e.KeyCode.ToString());
-                            break;
-                    }                    
-                    jsonParser.SaveChangesToJson(selectedScreenReader);
-                    LoadTableWithMapping();
-                }
-            }
-        }
-
-        private string SetNewKey(string keyCode)
-        {            
-            if (keyCode.Length > 1 || !alphaNumRegex.IsMatch(keyCode))
-            {
-                KeyCodeObj mapping = jsonParser.GetCodeForKey(keyCode.ToUpper());
-                if (mapping != null)
-                {
-                    return mapping.Code;
-                }
-            }
-            return keyCode;
-        }
-
         private void SaveButton_Click(object sender, EventArgs e)
         {
             //see if the entries where changed
+            selectedScreenReader.ScreenTap = keyCodeMappingHelper.GetCodeForKey(ScreenTapTextBox.Text, ScreenTapTextBox2.Text);
+            selectedScreenReader.HandSwipeRight = keyCodeMappingHelper.GetCodeForKey(SwipeRightTextBox.Text, SwipeRightTextBox2.Text);
+            selectedScreenReader.HandSwipeLeft = keyCodeMappingHelper.GetCodeForKey(SwipeLeftTextBox.Text,SwipeLeftTextBox2.Text);
+            selectedScreenReader.HandSwipeUp = keyCodeMappingHelper.GetCodeForKey(SwipeUpTextBox.Text, SwipeUpTextBox2.Text);
+            selectedScreenReader.HandSwipeDown = keyCodeMappingHelper.GetCodeForKey(SwipeDownTextBox.Text, SwipeDownTextBox2.Text);
+            selectedScreenReader.CircleClockwise = keyCodeMappingHelper.GetCodeForKey(CircleClockwiseTextBox.Text, CircleClockwiseTextBox2.Text);
+            selectedScreenReader.CircleCounterClockwise = keyCodeMappingHelper.GetCodeForKey(CircleCounterClockwiseTextBox.Text, CircleCounterClockwiseTextBox2.Text);
+            selectedScreenReader.Fist = keyCodeMappingHelper.GetCodeForKey(FistTextBox.Text, FistTextBox2.Text);
             //if yes
-                //save changes
+            //save changes
 
             jsonParser.SaveChangesToJson(selectedScreenReader);
-            LoadTableWithMapping();
+            //LoadTableWithMapping();
+            LoadKeyMappings();
 
             //if no 
                 //do nothing
@@ -151,7 +108,126 @@ namespace Launcher.Forms
 
         private void CancelButton_Click(object sender, EventArgs e)
         {
-            //LoadTableWithMapping and remove all entries
+            //save data from before the changes
+            //LoadKeys with old data
+            //defaultScreenReaderSettings
+        }
+
+        private void ChangeKeyInTextBox(object sender, PreviewKeyDownEventArgs e, TextBox currentTextbox)
+        {
+            if (currentTextbox.ReadOnly && (e.KeyCode.Equals(Keys.Enter) || e.KeyCode.Equals(Keys.Space)))
+            {
+                currentTextbox.ReadOnly = false;
+                return;
+            }
+            if (!currentTextbox.ReadOnly)
+            {                
+                if ((e.KeyCode.Equals(Keys.Enter) || e.KeyCode.Equals(Keys.Space)) && TextWasChanged)
+                {
+                    currentTextbox.ReadOnly = true;
+                    TextWasChanged = false;
+                    return;
+                }
+                if (e.KeyCode.Equals(Keys.Space))
+                {
+                    currentTextbox.Text = "SPACE";
+                    TextWasChanged = true;
+                    return;
+                }
+                if (e.KeyCode.Equals(Keys.Return))
+                {
+                    currentTextbox.Text = "ENTER";
+                    TextWasChanged = true;
+                    return;
+                }
+                currentTextbox.Text = e.KeyCode.ToString().ToUpper();
+                TextWasChanged = true;
+            }
+        }
+
+        private void TextBox_TextChanged(object sender, EventArgs e)
+        {
+            TextWasChanged = true;
+        }
+
+        private void ScreenTapTextBox_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            ChangeKeyInTextBox(sender, e, ScreenTapTextBox);
+        }
+
+        private void ScreenTapTextBox2_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            ChangeKeyInTextBox(sender, e, ScreenTapTextBox2);
+        }
+
+        private void SwipeRightTextBox_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            ChangeKeyInTextBox(sender, e, SwipeRightTextBox);
+        }
+
+        private void SwipeRightTextBox2_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            ChangeKeyInTextBox(sender, e, SwipeRightTextBox2);
+        }
+
+        private void SwipeLeftTextBox_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            ChangeKeyInTextBox(sender, e, SwipeLeftTextBox);            
+        }
+
+        private void SwipeLeftTextBox2_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            ChangeKeyInTextBox(sender, e, SwipeLeftTextBox2);
+        }
+
+        private void SwipeUpTextBox_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            ChangeKeyInTextBox(sender, e, SwipeUpTextBox);
+        }
+
+        private void SwipeUpTextBox2_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            ChangeKeyInTextBox(sender, e, SwipeUpTextBox2);
+        }
+
+        private void SwipeDownTextBox_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            ChangeKeyInTextBox(sender, e, SwipeDownTextBox);
+        }
+
+        private void SwipeDownTextBox2_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            ChangeKeyInTextBox(sender, e, SwipeDownTextBox2);
+        }
+
+        private void CircleClockwiseTextBox_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            ChangeKeyInTextBox(sender, e, CircleClockwiseTextBox);
+        }
+
+        private void CircleClockwiseTextBox2_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            ChangeKeyInTextBox(sender, e, CircleClockwiseTextBox2);
+        }
+
+        private void CircleCounterClockwiseTextBox_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            ChangeKeyInTextBox(sender, e, CircleCounterClockwiseTextBox);
+        }
+
+        private void CircleCounterClockwiseTextBox2_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            ChangeKeyInTextBox(sender, e, CircleCounterClockwiseTextBox2);
+        }
+
+        private void FistTextBox_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            ChangeKeyInTextBox(sender, e, FistTextBox);
+        }
+
+        private void FistTextBox2_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            ChangeKeyInTextBox(sender, e, FistTextBox2);
         }
     }
 }

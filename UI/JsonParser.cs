@@ -8,11 +8,13 @@ namespace Launcher
 {
     class JsonParser
     {
-        List<ScreenReaderItem> screenReaders;
-        List<KeyCodeObj> keyCodes;
-        JArray array;
-        public JsonParser() {
+        private List<ScreenReaderItem> screenReaders;
+        private List<KeyCodeObj> keyCodes;
+        private JArray array;
+        public JsonParser() 
+        {
             LoadJsonForGestureMapping();
+            LoadJsonForKeyMapping();
         }
 
         public void LoadJsonForGestureMapping()
@@ -65,6 +67,16 @@ namespace Launcher
             {
                 return mapping[0];
             } 
+            return null;
+        }
+
+        public KeyCodeObj GetKeyForCode(string code)
+        {
+            List<KeyCodeObj> mapping = keyCodes.Where(keyCode => keyCode.Code == code).ToList();
+            if (mapping.Count == 1)
+            {
+                return mapping[0];
+            }
             return null;
         }
 

@@ -1,6 +1,6 @@
-[
+[  
   {
-    "Name": "Narrator",
+    "Name": "JAWS",
     "ScreenTap": "{ENTER}",
     "HandSwipeRight": "{TAB}",
     "HandSwipeLeft": "+{TAB}",
@@ -22,7 +22,7 @@
     "Fist": " "
   },
   {
-    "Name": "JAWS",
+    "Name": "Narrator",
     "ScreenTap": "{ENTER}",
     "HandSwipeRight": "{TAB}",
     "HandSwipeLeft": "+{TAB}",
@@ -31,7 +31,7 @@
     "CircleClockwise": "{DOWN}",
     "CircleCounterClockwise": "{UP}",
     "Fist": " "
-  },
+  },  
   {
     "Name": "Dolphin SR",
     "ScreenTap": "{ENTER}",

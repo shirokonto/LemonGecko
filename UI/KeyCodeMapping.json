@@ -24,10 +24,6 @@
     "Code": "{END}"
   },
   {
-    "Key": "RETURN",
-    "Code": "{ENTER}"
-  },
-  {
     "Key": "ENTER",
     "Code": "{ENTER}"
   },
@@ -56,11 +52,11 @@
     "Code": "{NUMLOCK}"
   },
   {
-    "Key": "PAGE DOWN",
+    "Key": "PAGEDOWN",
     "Code": "{PGDN}"
   },
   {
-    "Key": "PAGE UP",
+    "Key": "PAGEUP",
     "Code": "{PGUP}"
   },
   {
