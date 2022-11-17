@@ -17,8 +17,8 @@ namespace Launcher
         public ScreenReaderDetection()
         {
             activeScreenReaders = new List<ScreenReaderItem>();
-            //jsonParser = new JsonParser();
-            //jsonParser.LoadJsonForGestureMapping();
+            jsonParser = new JsonParser();
+            jsonParser.LoadJsonForGestureMapping();
             IEnumerable<Process> processes =
                 new[] { "Narrator", "nvda", "jfw", "Hal" }
                 .SelectMany(Process.GetProcessesByName);
