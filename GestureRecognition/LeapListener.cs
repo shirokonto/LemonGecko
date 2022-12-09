@@ -1,4 +1,5 @@
-﻿using Leap;
+﻿using GestureRecognition.Events;
+using Leap;
 using System;
 
 namespace GestureRecognition
@@ -11,10 +12,12 @@ namespace GestureRecognition
         private Controller controller = null;
         private bool isConnected;
 
-        public event EventHandler<Events.CircleEvent> CircleDetected;
-        public event EventHandler<Events.HandSwipeEvent> HandSwipeDetected;
-        public event EventHandler<Events.ScreenTapEvent> ScreenTapDetected;
-        public event EventHandler<Events.FistEvent> FistDetected;
+
+        public event EventHandler<DisconnectEvent> DisconnectDetected;
+        public event EventHandler<CircleEvent> CircleDetected;
+        public event EventHandler<HandSwipeEvent> HandSwipeDetected;
+        public event EventHandler<ScreenTapEvent> ScreenTapDetected;
+        public event EventHandler<FistEvent> FistDetected;
 
         /// <summary>
         /// The main entry point for the application.
@@ -57,13 +60,18 @@ namespace GestureRecognition
         {
             Console.WriteLine("Service disconnected");
             base.OnServiceDisconnect(controller);
+            //TODO stop session of app 
+            //do it with an event
         }
 
         public override void OnDisconnect(Controller controller)
         {
             Console.WriteLine("Disconnected");
             base.OnDisconnect(controller);
-        }
+            DisconnectEvent disconnectEvent = new DisconnectEvent(controller);
+            OnDisconnectDetected(disconnectEvent);
+            // stop session via event
+        }        
 
         public bool IsControllerConnected()
         {
@@ -85,14 +93,14 @@ namespace GestureRecognition
                         {
                             Print("Circle Gesture Detected ");
                             CircleGesture circle = new CircleGesture(gesture);
-                            Events.CircleEvent circleEvent = new Events.CircleEvent(circle);
+                            CircleEvent circleEvent = new CircleEvent(circle);
                             OnCircleDetected(circleEvent);
                         }
                         if (gesture.Type.Equals(Gesture.GestureType.TYPE_SCREEN_TAP))
                         {
                             Print("Screen Tap Detected ");
                             ScreenTapGesture screenTap = new ScreenTapGesture(gesture);
-                            Events.ScreenTapEvent screenTapEvent = new Events.ScreenTapEvent(screenTap);
+                            ScreenTapEvent screenTapEvent = new ScreenTapEvent(screenTap);
                             OnScreenTapDetected(screenTapEvent);
                         }
                     }
@@ -104,7 +112,7 @@ namespace GestureRecognition
                     {
                         Print("Hand Swipe Detected");
 
-                        Events.HandSwipeEvent swipeEvent = new Events.HandSwipeEvent(handSwipe);
+                        HandSwipeEvent swipeEvent = new HandSwipeEvent(handSwipe);
                         OnHandSwipeDetected(swipeEvent);
                     }
                 }
@@ -115,16 +123,27 @@ namespace GestureRecognition
                     {
                         Print("Fist Detected");
 
-                        Events.FistEvent fistEvent = new Events.FistEvent(fist);
+                        FistEvent fistEvent = new FistEvent(fist);
                         OnFistDetected(fistEvent);
                     }
                 }
             }            
         }
 
-        protected virtual void OnCircleDetected(Events.CircleEvent circle)
+        protected virtual void OnDisconnectDetected(DisconnectEvent disconnectEvent)
         {
-            EventHandler<Events.CircleEvent> handler = CircleDetected;
+            EventHandler<DisconnectEvent> handler = DisconnectDetected;
+
+            if(handler != null)
+            {
+                Print("Disconnect Event Called");
+                handler(this, disconnectEvent);
+            }
+        }
+
+        protected virtual void OnCircleDetected(CircleEvent circle)
+        {
+            EventHandler<CircleEvent> handler = CircleDetected;
 
             if (handler != null)
             {
@@ -133,9 +152,9 @@ namespace GestureRecognition
             }
         }
 
-        protected virtual void OnHandSwipeDetected(Events.HandSwipeEvent handSwipe)
+        protected virtual void OnHandSwipeDetected(HandSwipeEvent handSwipe)
         {
-            EventHandler<Events.HandSwipeEvent> handler = HandSwipeDetected;
+            EventHandler<HandSwipeEvent> handler = HandSwipeDetected;
 
             if (handler != null)
             {
@@ -144,9 +163,9 @@ namespace GestureRecognition
             }
         }
 
-        protected virtual void OnScreenTapDetected(Events.ScreenTapEvent screenTap)
+        protected virtual void OnScreenTapDetected(ScreenTapEvent screenTap)
         {
-            EventHandler<Events.ScreenTapEvent> handler = ScreenTapDetected;
+            EventHandler<ScreenTapEvent> handler = ScreenTapDetected;
 
             if (handler != null)
             {
@@ -155,9 +174,9 @@ namespace GestureRecognition
             }
         }
 
-        protected virtual void OnFistDetected(Events.FistEvent fist)
+        protected virtual void OnFistDetected(FistEvent fist)
         {
-            EventHandler<Events.FistEvent> handler = FistDetected;
+            EventHandler<FistEvent> handler = FistDetected;
 
             if(handler != null)
             {

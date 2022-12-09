@@ -60,7 +60,7 @@ namespace Launcher.Forms
             this.LeapMotionStateLabel.Location = new System.Drawing.Point(17, 43);
             this.LeapMotionStateLabel.Name = "LeapMotionStateLabel";
             this.LeapMotionStateLabel.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
-            this.LeapMotionStateLabel.Size = new System.Drawing.Size(189, 21);
+            this.LeapMotionStateLabel.Size = new System.Drawing.Size(232, 28);
             this.LeapMotionStateLabel.TabIndex = 0;
             this.LeapMotionStateLabel.Text = "Leap Motion Controller:";
             // 
@@ -71,7 +71,7 @@ namespace Launcher.Forms
             this.LeapMotionStateTxt.Location = new System.Drawing.Point(233, 40);
             this.LeapMotionStateTxt.Name = "LeapMotionStateTxt";
             this.LeapMotionStateTxt.ReadOnly = true;
-            this.LeapMotionStateTxt.Size = new System.Drawing.Size(207, 29);
+            this.LeapMotionStateTxt.Size = new System.Drawing.Size(207, 34);
             this.LeapMotionStateTxt.TabIndex = 1;
             // 
             // SelectedScreenReader
@@ -80,9 +80,9 @@ namespace Launcher.Forms
             this.SelectedScreenReader.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SelectedScreenReader.Location = new System.Drawing.Point(17, 84);
             this.SelectedScreenReader.Name = "SelectedScreenReader";
-            this.SelectedScreenReader.Size = new System.Drawing.Size(189, 21);
+            this.SelectedScreenReader.Size = new System.Drawing.Size(224, 28);
             this.SelectedScreenReader.TabIndex = 2;
-            this.SelectedScreenReader.Text = "Selected Screen Reader:";
+            this.SelectedScreenReader.Text = "Selected screen reader:";
             // 
             // ScreenReaderComboBox
             // 
@@ -91,7 +91,7 @@ namespace Launcher.Forms
             this.ScreenReaderComboBox.FormattingEnabled = true;
             this.ScreenReaderComboBox.Location = new System.Drawing.Point(233, 81);
             this.ScreenReaderComboBox.Name = "ScreenReaderComboBox";
-            this.ScreenReaderComboBox.Size = new System.Drawing.Size(121, 29);
+            this.ScreenReaderComboBox.Size = new System.Drawing.Size(121, 36);
             this.ScreenReaderComboBox.TabIndex = 3;
             this.ScreenReaderComboBox.SelectedIndexChanged += new System.EventHandler(this.ScreenReaderComboBox_SelectedIndexChanged);
             // 
@@ -167,7 +167,7 @@ namespace Launcher.Forms
             this.HomeHeader.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
             this.HomeHeader.Location = new System.Drawing.Point(23, 19);
             this.HomeHeader.Name = "HomeHeader";
-            this.HomeHeader.Size = new System.Drawing.Size(55, 21);
+            this.HomeHeader.Size = new System.Drawing.Size(68, 28);
             this.HomeHeader.TabIndex = 0;
             this.HomeHeader.Text = "Home";
             // 
@@ -219,7 +219,7 @@ namespace Launcher.Forms
             this.GestureControlLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
             this.GestureControlLabel.Location = new System.Drawing.Point(27, 16);
             this.GestureControlLabel.Name = "GestureControlLabel";
-            this.GestureControlLabel.Size = new System.Drawing.Size(130, 21);
+            this.GestureControlLabel.Size = new System.Drawing.Size(161, 28);
             this.GestureControlLabel.TabIndex = 0;
             this.GestureControlLabel.Text = "Gesture Control:";
             // 
