@@ -54,6 +54,8 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="LeapCSharp.NET4.0">
@@ -69,7 +71,6 @@
     <Compile Include="Events\ScreenTapEvent.cs" />
     <Compile Include="Events\HandSwipeEvent.cs" />
     <Compile Include="Gestures\Fist.cs" />
-    <Compile Include="Gestures\ThumbsUp.cs" />
     <Compile Include="Gestures\CustomGesture.cs" />
     <Compile Include="Gestures\HandSwipe.cs" />
     <Compile Include="Events\CircleEvent.cs" />

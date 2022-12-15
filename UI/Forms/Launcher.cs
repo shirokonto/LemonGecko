@@ -11,7 +11,6 @@ namespace Launcher.Forms
         private Home home;
         private Settings settings;
         private HelpView helpView;
-        private About about;
 
         public Launcher()
         {            
@@ -64,18 +63,6 @@ namespace Launcher.Forms
             this.ContentPanel.Controls.Add(helpView);
             helpView.Show();
             helpView.Focus();
-        }
-
-        private void AboutButton_Click(object sender, EventArgs e)
-        {
-            CloseOtherChildrenForms();
-            if ((about == null) || (about.IsDisposed))
-                about = new About() { Dock = DockStyle.Fill };
-
-            about.MdiParent = this;
-            this.ContentPanel.Controls.Add(about);
-            about.Show();
-            about.Focus();
         }
     }
 }

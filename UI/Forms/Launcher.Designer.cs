@@ -155,29 +155,6 @@ namespace Launcher.Forms
             this.HelpBtn.UseVisualStyleBackColor = true;
             this.HelpBtn.Click += new System.EventHandler(this.HelpBtn_Click);
             // 
-            // AboutPanel
-            // 
-            this.AboutPanel.Controls.Add(this.AboutButton);
-            this.AboutPanel.Location = new System.Drawing.Point(3, 268);
-            this.AboutPanel.Name = "AboutPanel";
-            this.AboutPanel.Size = new System.Drawing.Size(167, 45);
-            this.AboutPanel.TabIndex = 4;
-            // 
-            // AboutButton
-            // 
-            this.AboutButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AboutButton.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AboutButton.ForeColor = System.Drawing.Color.White;
-            this.AboutButton.Location = new System.Drawing.Point(0, 0);
-            this.AboutButton.Name = "AboutButton";
-            this.AboutButton.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
-            this.AboutButton.Size = new System.Drawing.Size(167, 45);
-            this.AboutButton.TabIndex = 0;
-            this.AboutButton.Text = "About";
-            this.AboutButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.AboutButton.UseVisualStyleBackColor = true;
-            this.AboutButton.Click += new System.EventHandler(this.AboutButton_Click);
-            // 
             // ContentPanel
             // 
             this.ContentPanel.Dock = System.Windows.Forms.DockStyle.Fill;
