@@ -53,20 +53,12 @@ namespace GestureRecognition
 
         public override void OnConnect(Controller controller)
         {            
-            Console.WriteLine("Connected");            
-        }
-
-        public override void OnServiceDisconnect(Controller controller)
-        {
-            Console.WriteLine("Service disconnected");
-            base.OnServiceDisconnect(controller);
-            //TODO stop session of app 
-            //do it with an event
+            Print("Connected");            
         }
 
         public override void OnDisconnect(Controller controller)
         {
-            Console.WriteLine("Disconnected");
+            Print("Disconnected");
             base.OnDisconnect(controller);
             DisconnectEvent disconnectEvent = new DisconnectEvent(controller);
             OnDisconnectDetected(disconnectEvent);

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
@@ -30,7 +29,6 @@ namespace Launcher.Forms
 
         private void LoadScreenReaderComboBox()
         {
-            //allScreenReader =JsonParser.GetAllScreenReader
             allScreenReader = jsonParser.GetAllScreenReader();
             foreach (ScreenReaderItem item in allScreenReader)
             {
@@ -95,15 +93,9 @@ namespace Launcher.Forms
             selectedScreenReader.CircleClockwise = keyCodeMappingHelper.GetCodeForKey(CircleClockwiseTextBox.Text, CircleClockwiseTextBox2.Text);
             selectedScreenReader.CircleCounterClockwise = keyCodeMappingHelper.GetCodeForKey(CircleCounterClockwiseTextBox.Text, CircleCounterClockwiseTextBox2.Text);
             selectedScreenReader.Fist = keyCodeMappingHelper.GetCodeForKey(FistTextBox.Text, FistTextBox2.Text);
-            //if yes
             //save changes
-
             jsonParser.SaveChangesToJson(selectedScreenReader);
-            //LoadTableWithMapping();
             LoadKeyMappings();
-
-            //if no 
-                //do nothing
         }
 
         private void CancelButton_Click(object sender, EventArgs e)

@@ -572,7 +572,6 @@ namespace Launcher.Forms
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel3;
-        //private System.Windows.Forms.DataGridView KeyMappingDataGridView;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ComboBox ScreenReaderComboBox;
         private System.Windows.Forms.Label SelectedScreenReader;

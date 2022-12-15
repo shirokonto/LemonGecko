@@ -91,6 +91,7 @@
     <Compile Include="Forms\Home.Designer.cs">
       <DependentUpon>Home.cs</DependentUpon>
     </Compile>
+    <Compile Include="GestureMapper.cs" />
     <Compile Include="KeyMappingHelper.cs" />
     <Compile Include="KeyCodeObj.cs" />
     <Compile Include="JsonParser.cs" />
@@ -126,7 +127,6 @@
     <EmbeddedResource Include="Forms\Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="ClassDiagram1.cd" />
     <None Include="GestureKeyMapping.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
