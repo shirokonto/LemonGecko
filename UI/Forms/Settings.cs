@@ -77,7 +77,7 @@ namespace Launcher.Forms
             LoadKeyMappings();
         }
 
-        private void BackToNavButton_Click(object sender, EventArgs e)
+        private void BackToMenuButton_Click(object sender, EventArgs e)
         {
             this.Close();
         }

@@ -49,6 +49,7 @@ namespace Launcher
         private void HandleDisconnect(object sender, GestureRecognition.Events.DisconnectEvent disconnect)
         {
             Console.WriteLine("Controller disconnected");
+
         }
         private void HandleCircle(object sender, GestureRecognition.Events.CircleEvent circleEvent)
         {

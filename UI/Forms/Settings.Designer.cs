@@ -31,7 +31,7 @@ namespace Launcher.Forms
         {
             this.SettingsLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.BackToNavButton = new System.Windows.Forms.Button();
+            this.BackToMenuButton = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -92,22 +92,22 @@ namespace Launcher.Forms
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.BackToNavButton);
+            this.panel1.Controls.Add(this.BackToMenuButton);
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(524, 48);
             this.panel1.TabIndex = 1;
             // 
-            // BackToNavButton
+            // BackToMenuButton
             // 
-            this.BackToNavButton.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BackToNavButton.Location = new System.Drawing.Point(13, 9);
-            this.BackToNavButton.Name = "BackToNavButton";
-            this.BackToNavButton.Size = new System.Drawing.Size(205, 32);
-            this.BackToNavButton.TabIndex = 0;
-            this.BackToNavButton.Text = "Back To Navigation";
-            this.BackToNavButton.UseVisualStyleBackColor = true;
-            this.BackToNavButton.Click += new System.EventHandler(this.BackToNavButton_Click);
+            this.BackToMenuButton.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BackToMenuButton.Location = new System.Drawing.Point(13, 9);
+            this.BackToMenuButton.Name = "BackToMenuButton";
+            this.BackToMenuButton.Size = new System.Drawing.Size(205, 32);
+            this.BackToMenuButton.TabIndex = 0;
+            this.BackToMenuButton.Text = "Back To Menu";
+            this.BackToMenuButton.UseVisualStyleBackColor = true;
+            this.BackToMenuButton.Click += new System.EventHandler(this.BackToMenuButton_Click);
             // 
             // panel2
             // 
@@ -568,7 +568,7 @@ namespace Launcher.Forms
 
         private System.Windows.Forms.FlowLayoutPanel SettingsLayoutPanel;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button BackToNavButton;
+        private System.Windows.Forms.Button BackToMenuButton;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel3;

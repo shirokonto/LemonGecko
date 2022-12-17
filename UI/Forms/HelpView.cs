@@ -17,7 +17,7 @@ namespace Launcher.Forms
             InitializeComponent();
         }
 
-        private void BackToNavButton_Click(object sender, EventArgs e)
+        private void BackToMenuButton_Click(object sender, EventArgs e)
         {
             this.Close();
         }

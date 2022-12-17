@@ -72,7 +72,7 @@ namespace Launcher.Forms
             }
         }
 
-        private void BackToNavBtn_Click(object sender, EventArgs e)
+        private void BackToMenuBtn_Click(object sender, EventArgs e)
         {
             this.Close();
         }
