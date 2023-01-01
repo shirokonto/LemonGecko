@@ -75,6 +75,7 @@ namespace Launcher.Forms
             // 
             // pictureBox1
             // 
+            this.pictureBox1.AccessibleDescription = "A drawing of a gecko head sticking out of a lemon";
             this.pictureBox1.ErrorImage = null;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.ImageLocation = "";

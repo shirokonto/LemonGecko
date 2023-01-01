@@ -29,6 +29,7 @@ namespace Launcher.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Home));
             this.LeapMotionStateLabel = new System.Windows.Forms.Label();
             this.LeapMotionStateTxt = new System.Windows.Forms.TextBox();
             this.SelectedScreenReader = new System.Windows.Forms.Label();
@@ -44,13 +45,15 @@ namespace Launcher.Forms
             this.panel4 = new System.Windows.Forms.Panel();
             this.StopGestureControlButton = new System.Windows.Forms.Button();
             this.StartGestureControlButton = new System.Windows.Forms.Button();
-            this.GestureControlLabel = new System.Windows.Forms.Label();
+            this.SessionGroupBox = new System.Windows.Forms.GroupBox();
+            this.SessionExplanation = new System.Windows.Forms.TextBox();
             this.DeviceStatus.SuspendLayout();
             this.panel1.SuspendLayout();
             this.HomeLayoutPanel.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
+            this.SessionGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // LeapMotionStateLabel
@@ -133,7 +136,7 @@ namespace Launcher.Forms
             // BackToMenuBtn
             // 
             this.BackToMenuBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BackToMenuBtn.Location = new System.Drawing.Point(13, 13);
+            this.BackToMenuBtn.Location = new System.Drawing.Point(13, 9);
             this.BackToMenuBtn.Name = "BackToMenuBtn";
             this.BackToMenuBtn.Size = new System.Drawing.Size(205, 32);
             this.BackToMenuBtn.TabIndex = 0;
@@ -160,14 +163,14 @@ namespace Launcher.Forms
             this.panel2.Controls.Add(this.HomeHeader);
             this.panel2.Location = new System.Drawing.Point(3, 57);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(524, 52);
+            this.panel2.Size = new System.Drawing.Size(524, 35);
             this.panel2.TabIndex = 7;
             // 
             // HomeHeader
             // 
             this.HomeHeader.AutoSize = true;
             this.HomeHeader.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
-            this.HomeHeader.Location = new System.Drawing.Point(23, 19);
+            this.HomeHeader.Location = new System.Drawing.Point(23, 7);
             this.HomeHeader.Name = "HomeHeader";
             this.HomeHeader.Size = new System.Drawing.Size(55, 21);
             this.HomeHeader.TabIndex = 0;
@@ -176,25 +179,23 @@ namespace Launcher.Forms
             // panel3
             // 
             this.panel3.Controls.Add(this.DeviceStatus);
-            this.panel3.Location = new System.Drawing.Point(3, 115);
+            this.panel3.Location = new System.Drawing.Point(3, 98);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(524, 196);
             this.panel3.TabIndex = 8;
             // 
             // panel4
             // 
-            this.panel4.Controls.Add(this.StopGestureControlButton);
-            this.panel4.Controls.Add(this.StartGestureControlButton);
-            this.panel4.Controls.Add(this.GestureControlLabel);
-            this.panel4.Location = new System.Drawing.Point(3, 317);
+            this.panel4.Controls.Add(this.SessionGroupBox);
+            this.panel4.Location = new System.Drawing.Point(3, 300);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(524, 173);
+            this.panel4.Size = new System.Drawing.Size(524, 216);
             this.panel4.TabIndex = 9;
             // 
             // StopGestureControlButton
             // 
             this.StopGestureControlButton.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StopGestureControlButton.Location = new System.Drawing.Point(185, 99);
+            this.StopGestureControlButton.Location = new System.Drawing.Point(159, 132);
             this.StopGestureControlButton.Name = "StopGestureControlButton";
             this.StopGestureControlButton.Padding = new System.Windows.Forms.Padding(2);
             this.StopGestureControlButton.Size = new System.Drawing.Size(103, 32);
@@ -206,7 +207,7 @@ namespace Launcher.Forms
             // StartGestureControlButton
             // 
             this.StartGestureControlButton.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StartGestureControlButton.Location = new System.Drawing.Point(185, 51);
+            this.StartGestureControlButton.Location = new System.Drawing.Point(21, 132);
             this.StartGestureControlButton.Name = "StartGestureControlButton";
             this.StartGestureControlButton.Padding = new System.Windows.Forms.Padding(2);
             this.StartGestureControlButton.Size = new System.Drawing.Size(103, 32);
@@ -215,19 +216,33 @@ namespace Launcher.Forms
             this.StartGestureControlButton.UseVisualStyleBackColor = true;
             this.StartGestureControlButton.Click += new System.EventHandler(this.StartGestureControlButton_Click);
             // 
-            // GestureControlLabel
+            // SessionGroupBox
             // 
-            this.GestureControlLabel.AutoSize = true;
-            this.GestureControlLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
-            this.GestureControlLabel.Location = new System.Drawing.Point(27, 16);
-            this.GestureControlLabel.Name = "GestureControlLabel";
-            this.GestureControlLabel.Size = new System.Drawing.Size(130, 21);
-            this.GestureControlLabel.TabIndex = 0;
-            this.GestureControlLabel.Text = "Gesture Control:";
+            this.SessionGroupBox.Controls.Add(this.SessionExplanation);
+            this.SessionGroupBox.Controls.Add(this.StartGestureControlButton);
+            this.SessionGroupBox.Controls.Add(this.StopGestureControlButton);
+            this.SessionGroupBox.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
+            this.SessionGroupBox.Location = new System.Drawing.Point(23, 9);
+            this.SessionGroupBox.Name = "SessionGroupBox";
+            this.SessionGroupBox.Size = new System.Drawing.Size(446, 188);
+            this.SessionGroupBox.TabIndex = 0;
+            this.SessionGroupBox.TabStop = false;
+            this.SessionGroupBox.Text = "Session";
+            // 
+            // SessionExplanation
+            // 
+            this.SessionExplanation.Cursor = System.Windows.Forms.Cursors.Default;
+            this.SessionExplanation.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.SessionExplanation.Location = new System.Drawing.Point(21, 36);
+            this.SessionExplanation.Multiline = true;
+            this.SessionExplanation.Name = "SessionExplanation";
+            this.SessionExplanation.ReadOnly = true;
+            this.SessionExplanation.Size = new System.Drawing.Size(419, 68);
+            this.SessionExplanation.TabIndex = 4;
+            this.SessionExplanation.Text = resources.GetString("SessionExplanation.Text");
             // 
             // Home
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.ClientSize = new System.Drawing.Size(527, 516);
             this.ControlBox = false;
@@ -243,7 +258,8 @@ namespace Launcher.Forms
             this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
+            this.SessionGroupBox.ResumeLayout(false);
+            this.SessionGroupBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -265,6 +281,7 @@ namespace Launcher.Forms
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Button StopGestureControlButton;
         private System.Windows.Forms.Button StartGestureControlButton;
-        private System.Windows.Forms.Label GestureControlLabel;
+        private System.Windows.Forms.GroupBox SessionGroupBox;
+        private System.Windows.Forms.TextBox SessionExplanation;
     }
 }

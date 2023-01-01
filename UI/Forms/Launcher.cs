@@ -47,6 +47,11 @@ namespace Launcher.Forms
             {
                 for (int i = 0; i <= activeControls.Count; i++)
                 {
+                    if(activeControls[i] is Form)
+                    {
+                        ((Form)activeControls[i]).Close();
+                        return;
+                    }                    
                     this.ContentPanel.Controls.Remove(activeControls[i]);
                 }
             }

@@ -94,7 +94,7 @@ namespace Launcher.Forms
             this.panel4.Controls.Add(this.HelpHeader);
             this.panel4.Location = new System.Drawing.Point(3, 57);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(524, 52);
+            this.panel4.Size = new System.Drawing.Size(524, 35);
             this.panel4.TabIndex = 2;
             // 
             // HelpHeader
@@ -102,7 +102,7 @@ namespace Launcher.Forms
             this.HelpHeader.AccessibleName = "testetset";
             this.HelpHeader.AutoSize = true;
             this.HelpHeader.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
-            this.HelpHeader.Location = new System.Drawing.Point(23, 19);
+            this.HelpHeader.Location = new System.Drawing.Point(23, 7);
             this.HelpHeader.Name = "HelpHeader";
             this.HelpHeader.Size = new System.Drawing.Size(45, 21);
             this.HelpHeader.TabIndex = 0;
@@ -111,7 +111,7 @@ namespace Launcher.Forms
             // panel2
             // 
             this.panel2.Controls.Add(this.GestureExplanationGroupBox);
-            this.panel2.Location = new System.Drawing.Point(3, 115);
+            this.panel2.Location = new System.Drawing.Point(3, 98);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(524, 250);
             this.panel2.TabIndex = 3;
@@ -219,7 +219,7 @@ namespace Launcher.Forms
             // panel3
             // 
             this.panel3.Controls.Add(this.LeapMotionExplanationGroupBox);
-            this.panel3.Location = new System.Drawing.Point(3, 371);
+            this.panel3.Location = new System.Drawing.Point(3, 354);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(524, 145);
             this.panel3.TabIndex = 4;

@@ -92,7 +92,6 @@
       <DependentUpon>Home.cs</DependentUpon>
     </Compile>
     <Compile Include="GestureMapper.cs" />
-    <Compile Include="KeyCodeMapper.cs" />
     <Compile Include="KeyMappingHelper.cs" />
     <Compile Include="KeyCodeObj.cs" />
     <Compile Include="JsonParser.cs" />
