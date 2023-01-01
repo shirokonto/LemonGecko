@@ -132,7 +132,7 @@ namespace Launcher.Forms
             this.panel3.Controls.Add(this.groupBox1);
             this.panel3.Location = new System.Drawing.Point(3, 98);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(524, 406);
+            this.panel3.Size = new System.Drawing.Size(524, 418);
             this.panel3.TabIndex = 3;
             // 
             // groupBox1
@@ -546,7 +546,6 @@ namespace Launcher.Forms
             // 
             // Settings
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.ClientSize = new System.Drawing.Size(527, 516);
             this.Controls.Add(this.SettingsLayoutPanel);

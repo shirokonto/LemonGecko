@@ -188,6 +188,8 @@ namespace Launcher.Forms
             // 
             // Launcher
             // 
+            this.AccessibleDescription = "Leap Motion Gesture Control";
+            this.AccessibleName = "Lemon Gecko";
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(700, 516);

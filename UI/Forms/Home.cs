@@ -12,6 +12,7 @@ namespace Launcher.Forms
         private ScreenReaderItem currentScreenReader;
         private bool controllerConnected;
         private bool sessionInProgress = false;
+        private bool sessionCanBeStarted = false;
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         private static extern int SendMessage(IntPtr hWnd, int msg, int wParam, [MarshalAs(UnmanagedType.LPWStr)] string lParam);
         private const int CB_SETCUEBANNER = 0x1703;
@@ -68,8 +69,12 @@ namespace Launcher.Forms
             else
             {
                 LeapMotionStateTxt.Text = "Not Connected";
-                StartGestureControlButton.Enabled = false;
             }
+        }
+
+        private bool GetSessionActivation()
+        {
+            return (controllerConnected && currentScreenReader != null) && controllerConnected;
         }
 
         private void BackToMenuBtn_Click(object sender, EventArgs e)
@@ -82,12 +87,12 @@ namespace Launcher.Forms
             if (!sessionInProgress)
             {
                 InitializeScreenReaderSettings();
-                StartGestureControlButton.Enabled =
-                    (controllerConnected && currentScreenReader != null) && controllerConnected;
+                sessionCanBeStarted = GetSessionActivation();
+
             }
             else
             {
-                MessageBox.Show("Stop current session first"); //TODO Add accessibility settings
+                MessageBox.Show("Stop current session first");
             }            
         }
 
@@ -98,7 +103,8 @@ namespace Launcher.Forms
                 MessageBox.Show("Stop current session first");
                 return;
             }
-            if (currentScreenReader != null)
+            //if (currentScreenReader != null)
+            if (GetSessionActivation())
             {
                 mapper.StartGestureControl();
                 sessionInProgress = true;
@@ -106,6 +112,10 @@ namespace Launcher.Forms
                 System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.StartGestureControlSound);
                 player.Play();
                 this.ParentForm.WindowState = FormWindowState.Minimized;
+            } else
+            {
+                MessageBox.Show("Check state of controller and screenreader");
+                return;
             }
         }
 

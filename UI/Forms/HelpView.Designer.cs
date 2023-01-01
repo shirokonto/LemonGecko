@@ -33,6 +33,8 @@ namespace Launcher.Forms
             this.HelpLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.BackToMenuButton = new System.Windows.Forms.Button();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.HelpHeader = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.GestureExplanationGroupBox = new System.Windows.Forms.GroupBox();
             this.FistTextBox = new System.Windows.Forms.TextBox();
@@ -47,15 +49,13 @@ namespace Launcher.Forms
             this.LeapMotionExplanationGroupBox = new System.Windows.Forms.GroupBox();
             this.LeapMotionExplanationTextBox = new System.Windows.Forms.TextBox();
             this.DownloadLeapMotionSdk = new System.Windows.Forms.Button();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.HelpHeader = new System.Windows.Forms.Label();
             this.HelpLayoutPanel.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.panel2.SuspendLayout();
             this.GestureExplanationGroupBox.SuspendLayout();
             this.panel3.SuspendLayout();
             this.LeapMotionExplanationGroupBox.SuspendLayout();
-            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // HelpLayoutPanel
@@ -76,7 +76,7 @@ namespace Launcher.Forms
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(524, 48);
-            this.panel1.TabIndex = 2;
+            this.panel1.TabIndex = 1;
             // 
             // BackToMenuButton
             // 
@@ -88,6 +88,25 @@ namespace Launcher.Forms
             this.BackToMenuButton.Text = "Back To Menu";
             this.BackToMenuButton.UseVisualStyleBackColor = true;
             this.BackToMenuButton.Click += new System.EventHandler(this.BackToMenuButton_Click);
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.HelpHeader);
+            this.panel4.Location = new System.Drawing.Point(3, 57);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(524, 52);
+            this.panel4.TabIndex = 2;
+            // 
+            // HelpHeader
+            // 
+            this.HelpHeader.AccessibleName = "testetset";
+            this.HelpHeader.AutoSize = true;
+            this.HelpHeader.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
+            this.HelpHeader.Location = new System.Drawing.Point(23, 19);
+            this.HelpHeader.Name = "HelpHeader";
+            this.HelpHeader.Size = new System.Drawing.Size(45, 21);
+            this.HelpHeader.TabIndex = 0;
+            this.HelpHeader.Text = "Help";
             // 
             // panel2
             // 
@@ -238,27 +257,8 @@ namespace Launcher.Forms
             this.DownloadLeapMotionSdk.UseVisualStyleBackColor = true;
             this.DownloadLeapMotionSdk.Click += new System.EventHandler(this.DownloadLeapMotionSdkBtn_Click);
             // 
-            // panel4
-            // 
-            this.panel4.Controls.Add(this.HelpHeader);
-            this.panel4.Location = new System.Drawing.Point(3, 57);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(524, 52);
-            this.panel4.TabIndex = 8;
-            // 
-            // HelpHeader
-            // 
-            this.HelpHeader.AutoSize = true;
-            this.HelpHeader.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
-            this.HelpHeader.Location = new System.Drawing.Point(23, 19);
-            this.HelpHeader.Name = "HelpHeader";
-            this.HelpHeader.Size = new System.Drawing.Size(45, 21);
-            this.HelpHeader.TabIndex = 0;
-            this.HelpHeader.Text = "Help";
-            // 
             // HelpView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.ClientSize = new System.Drawing.Size(527, 516);
             this.Controls.Add(this.HelpLayoutPanel);
@@ -267,14 +267,14 @@ namespace Launcher.Forms
             this.Text = "Help";
             this.HelpLayoutPanel.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.GestureExplanationGroupBox.ResumeLayout(false);
             this.GestureExplanationGroupBox.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.LeapMotionExplanationGroupBox.ResumeLayout(false);
             this.LeapMotionExplanationGroupBox.PerformLayout();
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
             this.ResumeLayout(false);
 
         }
