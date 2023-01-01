@@ -31,16 +31,5 @@
     "CircleClockwise": "{DOWN}",
     "CircleCounterClockwise": "{UP}",
     "Fist": " "
-  },  
-  {
-    "Name": "Dolphin SR",
-    "ScreenTap": "{ENTER}",
-    "HandSwipeRight": "{TAB}",
-    "HandSwipeLeft": "+{TAB}",
-    "HandSwipeUp": "{PGUP}",
-    "HandSwipeDown": "{PGDN}",
-    "CircleClockwise": "{DOWN}",
-    "CircleCounterClockwise": "{UP}",
-    "Fist": " "
   }
 ]

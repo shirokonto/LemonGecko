@@ -173,12 +173,15 @@ namespace Launcher.Forms
             this.HelpBtn.Text = "Help";
             this.HelpBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.HelpBtn.UseVisualStyleBackColor = true;
-            this.HelpBtn.Click += new System.EventHandler(this.HelpBtn_Click);            
+            this.HelpBtn.Click += new System.EventHandler(this.HelpBtn_Click);
             // 
             // ContentPanel
             // 
+            this.ContentPanel.BackColor = System.Drawing.SystemColors.Control;
             this.ContentPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ContentPanel.Location = new System.Drawing.Point(173, 0);
+            this.ContentPanel.MaximumSize = new System.Drawing.Size(527, 516);
+            this.ContentPanel.MinimumSize = new System.Drawing.Size(527, 516);
             this.ContentPanel.Name = "ContentPanel";
             this.ContentPanel.Size = new System.Drawing.Size(527, 516);
             this.ContentPanel.TabIndex = 5;
@@ -218,9 +221,9 @@ namespace Launcher.Forms
         private System.Windows.Forms.Panel HelpPanel;
         private System.Windows.Forms.Button HelpBtn;
         private System.Windows.Forms.Panel MenuPanel;
-        private System.Windows.Forms.Panel ContentPanel;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button SettingsButton;
         private System.Windows.Forms.Label MenuLabel;
+        private System.Windows.Forms.Panel ContentPanel;
     }
 }

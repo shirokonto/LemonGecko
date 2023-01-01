@@ -20,7 +20,7 @@ namespace Launcher
             jsonParser = new JsonParser();
             jsonParser.LoadJsonForGestureMapping();
             IEnumerable<Process> processes =
-                new[] { "Narrator", "nvda", "jfw", "Hal" }
+                new[] { "Narrator", "nvda", "jfw" }
                 .SelectMany(Process.GetProcessesByName);
 
             Process[] screenReaderProcesses = processes.ToArray();
@@ -35,10 +35,6 @@ namespace Launcher
                     if (process.ProcessName == "jfw")
                     {
                         processName = "JAWS";
-                    }
-                    if(process.ProcessName == "Hal")
-                    {
-                        processName = "Dolphin SR";
                     }
                     // search for processName in json and map keys
                     ScreenReaderItem screenReader = jsonParser.GetMappingForScreenReader(processName);

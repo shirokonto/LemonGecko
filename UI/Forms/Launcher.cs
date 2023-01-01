@@ -21,8 +21,7 @@ namespace Launcher.Forms
         {
             CloseOtherChildrenForms();
             if ((home == null) || (home.IsDisposed))
-                home = new Home() { Dock = DockStyle.Fill };
-
+                home = new Home() { Dock = DockStyle.Right };
             home.MdiParent=this;
             this.ContentPanel.Controls.Add(home);
             home.Show();
