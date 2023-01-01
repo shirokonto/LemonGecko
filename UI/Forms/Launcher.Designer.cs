@@ -33,32 +33,32 @@ namespace Launcher.Forms
             this.Sidebar = new System.Windows.Forms.FlowLayoutPanel();
             this.IconPanel = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.MenuPanel = new System.Windows.Forms.Panel();
+            this.MenuLabel = new System.Windows.Forms.Label();
             this.HomePanel = new System.Windows.Forms.Panel();
             this.HomeButton = new System.Windows.Forms.Button();
             this.SettingsPanel = new System.Windows.Forms.Panel();
             this.SettingsButton = new System.Windows.Forms.Button();
             this.HelpPanel = new System.Windows.Forms.Panel();
             this.HelpBtn = new System.Windows.Forms.Button();
-            this.AboutPanel = new System.Windows.Forms.Panel();
-            this.AboutButton = new System.Windows.Forms.Button();
             this.ContentPanel = new System.Windows.Forms.Panel();
             this.Sidebar.SuspendLayout();
             this.IconPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.MenuPanel.SuspendLayout();
             this.HomePanel.SuspendLayout();
             this.SettingsPanel.SuspendLayout();
             this.HelpPanel.SuspendLayout();
-            this.AboutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // Sidebar
             // 
             this.Sidebar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(40)))), ((int)(((byte)(45)))));
             this.Sidebar.Controls.Add(this.IconPanel);
+            this.Sidebar.Controls.Add(this.MenuPanel);
             this.Sidebar.Controls.Add(this.HomePanel);
             this.Sidebar.Controls.Add(this.SettingsPanel);
             this.Sidebar.Controls.Add(this.HelpPanel);
-            this.Sidebar.Controls.Add(this.AboutPanel);
             this.Sidebar.Dock = System.Windows.Forms.DockStyle.Left;
             this.Sidebar.Location = new System.Drawing.Point(0, 0);
             this.Sidebar.Name = "Sidebar";
@@ -86,10 +86,30 @@ namespace Launcher.Forms
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
+            // MenuPanel
+            // 
+            this.MenuPanel.Controls.Add(this.MenuLabel);
+            this.MenuPanel.Location = new System.Drawing.Point(3, 115);
+            this.MenuPanel.Name = "MenuPanel";
+            this.MenuPanel.Size = new System.Drawing.Size(167, 45);
+            this.MenuPanel.TabIndex = 4;
+            // 
+            // MenuLabel
+            // 
+            this.MenuLabel.AutoSize = true;
+            this.MenuLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
+            this.MenuLabel.ForeColor = System.Drawing.Color.White;
+            this.MenuLabel.Location = new System.Drawing.Point(9, 12);
+            this.MenuLabel.Name = "MenuLabel";
+            this.MenuLabel.Size = new System.Drawing.Size(52, 21);
+            this.MenuLabel.TabIndex = 0;
+            this.MenuLabel.Text = "Menu";
+            this.MenuLabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            // 
             // HomePanel
             // 
             this.HomePanel.Controls.Add(this.HomeButton);
-            this.HomePanel.Location = new System.Drawing.Point(3, 115);
+            this.HomePanel.Location = new System.Drawing.Point(3, 166);
             this.HomePanel.Name = "HomePanel";
             this.HomePanel.Size = new System.Drawing.Size(167, 45);
             this.HomePanel.TabIndex = 1;
@@ -112,7 +132,7 @@ namespace Launcher.Forms
             // SettingsPanel
             // 
             this.SettingsPanel.Controls.Add(this.SettingsButton);
-            this.SettingsPanel.Location = new System.Drawing.Point(3, 166);
+            this.SettingsPanel.Location = new System.Drawing.Point(3, 217);
             this.SettingsPanel.Name = "SettingsPanel";
             this.SettingsPanel.Size = new System.Drawing.Size(167, 45);
             this.SettingsPanel.TabIndex = 2;
@@ -135,7 +155,7 @@ namespace Launcher.Forms
             // HelpPanel
             // 
             this.HelpPanel.Controls.Add(this.HelpBtn);
-            this.HelpPanel.Location = new System.Drawing.Point(3, 217);
+            this.HelpPanel.Location = new System.Drawing.Point(3, 268);
             this.HelpPanel.Name = "HelpPanel";
             this.HelpPanel.Size = new System.Drawing.Size(167, 45);
             this.HelpPanel.TabIndex = 3;
@@ -153,7 +173,7 @@ namespace Launcher.Forms
             this.HelpBtn.Text = "Help";
             this.HelpBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.HelpBtn.UseVisualStyleBackColor = true;
-            this.HelpBtn.Click += new System.EventHandler(this.HelpBtn_Click);
+            this.HelpBtn.Click += new System.EventHandler(this.HelpBtn_Click);            
             // 
             // ContentPanel
             // 
@@ -179,10 +199,11 @@ namespace Launcher.Forms
             this.Sidebar.ResumeLayout(false);
             this.IconPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.MenuPanel.ResumeLayout(false);
+            this.MenuPanel.PerformLayout();
             this.HomePanel.ResumeLayout(false);
             this.SettingsPanel.ResumeLayout(false);
             this.HelpPanel.ResumeLayout(false);
-            this.AboutPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -194,12 +215,12 @@ namespace Launcher.Forms
         private System.Windows.Forms.Panel HomePanel;
         private System.Windows.Forms.Button HomeButton;
         private System.Windows.Forms.Panel SettingsPanel;
-        private System.Windows.Forms.Button SettingsButton;
         private System.Windows.Forms.Panel HelpPanel;
         private System.Windows.Forms.Button HelpBtn;
-        private System.Windows.Forms.Panel AboutPanel;
-        private System.Windows.Forms.Button AboutButton;
+        private System.Windows.Forms.Panel MenuPanel;
         private System.Windows.Forms.Panel ContentPanel;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button SettingsButton;
+        private System.Windows.Forms.Label MenuLabel;
     }
 }

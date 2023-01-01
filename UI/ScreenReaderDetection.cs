@@ -7,7 +7,7 @@ namespace Launcher
 {
     /**
      * Detects the currently running screen reader
-     * including JAWS, NVDA, Narrator and Dolphin ScreenReader 
+     * including JAWS, NVDA and Narrator
      */
     class ScreenReaderDetection
     {

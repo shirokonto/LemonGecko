@@ -45,7 +45,6 @@ namespace Launcher
         /**
         * HANDLE EVENTS 
         */
-
         private void HandleDisconnect(object sender, GestureRecognition.Events.DisconnectEvent disconnect)
         {
             Console.WriteLine("Controller disconnected");

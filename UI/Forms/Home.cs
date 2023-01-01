@@ -25,7 +25,7 @@ namespace Launcher.Forms
         }
 
         private void InitializeScreenReaderSettings()
-        {
+        {            
             FillScreenReaderComboBox();
             CheckControllerState();
         }

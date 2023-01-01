@@ -10,7 +10,7 @@ namespace GestureRecognition
         private GestureList gestures = null;
         private Object thisLock = new Object();
         private Controller controller = null;
-        private bool isConnected;
+        private readonly bool isConnected;
 
 
         public event EventHandler<DisconnectEvent> DisconnectDetected;
@@ -33,7 +33,7 @@ namespace GestureRecognition
             isConnected = controller.IsConnected;
 
             //tracks data when app is not in the foreground
-            controller.SetPolicyFlags(Controller.PolicyFlag.POLICY_BACKGROUND_FRAMES);
+            controller.SetPolicy(Controller.PolicyFlag.POLICY_BACKGROUND_FRAMES);
             controller.EnableGesture(Gesture.GestureType.TYPE_CIRCLE);
             controller.EnableGesture(Gesture.GestureType.TYPE_SCREEN_TAP);
             
@@ -53,7 +53,7 @@ namespace GestureRecognition
 
         public override void OnConnect(Controller controller)
         {            
-            Print("Connected");            
+            Print("Connected");
         }
 
         public override void OnDisconnect(Controller controller)
@@ -77,6 +77,7 @@ namespace GestureRecognition
             if (hand.IsValid)
             {
                 gestures = frame.Gestures();
+                //TODO if gestures not null
                 foreach (Gesture gesture in gestures)
                 {
                     if (gesture.State.Equals(Gesture.GestureState.STATESTOP))
@@ -103,7 +104,6 @@ namespace GestureRecognition
                     if (handSwipe.State.Equals(Gestures.GestureState.END))
                     {
                         Print("Hand Swipe Detected");
-
                         HandSwipeEvent swipeEvent = new HandSwipeEvent(handSwipe);
                         OnHandSwipeDetected(swipeEvent);
                     }
@@ -114,7 +114,6 @@ namespace GestureRecognition
                     if (fist.State.Equals(Gestures.GestureState.END))
                     {
                         Print("Fist Detected");
-
                         FistEvent fistEvent = new FistEvent(fist);
                         OnFistDetected(fistEvent);
                     }
