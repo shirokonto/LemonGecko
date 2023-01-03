@@ -14,11 +14,5 @@ namespace Launcher.Forms
         {
             this.Close();
         }
-
-        private void DownloadLeapMotionSdkBtn_Click(object sender, EventArgs e)
-        {
-            //var link = "https://api.leapmotion.com/v2";
-            //open link
-        }
     }
 }

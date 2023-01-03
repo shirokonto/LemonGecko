@@ -24,7 +24,7 @@ namespace Launcher.Forms
             jsonParser.LoadJsonForGestureMapping();
             jsonParser.LoadJsonForKeyMapping();            
             LoadScreenReaderComboBox();
-            LoadKeyMappings();
+            LoadKeyMappings(selectedScreenReader);
         }
 
         private void LoadScreenReaderComboBox()
@@ -42,16 +42,16 @@ namespace Launcher.Forms
             defaultScreenReaderSettings = selectedScreenReader;
         }
 
-        private void LoadKeyMappings()
+        private void LoadKeyMappings(ScreenReaderItem screenreader)
         {
-            FillTextboxes(ScreenTapTextBox, ScreenTapTextBox2, selectedScreenReader.ScreenTap);
-            FillTextboxes(SwipeRightTextBox, SwipeRightTextBox2, selectedScreenReader.HandSwipeRight);
-            FillTextboxes(SwipeLeftTextBox, SwipeLeftTextBox2, selectedScreenReader.HandSwipeLeft);
-            FillTextboxes(SwipeUpTextBox, SwipeUpTextBox2, selectedScreenReader.HandSwipeUp);
-            FillTextboxes(SwipeDownTextBox, SwipeDownTextBox2, selectedScreenReader.HandSwipeDown);
-            FillTextboxes(CircleClockwiseTextBox, CircleClockwiseTextBox2, selectedScreenReader.CircleClockwise);
-            FillTextboxes(CircleCounterClockwiseTextBox, CircleCounterClockwiseTextBox2, selectedScreenReader.CircleCounterClockwise);
-            FillTextboxes(FistTextBox, FistTextBox2, selectedScreenReader.Fist);
+            FillTextboxes(ScreenTapTextBox, ScreenTapTextBox2, screenreader.ScreenTap);
+            FillTextboxes(SwipeRightTextBox, SwipeRightTextBox2, screenreader.HandSwipeRight);
+            FillTextboxes(SwipeLeftTextBox, SwipeLeftTextBox2, screenreader.HandSwipeLeft);
+            FillTextboxes(SwipeUpTextBox, SwipeUpTextBox2, screenreader.HandSwipeUp);
+            FillTextboxes(SwipeDownTextBox, SwipeDownTextBox2, screenreader.HandSwipeDown);
+            FillTextboxes(CircleClockwiseTextBox, CircleClockwiseTextBox2, screenreader.CircleClockwise);
+            FillTextboxes(CircleCounterClockwiseTextBox, CircleCounterClockwiseTextBox2, screenreader.CircleCounterClockwise);
+            FillTextboxes(FistTextBox, FistTextBox2, screenreader.Fist);
         }
 
         private void FillTextboxes(TextBox firstBox, TextBox secondBox, string gesture)
@@ -66,7 +66,7 @@ namespace Launcher.Forms
                 secondBox.Clear();
                 if (commands.Count == 2)
                     secondBox.Text = commands[1];
-            }            
+            }
         }
 
         private void ScreenReaderComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -74,7 +74,7 @@ namespace Launcher.Forms
             // TODO: if changed state is dirty MessageBox abort changes?
             selectedScreenReader = allScreenReader.Where(item => item.Name.Equals(ScreenReaderComboBox.SelectedItem.ToString())).First();
             defaultScreenReaderSettings = selectedScreenReader;
-            LoadKeyMappings();
+            LoadKeyMappings(selectedScreenReader);
         }
 
         private void BackToMenuButton_Click(object sender, EventArgs e)
@@ -95,12 +95,14 @@ namespace Launcher.Forms
             selectedScreenReader.Fist = keyCodeMappingHelper.GetCodeForKey(FistTextBox.Text, FistTextBox2.Text);
             //save changes
             jsonParser.SaveChangesToJson(selectedScreenReader);
-            LoadKeyMappings();
+            defaultScreenReaderSettings = selectedScreenReader;
+            LoadKeyMappings(selectedScreenReader);
         }
 
         private void CancelButton_Click(object sender, EventArgs e)
         {
             //save data from before the changes
+            LoadKeyMappings(defaultScreenReaderSettings);
             //LoadKeys with old data
             //defaultScreenReaderSettings
         }

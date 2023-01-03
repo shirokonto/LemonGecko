@@ -117,7 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="SessionExplanation.Text" xml:space="preserve">
-    <value>Make sure to plugin the Leap Motion Controller and select the active screenreader. Afte starting the session, this window will be minimized and the focus set on the open foreground application. For more information regarding the mapping go to settings, for the execution of gestures go to help.</value>
-  </data>
 </root>

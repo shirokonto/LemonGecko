@@ -117,17 +117,18 @@ namespace Launcher.Forms
             // 
             // HomeButton
             // 
+            this.HomeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(40)))), ((int)(((byte)(45)))));
             this.HomeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.HomeButton.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.HomeButton.ForeColor = System.Drawing.Color.White;
-            this.HomeButton.Location = new System.Drawing.Point(0, 0);
+            this.HomeButton.Location = new System.Drawing.Point(-3, 0);
             this.HomeButton.Name = "HomeButton";
             this.HomeButton.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
-            this.HomeButton.Size = new System.Drawing.Size(167, 45);
+            this.HomeButton.Size = new System.Drawing.Size(173, 45);
             this.HomeButton.TabIndex = 0;
             this.HomeButton.Text = "Home";
             this.HomeButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.HomeButton.UseVisualStyleBackColor = true;
+            this.HomeButton.UseVisualStyleBackColor = false;
             this.HomeButton.Click += new System.EventHandler(this.HomeButton_Click);
             // 
             // SettingsPanel
@@ -143,10 +144,10 @@ namespace Launcher.Forms
             this.SettingsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SettingsButton.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SettingsButton.ForeColor = System.Drawing.Color.White;
-            this.SettingsButton.Location = new System.Drawing.Point(0, 0);
+            this.SettingsButton.Location = new System.Drawing.Point(-3, 0);
             this.SettingsButton.Name = "SettingsButton";
             this.SettingsButton.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
-            this.SettingsButton.Size = new System.Drawing.Size(167, 45);
+            this.SettingsButton.Size = new System.Drawing.Size(173, 45);
             this.SettingsButton.TabIndex = 0;
             this.SettingsButton.Text = "Settings";
             this.SettingsButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -166,10 +167,10 @@ namespace Launcher.Forms
             this.HelpBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.HelpBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.HelpBtn.ForeColor = System.Drawing.Color.White;
-            this.HelpBtn.Location = new System.Drawing.Point(0, 0);
+            this.HelpBtn.Location = new System.Drawing.Point(-3, 0);
             this.HelpBtn.Name = "HelpBtn";
             this.HelpBtn.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
-            this.HelpBtn.Size = new System.Drawing.Size(167, 45);
+            this.HelpBtn.Size = new System.Drawing.Size(173, 45);
             this.HelpBtn.TabIndex = 0;
             this.HelpBtn.Text = "Help";
             this.HelpBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -186,6 +187,7 @@ namespace Launcher.Forms
             this.ContentPanel.Name = "ContentPanel";
             this.ContentPanel.Size = new System.Drawing.Size(527, 516);
             this.ContentPanel.TabIndex = 5;
+            this.ContentPanel.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.ContentPanel_ControlRemoved);
             // 
             // Launcher
             // 

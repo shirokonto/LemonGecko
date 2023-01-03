@@ -117,4 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="SessionExplanation.Text" xml:space="preserve">
+    <value>In order to assign one or two keys to the gestures, the text fields must be unlocked with the space bar. Any key can then be selected. To save the changes, the field must be locked again with the spacebar and the Save button selected. The last changes can be discarded with the Cancel button.</value>
+  </data>
 </root>

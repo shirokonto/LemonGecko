@@ -11,6 +11,8 @@ namespace Launcher.Forms
         private Home home;
         private Settings settings;
         private HelpView helpView;
+        private System.Drawing.Color white = System.Drawing.Color.White;
+        private System.Drawing.Color blueGray = System.Drawing.Color.FromArgb(35, 40, 45);
 
         public Launcher()
         {            
@@ -19,7 +21,7 @@ namespace Launcher.Forms
 
         private void HomeButton_Click(object sender, EventArgs e)
         {
-            CloseOtherChildrenForms();
+            SetFocusAndCloseOtherForms(HomeButton);
             if ((home == null) || (home.IsDisposed))
                 home = new Home() { Dock = DockStyle.Right };
             home.MdiParent=this;
@@ -30,7 +32,7 @@ namespace Launcher.Forms
 
         private void SettingsButton_Click(object sender, EventArgs e)
         {
-            CloseOtherChildrenForms();
+            SetFocusAndCloseOtherForms(SettingsButton);
             if ((settings == null) || (settings.IsDisposed))
                 settings = new Settings() { Dock = DockStyle.Fill };
 
@@ -38,10 +40,11 @@ namespace Launcher.Forms
             this.ContentPanel.Controls.Add(settings);
             settings.Show();
             settings.Focus();
-        }
+        }   
 
-        private void CloseOtherChildrenForms()
+        private void SetFocusAndCloseOtherForms(Button btn)
         {
+            ResetButtonColor(btn, blueGray, white);
             var activeControls = this.ContentPanel.Controls;
             if (activeControls.Count > 0)
             {
@@ -59,7 +62,7 @@ namespace Launcher.Forms
 
         private void HelpBtn_Click(object sender, EventArgs e)
         {            
-            CloseOtherChildrenForms();
+            SetFocusAndCloseOtherForms(HelpBtn);
             if ((helpView == null) || (helpView.IsDisposed))
                 helpView = new HelpView() { Dock = DockStyle.Fill };
 
@@ -67,6 +70,28 @@ namespace Launcher.Forms
             this.ContentPanel.Controls.Add(helpView);
             helpView.Show();
             helpView.Focus();
+        }
+
+        private void ContentPanel_ControlRemoved(object sender, ControlEventArgs e)
+        {
+            switch (e.Control.Name)
+            {
+                case "Home":
+                    ResetButtonColor(HomeButton, white, blueGray);
+                    break;
+                case "Settings":
+                    ResetButtonColor(SettingsButton, white, blueGray);
+                    break;
+                case "HelpView":
+                    ResetButtonColor(HelpBtn, white, blueGray);
+                    break;
+            }
+        }
+
+        private void ResetButtonColor(Button btn, System.Drawing.Color foreColor, System.Drawing.Color backColor)
+        {
+            btn.ForeColor = foreColor;
+            btn.BackColor = backColor;
         }
     }
 }
