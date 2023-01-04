@@ -54,7 +54,7 @@ namespace GestureRecognition.Gestures
                     }
                     sumDistance += distance;
                 }
-                if (sumDistance < threshold && Math.Abs(hand.PalmVelocity.z) > 250)
+                if (sumDistance < threshold && hand.PalmVelocity.z > 400)
                 {
                     Punch fist = new Punch(CustomGestureType.PUNCH, frame);
                     return fist;
