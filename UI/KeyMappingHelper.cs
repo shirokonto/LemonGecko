@@ -69,7 +69,12 @@ namespace Launcher
 
         private string HandleSecondCommand(string key)
         {
-            if (key.Length == 2 && AlphaRegex.IsMatch(key))
+            if(key.Length == 1 && AlphaRegex.IsMatch(key))
+            {               
+                key = "(" + key + ")";
+                return key;
+            }
+            else if (key.Length == 2 && key != "UP"  && AlphaRegex.IsMatch(key))
             {
                 key = key.Remove(1, 1).ToLower();
                 key = "(" + key + ")";
