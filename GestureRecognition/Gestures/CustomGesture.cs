@@ -2,7 +2,7 @@
 
 namespace GestureRecognition.Gestures
 {
-    public enum CustomGestureType { HAND_SWIPE, FIST };
+    public enum CustomGestureType { HAND_SWIPE, PUNCH };
     public enum GestureState { NA, START, MIDDLE, END };
     public class CustomGesture
     {

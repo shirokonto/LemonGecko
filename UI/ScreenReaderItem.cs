@@ -15,6 +15,6 @@ namespace Launcher
         public string HandSwipeDown { get; set; }
         public string CircleClockwise { get; set; }
         public string CircleCounterClockwise { get; set; }
-        public string Fist { get; set;}
+        public string Punch { get; set;}
     }
 }

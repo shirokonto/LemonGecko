@@ -3,18 +3,18 @@ using Leap;
 
 namespace GestureRecognition.Gestures
 {
-    public class Fist : CustomGesture
+    public class Punch : CustomGesture
     {
-        private static Fist _fist = null;        
+        private static Punch _punch = null;        
 
-        public Fist(CustomGestureType type, Frame frame) : base(type, frame)
+        public Punch(CustomGestureType type, Frame frame) : base(type, frame)
         {
-            if(_fist != null){
-                if (_fist.State.Equals(GestureState.NA))
+            if(_punch != null){
+                if (_punch.State.Equals(GestureState.NA))
                 {
                     _state = GestureState.START;
                 }
-                else if (_fist.State.Equals(GestureState.END))
+                else if (_punch.State.Equals(GestureState.END))
                 {
                     _state = GestureState.NA;
                 }
@@ -23,16 +23,16 @@ namespace GestureRecognition.Gestures
                     _state = GestureState.MIDDLE;
                 }
             }
-            _fist = this;
+            _punch = this;
         }
 
-        public static Fist IsFist(Frame frame)
+        public static Punch IsPunch(Frame frame)
         {
             if (frame.IsValid)
             {
                 HandList hands = frame.Hands;
                 Hand hand = hands[0];
-                double threshold = 260.0;
+                double threshold = 253.0;
                 double sumDistance = 0;
                 Vector palmPositionVector = hand.PalmPosition;
 
@@ -44,7 +44,7 @@ namespace GestureRecognition.Gestures
                 for (int i = 0; i < hand.Fingers.Count; i++)
                 {                    
                     double distance = CalculateDistance(palmPositionVector, hand.Fingers[i].StabilizedTipPosition);
-                    if(hand.Fingers[i].Type == Finger.FingerType.TYPE_INDEX && hand.Fingers[i].IsExtended) // TODO at start it will be extended
+                    if(hand.Fingers[i].Type == Finger.FingerType.TYPE_INDEX && hand.Fingers[i].IsExtended)
                     {
                         return null;
                     }
@@ -52,20 +52,20 @@ namespace GestureRecognition.Gestures
                 }
                 if (sumDistance < threshold)
                 {
-                    Fist fist = new Fist(CustomGestureType.FIST, frame);
+                    Punch fist = new Punch(CustomGestureType.PUNCH, frame);
                     return fist;
                 }
-                else if (_fist != null)
+                else if (_punch != null)
                 {
-                    if (_fist.State.Equals(GestureState.END) || _fist.State.Equals(GestureState.NA))
+                    if (_punch.State.Equals(GestureState.END) || _punch.State.Equals(GestureState.NA))
                     {
-                        _fist._state = GestureState.NA;
-                        return _fist;
+                        _punch._state = GestureState.NA;
+                        return _punch;
                     }
                     else
                     {
-                        _fist._state = GestureState.END;
-                        return _fist;
+                        _punch._state = GestureState.END;
+                        return _punch;
                     }
                 }
                 

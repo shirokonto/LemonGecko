@@ -8,7 +8,7 @@
     "HandSwipeDown": "{PGDN}",
     "CircleClockwise": "{DOWN}",
     "CircleCounterClockwise": "{UP}",
-    "Fist": " "
+    "Punch": " "
   },
   {
     "Name": "nvda",
@@ -19,7 +19,7 @@
     "HandSwipeDown": "{PGDN}",
     "CircleClockwise": "{DOWN}",
     "CircleCounterClockwise": "{UP}",
-    "Fist": " "
+    "Punch": " "
   },
   {
     "Name": "Narrator",
@@ -30,6 +30,6 @@
     "HandSwipeDown": "{PGDN}",
     "CircleClockwise": "{DOWN}",
     "CircleCounterClockwise": "{UP}",
-    "Fist": " "
+    "Punch": " "
   }
 ]

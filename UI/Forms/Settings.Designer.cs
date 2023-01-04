@@ -32,8 +32,8 @@ namespace Launcher.Forms
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Settings));
             this.SettingsLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.BackToMenuButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.BackToMenuButton = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.SessionExplanation = new System.Windows.Forms.TextBox();
@@ -43,9 +43,9 @@ namespace Launcher.Forms
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.SaveButton = new System.Windows.Forms.Button();
-            this.FistTextBox2 = new System.Windows.Forms.TextBox();
+            this.PunchTextBox2 = new System.Windows.Forms.TextBox();
             this.CancelBtn = new System.Windows.Forms.Button();
-            this.FistTextBox = new System.Windows.Forms.TextBox();
+            this.PunchTextBox = new System.Windows.Forms.TextBox();
             this.CircleCounterClockwiseTextBox2 = new System.Windows.Forms.TextBox();
             this.CircleCounterClockwiseTextBox = new System.Windows.Forms.TextBox();
             this.CircleClockwiseTextBox2 = new System.Windows.Forms.TextBox();
@@ -63,7 +63,7 @@ namespace Launcher.Forms
             this.ScreenTap2Label = new System.Windows.Forms.Label();
             this.ScreenTapTextBox2 = new System.Windows.Forms.TextBox();
             this.ScreenTapTextBox = new System.Windows.Forms.TextBox();
-            this.FistLabel = new System.Windows.Forms.Label();
+            this.PunchLabel = new System.Windows.Forms.Label();
             this.CircleCounterClockwiseLabel = new System.Windows.Forms.Label();
             this.CircleClockwiseLabel = new System.Windows.Forms.Label();
             this.SwipeDownLabel = new System.Windows.Forms.Label();
@@ -98,17 +98,6 @@ namespace Launcher.Forms
             this.panel1.Size = new System.Drawing.Size(524, 48);
             this.panel1.TabIndex = 1;
             // 
-            // BackToMenuButton
-            // 
-            this.BackToMenuButton.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BackToMenuButton.Location = new System.Drawing.Point(13, 9);
-            this.BackToMenuButton.Name = "BackToMenuButton";
-            this.BackToMenuButton.Size = new System.Drawing.Size(205, 32);
-            this.BackToMenuButton.TabIndex = 0;
-            this.BackToMenuButton.Text = "Back To Menu";
-            this.BackToMenuButton.UseVisualStyleBackColor = true;
-            this.BackToMenuButton.Click += new System.EventHandler(this.BackToMenuButton_Click);
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -118,6 +107,17 @@ namespace Launcher.Forms
             this.label1.Size = new System.Drawing.Size(70, 21);
             this.label1.TabIndex = 0;
             this.label1.Text = "Settings";
+            // 
+            // BackToMenuButton
+            // 
+            this.BackToMenuButton.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BackToMenuButton.Location = new System.Drawing.Point(23, 9);
+            this.BackToMenuButton.Name = "BackToMenuButton";
+            this.BackToMenuButton.Size = new System.Drawing.Size(149, 32);
+            this.BackToMenuButton.TabIndex = 0;
+            this.BackToMenuButton.Text = "Back To Menu";
+            this.BackToMenuButton.UseVisualStyleBackColor = true;
+            this.BackToMenuButton.Click += new System.EventHandler(this.BackToMenuButton_Click);
             // 
             // panel3
             // 
@@ -136,9 +136,9 @@ namespace Launcher.Forms
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.SaveButton);
-            this.groupBox1.Controls.Add(this.FistTextBox2);
+            this.groupBox1.Controls.Add(this.PunchTextBox2);
             this.groupBox1.Controls.Add(this.CancelBtn);
-            this.groupBox1.Controls.Add(this.FistTextBox);
+            this.groupBox1.Controls.Add(this.PunchTextBox);
             this.groupBox1.Controls.Add(this.CircleCounterClockwiseTextBox2);
             this.groupBox1.Controls.Add(this.CircleCounterClockwiseTextBox);
             this.groupBox1.Controls.Add(this.CircleClockwiseTextBox2);
@@ -156,7 +156,7 @@ namespace Launcher.Forms
             this.groupBox1.Controls.Add(this.ScreenTap2Label);
             this.groupBox1.Controls.Add(this.ScreenTapTextBox2);
             this.groupBox1.Controls.Add(this.ScreenTapTextBox);
-            this.groupBox1.Controls.Add(this.FistLabel);
+            this.groupBox1.Controls.Add(this.PunchLabel);
             this.groupBox1.Controls.Add(this.CircleCounterClockwiseLabel);
             this.groupBox1.Controls.Add(this.CircleClockwiseLabel);
             this.groupBox1.Controls.Add(this.SwipeDownLabel);
@@ -249,15 +249,15 @@ namespace Launcher.Forms
             this.SaveButton.UseVisualStyleBackColor = true;
             this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
-            // FistTextBox2
+            // PunchTextBox2
             // 
-            this.FistTextBox2.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            this.FistTextBox2.Location = new System.Drawing.Point(287, 383);
-            this.FistTextBox2.Name = "FistTextBox2";
-            this.FistTextBox2.ReadOnly = true;
-            this.FistTextBox2.Size = new System.Drawing.Size(73, 25);
-            this.FistTextBox2.TabIndex = 39;
-            this.FistTextBox2.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.FistTextBox2_PreviewKeyDown);
+            this.PunchTextBox2.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            this.PunchTextBox2.Location = new System.Drawing.Point(287, 383);
+            this.PunchTextBox2.Name = "PunchTextBox2";
+            this.PunchTextBox2.ReadOnly = true;
+            this.PunchTextBox2.Size = new System.Drawing.Size(73, 25);
+            this.PunchTextBox2.TabIndex = 39;
+            this.PunchTextBox2.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.PunchTextBox2_PreviewKeyDown);
             // 
             // CancelBtn
             // 
@@ -270,15 +270,15 @@ namespace Launcher.Forms
             this.CancelBtn.UseVisualStyleBackColor = true;
             this.CancelBtn.Click += new System.EventHandler(this.CancelButton_Click);
             // 
-            // FistTextBox
+            // PunchTextBox
             // 
-            this.FistTextBox.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            this.FistTextBox.Location = new System.Drawing.Point(183, 383);
-            this.FistTextBox.Name = "FistTextBox";
-            this.FistTextBox.ReadOnly = true;
-            this.FistTextBox.Size = new System.Drawing.Size(73, 25);
-            this.FistTextBox.TabIndex = 37;
-            this.FistTextBox.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.FistTextBox_PreviewKeyDown);
+            this.PunchTextBox.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            this.PunchTextBox.Location = new System.Drawing.Point(183, 383);
+            this.PunchTextBox.Name = "PunchTextBox";
+            this.PunchTextBox.ReadOnly = true;
+            this.PunchTextBox.Size = new System.Drawing.Size(73, 25);
+            this.PunchTextBox.TabIndex = 37;
+            this.PunchTextBox.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.PunchTextBox_PreviewKeyDown);
             // 
             // CircleCounterClockwiseTextBox2
             // 
@@ -450,15 +450,15 @@ namespace Launcher.Forms
             this.ScreenTapTextBox.TabIndex = 9;
             this.ScreenTapTextBox.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.ScreenTapTextBox_PreviewKeyDown);
             // 
-            // FistLabel
+            // PunchLabel
             // 
-            this.FistLabel.AutoSize = true;
-            this.FistLabel.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FistLabel.Location = new System.Drawing.Point(21, 386);
-            this.FistLabel.Name = "FistLabel";
-            this.FistLabel.Size = new System.Drawing.Size(34, 17);
-            this.FistLabel.TabIndex = 36;
-            this.FistLabel.Text = "Fist:";
+            this.PunchLabel.AutoSize = true;
+            this.PunchLabel.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PunchLabel.Location = new System.Drawing.Point(21, 386);
+            this.PunchLabel.Name = "PunchLabel";
+            this.PunchLabel.Size = new System.Drawing.Size(50, 17);
+            this.PunchLabel.TabIndex = 36;
+            this.PunchLabel.Text = "Punch:";
             // 
             // CircleCounterClockwiseLabel
             // 
@@ -581,7 +581,7 @@ namespace Launcher.Forms
         private System.Windows.Forms.Label SelectedScreenReader;
         private System.Windows.Forms.Button CancelBtn;
         private System.Windows.Forms.Button SaveButton;
-        private System.Windows.Forms.Label FistLabel;
+        private System.Windows.Forms.Label PunchLabel;
         private System.Windows.Forms.Label CircleCounterClockwiseLabel;
         private System.Windows.Forms.Label CircleClockwiseLabel;
         private System.Windows.Forms.Label SwipeDownLabel;
@@ -602,8 +602,8 @@ namespace Launcher.Forms
         private System.Windows.Forms.TextBox SwipeUpTextBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox FistTextBox2;
-        private System.Windows.Forms.TextBox FistTextBox;
+        private System.Windows.Forms.TextBox PunchTextBox2;
+        private System.Windows.Forms.TextBox PunchTextBox;
         private System.Windows.Forms.TextBox CircleCounterClockwiseTextBox2;
         private System.Windows.Forms.TextBox CircleCounterClockwiseTextBox;
         private System.Windows.Forms.TextBox CircleClockwiseTextBox2;

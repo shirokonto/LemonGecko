@@ -31,7 +31,7 @@ namespace GestureRecognition.Gestures
 
             foreach (Hand hand in _handsForGesture)
             {
-                float xVelocity = hand.PalmVelocity.x;
+                float xVelocity = hand.PalmVelocity.x;                
                 float yVelocity = hand.PalmVelocity.y;
                 if (Math.Abs(xVelocity) > Math.Abs(yVelocity))
                 {

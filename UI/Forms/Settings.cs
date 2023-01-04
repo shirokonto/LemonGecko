@@ -51,7 +51,7 @@ namespace Launcher.Forms
             FillTextboxes(SwipeDownTextBox, SwipeDownTextBox2, screenreader.HandSwipeDown);
             FillTextboxes(CircleClockwiseTextBox, CircleClockwiseTextBox2, screenreader.CircleClockwise);
             FillTextboxes(CircleCounterClockwiseTextBox, CircleCounterClockwiseTextBox2, screenreader.CircleCounterClockwise);
-            FillTextboxes(FistTextBox, FistTextBox2, screenreader.Fist);
+            FillTextboxes(PunchTextBox, PunchTextBox2, screenreader.Punch);
         }
 
         private void FillTextboxes(TextBox firstBox, TextBox secondBox, string gesture)
@@ -92,7 +92,7 @@ namespace Launcher.Forms
             selectedScreenReader.HandSwipeDown = keyCodeMappingHelper.GetCodeForKey(SwipeDownTextBox.Text, SwipeDownTextBox2.Text);
             selectedScreenReader.CircleClockwise = keyCodeMappingHelper.GetCodeForKey(CircleClockwiseTextBox.Text, CircleClockwiseTextBox2.Text);
             selectedScreenReader.CircleCounterClockwise = keyCodeMappingHelper.GetCodeForKey(CircleCounterClockwiseTextBox.Text, CircleCounterClockwiseTextBox2.Text);
-            selectedScreenReader.Fist = keyCodeMappingHelper.GetCodeForKey(FistTextBox.Text, FistTextBox2.Text);
+            selectedScreenReader.Punch = keyCodeMappingHelper.GetCodeForKey(PunchTextBox.Text, PunchTextBox2.Text);
             //save changes
             jsonParser.SaveChangesToJson(selectedScreenReader);
             defaultScreenReaderSettings = selectedScreenReader;
@@ -214,14 +214,14 @@ namespace Launcher.Forms
             ChangeKeyInTextBox(sender, e, CircleCounterClockwiseTextBox2);
         }
 
-        private void FistTextBox_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        private void PunchTextBox_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
-            ChangeKeyInTextBox(sender, e, FistTextBox);
+            ChangeKeyInTextBox(sender, e, PunchTextBox);
         }
 
-        private void FistTextBox2_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        private void PunchTextBox2_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
-            ChangeKeyInTextBox(sender, e, FistTextBox2);
+            ChangeKeyInTextBox(sender, e, PunchTextBox2);
         }
     }
 }

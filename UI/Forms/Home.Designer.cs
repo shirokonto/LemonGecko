@@ -144,9 +144,9 @@ namespace Launcher.Forms
             // BackToMenuBtn
             // 
             this.BackToMenuBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BackToMenuBtn.Location = new System.Drawing.Point(13, 9);
+            this.BackToMenuBtn.Location = new System.Drawing.Point(23, 9);
             this.BackToMenuBtn.Name = "BackToMenuBtn";
-            this.BackToMenuBtn.Size = new System.Drawing.Size(205, 32);
+            this.BackToMenuBtn.Size = new System.Drawing.Size(149, 32);
             this.BackToMenuBtn.TabIndex = 0;
             this.BackToMenuBtn.Text = "Back To Menu";
             this.BackToMenuBtn.UseVisualStyleBackColor = true;

@@ -11,11 +11,6 @@ namespace GestureMapper
     {
         private LeapListener listener;
 
-        [DllImport("user32.dll")]
-        static extern IntPtr GetForegroundWindow();
-        [DllImport("user32.dll")]
-        static extern int GetWindowText(IntPtr hWnd, StringBuilder text, int count);
-
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -47,42 +42,31 @@ namespace GestureMapper
             }            
         }
 
-        private string GetActiveWindowTitle()
-        {
-            const int nChars = 256;
-            StringBuilder Buff = new StringBuilder(nChars);
-            IntPtr handle = GetForegroundWindow();            
-
-            if (GetWindowText(handle, Buff, nChars) > 0)
-            {
-                return Buff.ToString();
-            }
-            return null;
-        }
-
         private void HandleCircle(object sender, GestureRecognition.Events.CircleEvent circleEvent)
         {
-            Console.WriteLine("Circle event received");
+            //Console.WriteLine("Circle event received");
         }
 
         private static void HandleHandSwipe(object sender, GestureRecognition.Events.HandSwipeEvent handSwipeEvent)
         {
-            Console.WriteLine("Hand Swipe event received");
+            //Console.WriteLine("Hand Swipe event received");
             if (handSwipeEvent.Swipe.Direction.Equals(GestureRecognition.Gestures.HandSwipe.SwipeDirection.RIGHT))
             {
-                Console.WriteLine("Next");
-                SendKeys.SendWait("{TAB}");
-            } else if (handSwipeEvent.Swipe.Direction.Equals(GestureRecognition.Gestures.HandSwipe.SwipeDirection.LEFT))
+                //Console.WriteLine("Next");
+            }
+            else if (handSwipeEvent.Swipe.Direction.Equals(GestureRecognition.Gestures.HandSwipe.SwipeDirection.LEFT))
             {
-                Console.WriteLine("Previous");
-                //+ is shift
-                SendKeys.SendWait("+{TAB}");
+                //Console.WriteLine("Previous");
+            }
+            else if (handSwipeEvent.Swipe.Direction.Equals(GestureRecognition.Gestures.HandSwipe.SwipeDirection.UP))
+            {
+                //Console.WriteLine("up");
             }
         }
 
         private void HandleScreenTap(object sender, GestureRecognition.Events.ScreenTapEvent screenTapEvent)
         {
-            Console.WriteLine("Screen Tap event received");
+            //Console.WriteLine("Screen Tap event received");
         }
     }
 }

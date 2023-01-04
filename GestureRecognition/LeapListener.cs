@@ -17,7 +17,7 @@ namespace GestureRecognition
         public event EventHandler<CircleEvent> CircleDetected;
         public event EventHandler<HandSwipeEvent> HandSwipeDetected;
         public event EventHandler<ScreenTapEvent> ScreenTapDetected;
-        public event EventHandler<FistEvent> FistDetected;
+        public event EventHandler<PunchEvent> PunchDetected;
 
         /// <summary>
         /// The main entry point for the application.
@@ -77,45 +77,44 @@ namespace GestureRecognition
             if (hand.IsValid)
             {
                 gestures = frame.Gestures();
-                //TODO if gestures not null
                 foreach (Gesture gesture in gestures)
-                {
+                {                    
                     if (gesture.State.Equals(Gesture.GestureState.STATESTOP))
                     {
                         if (gesture.Type.Equals(Gesture.GestureType.TYPE_CIRCLE))
                         {
-                            Print("Circle Gesture Detected ");
                             CircleGesture circle = new CircleGesture(gesture);
                             CircleEvent circleEvent = new CircleEvent(circle);
                             OnCircleDetected(circleEvent);
                         }
                         if (gesture.Type.Equals(Gesture.GestureType.TYPE_SCREEN_TAP))
                         {
-                            Print("Screen Tap Detected ");
                             ScreenTapGesture screenTap = new ScreenTapGesture(gesture);
                             ScreenTapEvent screenTapEvent = new ScreenTapEvent(screenTap);
                             OnScreenTapDetected(screenTapEvent);
+                            return;
                         }
                     }
                 }
                 Gestures.HandSwipe handSwipe = Gestures.HandSwipe.IsHandSwipe(frame);
                 if (handSwipe != null)
                 {
+                    
                     if (handSwipe.State.Equals(Gestures.GestureState.END))
                     {
-                        Print("Hand Swipe Detected");
                         HandSwipeEvent swipeEvent = new HandSwipeEvent(handSwipe);
                         OnHandSwipeDetected(swipeEvent);
+                        return;
                     }
                 }
-                Gestures.Fist fist = Gestures.Fist.IsFist(frame);
-                if (fist != null)
-                {
-                    if (fist.State.Equals(Gestures.GestureState.END))
+                Gestures.Punch punch = Gestures.Punch.IsPunch(frame);
+                if (punch != null)
+                {                    
+                    if (punch.State.Equals(Gestures.GestureState.END))
                     {
-                        Print("Fist Detected");
-                        FistEvent fistEvent = new FistEvent(fist);
-                        OnFistDetected(fistEvent);
+                        PunchEvent punchEvent = new PunchEvent(punch);
+                        OnPunchDetected(punchEvent);
+                        return;
                     }
                 }
             }            
@@ -138,7 +137,6 @@ namespace GestureRecognition
 
             if (handler != null)
             {
-                Print("Circle Event Called");
                 handler(this, circle);
             }
         }
@@ -149,7 +147,6 @@ namespace GestureRecognition
 
             if (handler != null)
             {
-                Print("Hand Swipe Event Called");
                 handler(this, handSwipe);
             }
         }
@@ -160,27 +157,25 @@ namespace GestureRecognition
 
             if (handler != null)
             {
-                Print("Screen Tap Event Called");
                 handler(this, screenTap);
             }
         }
 
-        protected virtual void OnFistDetected(FistEvent fist)
+        protected virtual void OnPunchDetected(PunchEvent punch)
         {
-            EventHandler<FistEvent> handler = FistDetected;
+            EventHandler<PunchEvent> handler = PunchDetected;
 
             if(handler != null)
             {
-                Print("Fist Event Called");
-                handler(this, fist);
+                handler(this, punch);
             }
         }
 
-        private void Print(String output)
+        public void Print(String output)
         {
             lock (thisLock)
             {
-                Console.WriteLine("[OUTPUT] " + output);
+                Console.WriteLine(output);
             }
         }
     }
