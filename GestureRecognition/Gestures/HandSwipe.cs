@@ -11,7 +11,7 @@ namespace GestureRecognition.Gestures
 
         public HandSwipe(CustomGestureType type, Frame frame) : base(type, frame)
         {
-            if (_swipe != null)
+            if (_swipe != null) 
             {
                 if (_swipe.State.Equals(GestureState.NA))
                 {
@@ -55,13 +55,14 @@ namespace GestureRecognition.Gestures
             if (frame.IsValid)
             {
                 HandList hands = frame.Hands;
+                Hand hand = hands[0];
 
-                if ((hands[0].IsValid && hands[1].IsValid) && HandsTogether(hands[0], hands[1]))
+                if ((hands[0].IsValid && hands[1].IsValid))
                 {
                     return null;
                 }
 
-                if (Math.Abs(hands.Frontmost.PalmVelocity.x) > 900 || Math.Abs(hands.Frontmost.PalmVelocity.y) > 900)
+                if (Math.Abs(hand.PalmVelocity.x) > 900 || Math.Abs(hand.PalmVelocity.y) > 900)
                 {
                     HandSwipe handSwipe = new HandSwipe(CustomGestureType.HAND_SWIPE, frame);
                     return handSwipe;
@@ -86,18 +87,6 @@ namespace GestureRecognition.Gestures
         public SwipeDirection Direction
         {
             get { return _direction; }
-        }
-
-        private static bool HandsTogether(Hand hand1, Hand hand2)
-        {
-            float xdiff = Math.Abs(hand1.PalmPosition.x - hand2.PalmPosition.x),
-                ydiff = Math.Abs(hand1.PalmPosition.y - hand2.PalmPosition.y),
-                zdiff = Math.Abs(hand1.PalmPosition.z - hand2.PalmPosition.z);
-
-            if ((xdiff + ydiff + zdiff) < 400)
-                return true;
-
-            return false;
         }
     }
 }

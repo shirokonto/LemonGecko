@@ -85,10 +85,20 @@ namespace GestureRecognition
                         {
                             CircleGesture circle = new CircleGesture(gesture);
                             CircleEvent circleEvent = new CircleEvent(circle);
+                            if(circle.Pointable.Direction.AngleTo(circleEvent.Circle.Normal) <= Math.PI / 2)
+                            {
+                                Print("Frame: " + frame.Id + " & " + gesture.Type + "(CLOCKWISE)");
+                            } else
+                            {
+                                Print("Frame: " + frame.Id + " & " + gesture.Type + "(COUNTERCLOCKWISE)");
+                            }
+                            
                             OnCircleDetected(circleEvent);
+                            return;
                         }
                         if (gesture.Type.Equals(Gesture.GestureType.TYPE_SCREEN_TAP))
                         {
+                            Print("Frame: " + frame.Id + " & " + gesture.Type);
                             ScreenTapGesture screenTap = new ScreenTapGesture(gesture);
                             ScreenTapEvent screenTapEvent = new ScreenTapEvent(screenTap);
                             OnScreenTapDetected(screenTapEvent);
@@ -104,6 +114,7 @@ namespace GestureRecognition
                     {
                         HandSwipeEvent swipeEvent = new HandSwipeEvent(handSwipe);
                         OnHandSwipeDetected(swipeEvent);
+                        Print("Frame: " + frame.Id + " & " + handSwipe.Type + "(" + handSwipe.Direction +")");
                         return;
                     }
                 }
@@ -112,6 +123,7 @@ namespace GestureRecognition
                 {                    
                     if (punch.State.Equals(Gestures.GestureState.END))
                     {
+                        Print("Frame: " + frame.Id + " & " + punch.Type);
                         PunchEvent punchEvent = new PunchEvent(punch);
                         OnPunchDetected(punchEvent);
                         return;

@@ -118,6 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutLemonGeckoTextBox.Text" xml:space="preserve">
-    <value>Lemon Gecko, short for Leap Motion Gesture Control, allows users to use a screen reader through eight hand gestures. For this, a Leap motion controller must be connected and a screen reader must be active to start a session. After a session has started, this app will be minimized and the focus set to the next open foreground application. To stop the session Lemon Gecko has to be maximized again. The mapping between gestures can be viewed and changed in the settings dialog.</value>
+    <value>Lemon Gecko, short for Leap Motion Gesture Control, allows users to use a screen reader through eight hand gestures. For this, a Leap motion controller must be connected and a screen reader must be active to start a session. After a session has started, this app will be minimized and the focus set to the next open foreground application. Make sure to use only one hand for the control. To stop the session Lemon Gecko has to be maximized again. The mapping between gestures can be viewed and changed in the settings dialog.</value>
   </data>
 </root>

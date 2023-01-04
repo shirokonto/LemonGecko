@@ -9,7 +9,8 @@ namespace GestureRecognition.Gestures
 
         public Punch(CustomGestureType type, Frame frame) : base(type, frame)
         {
-            if(_punch != null){
+            if(_punch != null) 
+            {
                 if (_punch.State.Equals(GestureState.NA))
                 {
                     _state = GestureState.START;
@@ -24,6 +25,9 @@ namespace GestureRecognition.Gestures
                 }
             }
             _punch = this;
+
+            //for each hand
+
         }
 
         public static Punch IsPunch(Frame frame)
@@ -50,7 +54,7 @@ namespace GestureRecognition.Gestures
                     }
                     sumDistance += distance;
                 }
-                if (sumDistance < threshold)
+                if (sumDistance < threshold && Math.Abs(hand.PalmVelocity.z) > 250)
                 {
                     Punch fist = new Punch(CustomGestureType.PUNCH, frame);
                     return fist;
