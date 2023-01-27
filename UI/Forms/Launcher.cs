@@ -6,6 +6,10 @@ using System.Windows.Forms;
 
 namespace Launcher.Forms
 {
+    /// <summary>
+    /// The partial class <c>Launcher</c> represents the displayed Launcher view, which loads the three views
+    /// <see cref="Home"/>, <see cref="Settings"/> and <see cref="HelpView"/> in the panel on the right-side.
+    /// </summary>
     public partial class Launcher : Form
     {
         private Home home;
@@ -14,6 +18,9 @@ namespace Launcher.Forms
         private System.Drawing.Color white = System.Drawing.Color.White;
         private System.Drawing.Color blueGray = System.Drawing.Color.FromArgb(35, 40, 45);
 
+        /// <summary>
+        /// Constructs a new <c>Launcher</c> Object and initializing the needed user interface components for the view.
+        /// </summary>
         public Launcher()
         {            
             InitializeComponent();

@@ -3,10 +3,19 @@ using Leap;
 
 namespace GestureRecognition.Gestures
 {
+    /// <summary>
+    /// The class <c>Punch</c> represents a forward punch movement by the hand.
+    /// </summary>
     public class Punch : CustomGesture
     {
-        private static Punch _punch = null;        
+        private static Punch _punch = null;
 
+        /// <summary>
+        /// Constructs a <c>Punch</c>-Object with the custom gesture type
+        /// and frame in which the gesture was recognized. Derived from the base constructor <see cref="CustomGesture.CustomGesture(CustomGestureType, Frame)"/>. 
+        /// </summary>
+        /// <param name="type"> Type of the custom gesture</param>
+        /// <param name="frame"> Frame in which a movement was recognized</param>.
         public Punch(CustomGestureType type, Frame frame) : base(type, frame)
         {
             if(_punch != null) 
@@ -25,11 +34,13 @@ namespace GestureRecognition.Gestures
                 }
             }
             _punch = this;
-
-            //for each hand
-
         }
 
+        /// <summary>
+        /// Determines whether the hand gesture detected in the frame was a Punch or not.
+        /// </summary>
+        /// <param name="frame">Frame in which a movement was recognized</param>
+        /// <returns> The Punch-Object or null</returns>
         public static Punch IsPunch(Frame frame)
         {
             if (frame.IsValid)
@@ -77,6 +88,12 @@ namespace GestureRecognition.Gestures
             return null;
         }
 
+        /// <summary>
+        /// Calculates the euclidean distance between the center position of the palm and the given fingertip position.
+        /// </summary>
+        /// <param name="palmPos">Center position of the palm from the leap motion origin</param>
+        /// <param name="fingerTipPos">Fingertip position</param>
+        /// <returns></returns>
         private static Double CalculateDistance(Vector palmPos, Vector fingerTipPos)
         {
             var distanceX = Math.Pow(fingerTipPos.x - palmPos.x, 2);

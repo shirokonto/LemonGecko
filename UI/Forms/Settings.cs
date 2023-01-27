@@ -4,25 +4,30 @@ using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 
-
 namespace Launcher.Forms
 {
+    /// <summary>
+    /// The partial class <c>Settings</c> represents the displayed Settings view and the underlying logic in the User Interface.
+    /// </summary>
     public partial class Settings : Form
     {
         private JsonParser jsonParser;
-        private KeyMappingHelper keyCodeMappingHelper;
+        private KeyCodeMappingHelper keyCodeMappingHelper;
         private List<ScreenReaderItem> allScreenReader;
         private ScreenReaderItem selectedScreenReader;
         private ScreenReaderItem defaultScreenReaderSettings;
         private bool TextWasChanged = false;
 
+        /// <summary>
+        /// Constructs a new <c>Settings</c> Object and initializing the needed user interface components for the view.
+        /// </summary>
         public Settings()
         {
             InitializeComponent();
-            keyCodeMappingHelper = new KeyMappingHelper();
+            keyCodeMappingHelper = new KeyCodeMappingHelper();
             jsonParser = new JsonParser();
-            jsonParser.LoadJsonForGestureMapping();
-            jsonParser.LoadJsonForKeyMapping();            
+            jsonParser.LoadJsonForKeyToGestureMapping();
+            jsonParser.LoadJsonForKeyToCodeMapping();            
             LoadScreenReaderComboBox();
             LoadKeyMappings(selectedScreenReader);
         }
@@ -56,7 +61,6 @@ namespace Launcher.Forms
 
         private void FillTextboxes(TextBox firstBox, TextBox secondBox, string gesture)
         {
-            // TODO : second box does not get refreshed
             firstBox.ReadOnly = true;
             secondBox.ReadOnly = true;
             List<string> commands = keyCodeMappingHelper.GetKeysForCode(gesture);
@@ -71,7 +75,6 @@ namespace Launcher.Forms
 
         private void ScreenReaderComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // TODO: if changed state is dirty MessageBox abort changes?
             selectedScreenReader = allScreenReader.Where(item => item.Name.Equals(ScreenReaderComboBox.SelectedItem.ToString())).First();
             defaultScreenReaderSettings = selectedScreenReader;
             LoadKeyMappings(selectedScreenReader);
@@ -94,17 +97,15 @@ namespace Launcher.Forms
             selectedScreenReader.CircleCounterClockwise = keyCodeMappingHelper.GetCodeForKey(CircleCounterClockwiseTextBox.Text, CircleCounterClockwiseTextBox2.Text);
             selectedScreenReader.Punch = keyCodeMappingHelper.GetCodeForKey(PunchTextBox.Text, PunchTextBox2.Text);
             //save changes
-            jsonParser.SaveChangesToJson(selectedScreenReader);
+            jsonParser.SaveGestureMappingToJson(selectedScreenReader);
             defaultScreenReaderSettings = selectedScreenReader;
             LoadKeyMappings(selectedScreenReader);
         }
 
         private void CancelButton_Click(object sender, EventArgs e)
         {
-            //save data from before the changes
+            //loads saved data from before the changes
             LoadKeyMappings(defaultScreenReaderSettings);
-            //LoadKeys with old data
-            //defaultScreenReaderSettings
         }
 
         private void ChangeKeyInTextBox(object sender, PreviewKeyDownEventArgs e, TextBox currentTextbox)

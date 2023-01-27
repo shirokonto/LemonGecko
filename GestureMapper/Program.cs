@@ -50,15 +50,15 @@ namespace GestureMapper
         private static void HandleHandSwipe(object sender, GestureRecognition.Events.HandSwipeEvent handSwipeEvent)
         {
             //Console.WriteLine("Hand Swipe event received");
-            if (handSwipeEvent.Swipe.Direction.Equals(GestureRecognition.Gestures.HandSwipe.SwipeDirection.RIGHT))
+            if (handSwipeEvent.HandSwipe.Direction.Equals(GestureRecognition.Gestures.HandSwipe.SwipeDirection.RIGHT))
             {
                 //Console.WriteLine("Next");
             }
-            else if (handSwipeEvent.Swipe.Direction.Equals(GestureRecognition.Gestures.HandSwipe.SwipeDirection.LEFT))
+            else if (handSwipeEvent.HandSwipe.Direction.Equals(GestureRecognition.Gestures.HandSwipe.SwipeDirection.LEFT))
             {
                 //Console.WriteLine("Previous");
             }
-            else if (handSwipeEvent.Swipe.Direction.Equals(GestureRecognition.Gestures.HandSwipe.SwipeDirection.UP))
+            else if (handSwipeEvent.HandSwipe.Direction.Equals(GestureRecognition.Gestures.HandSwipe.SwipeDirection.UP))
             {
                 //Console.WriteLine("up");
             }

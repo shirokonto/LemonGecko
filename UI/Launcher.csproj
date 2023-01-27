@@ -92,7 +92,7 @@
       <DependentUpon>Home.cs</DependentUpon>
     </Compile>
     <Compile Include="GestureMapper.cs" />
-    <Compile Include="KeyMappingHelper.cs" />
+    <Compile Include="KeyCodeMappingHelper.cs" />
     <Compile Include="KeyCodeObj.cs" />
     <Compile Include="JsonParser.cs" />
     <Compile Include="ScreenReaderItem.cs" />
@@ -183,6 +183,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\LemonGeckoImg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Jsons\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

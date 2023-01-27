@@ -3,19 +3,30 @@ using System.Text.RegularExpressions;
 
 namespace Launcher
 {
-    public class KeyMappingHelper
+    /// <summary>
+    /// The class <c>KeyCodeMappingHelper</c> handles the conversion of keys to codes and vice versa to display the correct format for the view or save the gesture-to-key mapping.
+    /// </summary>
+    public class KeyCodeMappingHelper
     {
         private JsonParser jsonParser;
         private readonly Regex AlphaRegex = new Regex("^[A-Za-z]+$");
         private readonly Regex RoundAndCurlyBracketsRegex = new Regex(@"[\({][^\)}]*[\)}]|[^{}()]+");
 
-        public KeyMappingHelper() 
+        /// <summary>
+        /// Constructs a new <c>KeyCodeMappingHelper</c> object.
+        /// </summary>
+        public KeyCodeMappingHelper() 
         {
             jsonParser = new JsonParser();
-            jsonParser.LoadJsonForGestureMapping();
-            jsonParser.LoadJsonForKeyMapping();
+            jsonParser.LoadJsonForKeyToGestureMapping();
+            jsonParser.LoadJsonForKeyToCodeMapping();
         }
 
+        /// <summary>
+        /// Retrieves up to two keystrokes matching for the given code.
+        /// </summary>
+        /// <param name="code">The code used for the simulation containing up to two keystrokes</param>
+        /// <returns>List of <see cref="KeyCodeObj.Key"/> which is mapped to the code</returns>
         public List<string> GetKeysForCode(string code)
         {
             List<string> result = new List<string>();
@@ -34,13 +45,19 @@ namespace Launcher
                     if (mapping != null)
                         result.Add(mapping.Key);
                 }
-                else // A 
+                else
                     result.Add(code);
                 match = match.NextMatch();
             }
             return result;
         }
 
+        /// <summary>
+        /// Retrieves the given code for the given keystrokes.
+        /// </summary>
+        /// <param name="firstKey">first key of the shortcut</param>
+        /// <param name="secondKey">second key of the shortcut</param>
+        /// <returns>The code consisting of up to two keystrokes</returns>
         public string GetCodeForKey(string firstKey, string secondKey)
         {
             string command = "";
@@ -53,12 +70,12 @@ namespace Launcher
 
         private string HandleFirstCommand(string key)
         {
-            if(key.Length == 2 && key != "UP" && AlphaRegex.IsMatch(key)) //aA is good ### F2, SHIFTKEY is bad UP should also not be tolerated
+            if(key.Length == 2 && key != "UP" && AlphaRegex.IsMatch(key))
             {
                 key = key.Remove(1, 1);
                 return key.ToUpper();
             }
-            else //F2, SHIFTKEY is good ### aA is bad  
+            else 
             {
                 KeyCodeObj mapping = jsonParser.GetCodeForKey(key.ToUpper());
                 if (mapping != null)

@@ -5,6 +5,9 @@ using System.Runtime.InteropServices;
 
 namespace Launcher.Forms
 {
+    /// <summary>
+    /// The partial class <c>Home</c> represents the displayed Home view and the underlying logic in the User Interface.
+    /// </summary>
     public partial class Home : Form
     {
         private GestureMapper mapper;
@@ -17,7 +20,9 @@ namespace Launcher.Forms
         private static extern int SendMessage(IntPtr hWnd, int msg, int wParam, [MarshalAs(UnmanagedType.LPWStr)] string lParam);
         private const int CB_SETCUEBANNER = 0x1703;
 
-        // Constructor
+        /// <summary>
+        /// Constructs a new <c>Home</c> object, initializing the user interface components for the view.
+        /// </summary>
         public Home()
         {
             mapper = new GestureMapper();
@@ -61,7 +66,6 @@ namespace Launcher.Forms
         private void CheckControllerState()
         {
             controllerConnected = mapper.GetControllerState();
-            // TODO: add case: IF Controller is removed after refresh!!        
             if (controllerConnected)
             {
                 LeapMotionStateTxt.Text = "Connected";
@@ -102,7 +106,6 @@ namespace Launcher.Forms
                 MessageBox.Show("Stop the current session first.", "Attention");
                 return;
             }
-            //if (currentScreenReader != null)
             if (GetSessionActivation())
             {
                 mapper.StartGestureControl();
@@ -126,7 +129,6 @@ namespace Launcher.Forms
             } else
             {
                 mapper.StopGestureControl();
-                //TODO how to remove listener?
                 sessionInProgress = false;
                 System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.StopGestureControlSound);
                 player.Play();

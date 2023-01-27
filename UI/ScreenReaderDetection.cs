@@ -5,20 +5,23 @@ using System.Diagnostics;
 
 namespace Launcher
 {
-    /**
-     * Detects the currently running screen reader
-     * including JAWS, NVDA and Narrator
-     */
+    /// <summary>
+    /// The class <c>ScreenReaderDetection</c> determines the currently running screen reader on the operating system
+    /// including JAWS, NVDA and Narrator. 
+    /// </summary>
     class ScreenReaderDetection
     {
         private List<ScreenReaderItem> activeScreenReaders;
         private JsonParser jsonParser = null;
 
+        /// <summary>
+        /// Constructs a <c>ScreenReaderDetection</c> object which determins the currently running screen reader.
+        /// </summary>
         public ScreenReaderDetection()
         {
             activeScreenReaders = new List<ScreenReaderItem>();
             jsonParser = new JsonParser();
-            jsonParser.LoadJsonForGestureMapping();
+            jsonParser.LoadJsonForKeyToGestureMapping();
             IEnumerable<Process> processes =
                 new[] { "Narrator", "nvda", "jfw" }
                 .SelectMany(Process.GetProcessesByName);
@@ -46,11 +49,20 @@ namespace Launcher
             }            
         }
 
+        /// <summary>
+        /// Retrieves all screen readers with their key-to-gesture mappings which are currently active.
+        /// </summary>
+        /// <returns>List of <see cref="ScreenReaderItem"/> objects</returns>
         public List<ScreenReaderItem> GetAllScreenReaders()
         {
             return activeScreenReaders;
         }
 
+        /// <summary>
+        /// Retrieves the key-to-gesture mapping of the given screenreader.
+        /// </summary>
+        /// <param name="name">The name of the screenreader</param>
+        /// <returns><see cref="ScreenReaderItem"/> object or null if there is no match</returns>
         public ScreenReaderItem GetScreenReaderByName(string name)
         {  
             if(activeScreenReaders.Count != 0)

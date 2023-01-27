@@ -4,27 +4,43 @@ using System.Windows.Forms;
 
 namespace Launcher
 {
+    /// <summary>
+    /// The class <c>GestureMapper</c> handles the received gesture events from the <see cref="LeapListener"/> and simulates the assigned shortcut for the given screenreader.
+    /// </summary>
     public class GestureMapper
     {
         private static LeapListener listener;
         private ScreenReaderItem currentScreenReader;
 
-        // Constructor
+        /// <summary>
+        /// Constructs a new <c>GestureMapper</c> object.
+        /// </summary>
         public GestureMapper()
         {
             listener = new LeapListener();
         }
 
+        /// <summary>
+        /// Sets the current screenreader from which the shortcuts will be mapped.
+        /// </summary>
+        /// <param name="selectedScreenReader">The currently active screenreader</param>
         public void SetCurrentScreenReader(ScreenReaderItem selectedScreenReader)
         {
             currentScreenReader = selectedScreenReader;
         }
 
+        /// <summary>
+        /// Retrieves the current state of the Controller object.
+        /// </summary>
+        /// <returns>True, if the controller is connected.</returns>
         public bool GetControllerState()
         {
             return listener.IsControllerConnected();
         }
 
+        /// <summary>
+        /// Starts the gesture control and subscribe to the gesture events.
+        /// </summary>
         public void StartGestureControl()
         {
             listener.CircleDetected += HandleCircle;
@@ -33,6 +49,9 @@ namespace Launcher
             listener.PunchDetected += HandlePunch;
         }
 
+        /// <summary>
+        /// Stops the gesture control and unsubscribe from the gesture events.
+        /// </summary>
         public void StopGestureControl()
         {
             listener.CircleDetected -= HandleCircle;
@@ -41,62 +60,69 @@ namespace Launcher
             listener.PunchDetected -= HandlePunch;
         }
 
-        /**
-        * HANDLE EVENTS 
-        */
+        /// <summary>
+        /// Handles the circle event, when a circle gesture in in one of the both directions gesture is detected 
+        /// and sends the assigned keystrokes to the active application.
+        /// </summary>
+        /// <param name="sender">The LeapListener object invoking the event</param>
+        /// <param name="circleEvent">The circle event containing the Circle gesture data</param>
         private void HandleCircle(object sender, GestureRecognition.Events.CircleEvent circleEvent)
         {
-            listener.Print("Circle event received");
             if (circleEvent.Circle.Pointable.Direction.AngleTo(circleEvent.Circle.Normal) <= Math.PI / 2)
             {
-                //clockwise
-                listener.Print("Clockwise");
                 SendKeys.SendWait(currentScreenReader.CircleClockwise);
             }
             else
             {
-                //counter clockwise
-                listener.Print("Counter Clockwise");
                 SendKeys.SendWait(currentScreenReader.CircleCounterClockwise);
             }
         }
 
+        /// <summary>
+        /// Handles the handSwipe event, when a handswipe in one of the four directions gesture is detected 
+        /// and sends the assigned keystrokes to the active application.
+        /// </summary>
+        /// <param name="sender">The LeapListener object invoking the event</param>
+        /// <param name="handSwipeEvent">The handSwipe event containing the HandSwipe gesture data</param>
         private void HandleHandSwipe(object sender, GestureRecognition.Events.HandSwipeEvent handSwipeEvent)
         {
-            listener.Print("Hand Swipe event received");
-
-            if (handSwipeEvent.Swipe.Direction.Equals(GestureRecognition.Gestures.HandSwipe.SwipeDirection.RIGHT))
+            if (handSwipeEvent.HandSwipe.Direction.Equals(GestureRecognition.Gestures.HandSwipe.SwipeDirection.RIGHT))
             {
-                listener.Print("Next");
                 SendKeys.SendWait(currentScreenReader.HandSwipeRight);
             }
-            else if (handSwipeEvent.Swipe.Direction.Equals(GestureRecognition.Gestures.HandSwipe.SwipeDirection.LEFT))
+            else if (handSwipeEvent.HandSwipe.Direction.Equals(GestureRecognition.Gestures.HandSwipe.SwipeDirection.LEFT))
             {
-                listener.Print("Previous");
-                //+ is shift
                 SendKeys.SendWait(currentScreenReader.HandSwipeLeft);
             }
-            else if (handSwipeEvent.Swipe.Direction.Equals(GestureRecognition.Gestures.HandSwipe.SwipeDirection.UP))
+            else if (handSwipeEvent.HandSwipe.Direction.Equals(GestureRecognition.Gestures.HandSwipe.SwipeDirection.UP))
             {
-                listener.Print("UP");
                 SendKeys.SendWait(currentScreenReader.HandSwipeUp);
             }
             else
             {
-                listener.Print("DOWN");
                 SendKeys.SendWait(currentScreenReader.HandSwipeDown);
             }
         }
 
+        /// <summary>
+        /// Handles the screenTap event, when a screenTap gesture is detected 
+        /// and sends the assigned keystrokes to the active application.
+        /// </summary>
+        /// <param name="sender">The LeapListener object invoking the event</param>
+        /// <param name="screenTapEvent">The screenTap event containing the ScreenTap gesture data</param>
         private void HandleScreenTap(object sender, GestureRecognition.Events.ScreenTapEvent screenTapEvent)
         {
-            listener.Print("Screen Tap event received");
             SendKeys.SendWait(currentScreenReader.ScreenTap);
         }
 
-        private void HandlePunch(object sender, GestureRecognition.Events.PunchEvent fistEvent)
+        /// <summary>
+        /// Handles the screenTap event, when a punch gesture is detected 
+        /// and sends the assigned keystrokes to the active application.
+        /// </summary>
+        /// <param name="sender">The LeapListener object invoking the event</param>
+        /// <param name="punchEvent">The punch event containing the Punch gesture data</param>
+        private void HandlePunch(object sender, GestureRecognition.Events.PunchEvent punchEvent)
         {
-            listener.Print("Punch event received");
             SendKeys.SendWait(currentScreenReader.Punch);
         }
     }
