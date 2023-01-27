@@ -79,10 +79,10 @@ namespace Launcher.Forms
             // 
             this.HelpHeader.AccessibleName = "testetset";
             this.HelpHeader.AutoSize = true;
-            this.HelpHeader.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
-            this.HelpHeader.Location = new System.Drawing.Point(224, 15);
+            this.HelpHeader.Font = new System.Drawing.Font("Segoe UI Semibold", 14F, System.Drawing.FontStyle.Bold);
+            this.HelpHeader.Location = new System.Drawing.Point(222, 12);
             this.HelpHeader.Name = "HelpHeader";
-            this.HelpHeader.Size = new System.Drawing.Size(45, 21);
+            this.HelpHeader.Size = new System.Drawing.Size(52, 25);
             this.HelpHeader.TabIndex = 0;
             this.HelpHeader.Text = "Help";
             // 
@@ -211,6 +211,7 @@ namespace Launcher.Forms
             // 
             // CircleTextBox
             // 
+            this.CircleTextBox.AccessibleDescription = "Circle Gesture Explanation";
             this.CircleTextBox.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CircleTextBox.Location = new System.Drawing.Point(108, 90);
             this.CircleTextBox.Multiline = true;

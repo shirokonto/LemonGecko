@@ -91,7 +91,7 @@ namespace Launcher.Forms
             this.ScreenReaderComboBox.FormattingEnabled = true;
             this.ScreenReaderComboBox.Location = new System.Drawing.Point(233, 81);
             this.ScreenReaderComboBox.Name = "ScreenReaderComboBox";
-            this.ScreenReaderComboBox.Size = new System.Drawing.Size(121, 29);
+            this.ScreenReaderComboBox.Size = new System.Drawing.Size(207, 29);
             this.ScreenReaderComboBox.TabIndex = 3;
             this.ScreenReaderComboBox.SelectedIndexChanged += new System.EventHandler(this.ScreenReaderComboBox_SelectedIndexChanged);
             // 
@@ -115,7 +115,7 @@ namespace Launcher.Forms
             this.DeviceStatus.Controls.Add(this.ScreenReaderComboBox);
             this.DeviceStatus.Controls.Add(this.SelectedScreenReader);
             this.DeviceStatus.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
-            this.DeviceStatus.Location = new System.Drawing.Point(23, 44);
+            this.DeviceStatus.Location = new System.Drawing.Point(23, 104);
             this.DeviceStatus.Name = "DeviceStatus";
             this.DeviceStatus.Size = new System.Drawing.Size(446, 165);
             this.DeviceStatus.TabIndex = 6;
@@ -134,10 +134,10 @@ namespace Launcher.Forms
             // HomeHeader
             // 
             this.HomeHeader.AutoSize = true;
-            this.HomeHeader.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
-            this.HomeHeader.Location = new System.Drawing.Point(224, 15);
+            this.HomeHeader.Font = new System.Drawing.Font("Segoe UI Semibold", 14F, System.Drawing.FontStyle.Bold);
+            this.HomeHeader.Location = new System.Drawing.Point(222, 12);
             this.HomeHeader.Name = "HomeHeader";
-            this.HomeHeader.Size = new System.Drawing.Size(55, 21);
+            this.HomeHeader.Size = new System.Drawing.Size(64, 25);
             this.HomeHeader.TabIndex = 0;
             this.HomeHeader.Text = "Home";
             // 
@@ -180,7 +180,7 @@ namespace Launcher.Forms
             this.SessionExplanation.Cursor = System.Windows.Forms.Cursors.Default;
             this.SessionExplanation.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.SessionExplanation.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.SessionExplanation.Location = new System.Drawing.Point(23, 230);
+            this.SessionExplanation.Location = new System.Drawing.Point(23, 36);
             this.SessionExplanation.Multiline = true;
             this.SessionExplanation.Name = "SessionExplanation";
             this.SessionExplanation.ReadOnly = true;
@@ -212,7 +212,7 @@ namespace Launcher.Forms
             // StartGestureControlButton
             // 
             this.StartGestureControlButton.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StartGestureControlButton.Location = new System.Drawing.Point(24, 47);
+            this.StartGestureControlButton.Location = new System.Drawing.Point(62, 41);
             this.StartGestureControlButton.Name = "StartGestureControlButton";
             this.StartGestureControlButton.Padding = new System.Windows.Forms.Padding(2);
             this.StartGestureControlButton.Size = new System.Drawing.Size(103, 32);
@@ -224,7 +224,7 @@ namespace Launcher.Forms
             // StopGestureControlButton
             // 
             this.StopGestureControlButton.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StopGestureControlButton.Location = new System.Drawing.Point(162, 47);
+            this.StopGestureControlButton.Location = new System.Drawing.Point(260, 41);
             this.StopGestureControlButton.Name = "StopGestureControlButton";
             this.StopGestureControlButton.Padding = new System.Windows.Forms.Padding(2);
             this.StopGestureControlButton.Size = new System.Drawing.Size(103, 32);

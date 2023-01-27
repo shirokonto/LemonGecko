@@ -92,7 +92,7 @@ namespace Launcher.Forms
             }
             else
             {
-                MessageBox.Show("Stop current session first");
+                MessageBox.Show("Stop the current session first.", "Attention");
             }            
         }
 
@@ -100,7 +100,7 @@ namespace Launcher.Forms
         {
             if (sessionInProgress)
             {
-                MessageBox.Show("Stop current session first");
+                MessageBox.Show("Stop the current session first.", "Attention");
                 return;
             }
             //if (currentScreenReader != null)
@@ -114,7 +114,7 @@ namespace Launcher.Forms
                 this.ParentForm.WindowState = FormWindowState.Minimized;
             } else
             {
-                MessageBox.Show("Check state of controller and screenreader");
+                MessageBox.Show("Check the state of the controller and screen reader to start a session.", "Attention");
                 return;
             }
         }
@@ -123,12 +123,11 @@ namespace Launcher.Forms
         {
             if (!sessionInProgress)
             {
-                MessageBox.Show("Start a new session first");
+                MessageBox.Show("Start a new session first.", "Attention");
             } else
             {
                 mapper.StopGestureControl();
                 //TODO how to remove listener?
-
                 sessionInProgress = false;
                 System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.StopGestureControlSound);
                 player.Play();
