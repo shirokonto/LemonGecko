@@ -88,7 +88,6 @@ namespace Launcher.Forms
             {
                 InitializeScreenReaderSettings();
                 sessionCanBeStarted = GetSessionActivation();
-
             }
             else
             {

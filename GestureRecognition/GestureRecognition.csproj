@@ -65,7 +65,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Events\PunchEvent.cs" />
-    <Compile Include="Events\DisconnectEvent.cs" />
     <Compile Include="Events\ScreenTapEvent.cs" />
     <Compile Include="Events\HandSwipeEvent.cs" />
     <Compile Include="Gestures\Punch.cs" />

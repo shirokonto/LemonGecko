@@ -13,7 +13,6 @@ namespace Launcher
         public GestureMapper()
         {
             listener = new LeapListener();
-            listener.DisconnectDetected += HandleDisconnect;
         }
 
         public void SetCurrentScreenReader(ScreenReaderItem selectedScreenReader)
@@ -45,11 +44,6 @@ namespace Launcher
         /**
         * HANDLE EVENTS 
         */
-        private void HandleDisconnect(object sender, GestureRecognition.Events.DisconnectEvent disconnect)
-        {
-            listener.Print("Controller disconnected");
-
-        }
         private void HandleCircle(object sender, GestureRecognition.Events.CircleEvent circleEvent)
         {
             listener.Print("Circle event received");

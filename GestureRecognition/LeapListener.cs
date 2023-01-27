@@ -12,8 +12,6 @@ namespace GestureRecognition
         private Controller controller = null;
         private readonly bool isConnected;
 
-
-        public event EventHandler<DisconnectEvent> DisconnectDetected;
         public event EventHandler<CircleEvent> CircleDetected;
         public event EventHandler<HandSwipeEvent> HandSwipeDetected;
         public event EventHandler<ScreenTapEvent> ScreenTapDetected;
@@ -55,15 +53,6 @@ namespace GestureRecognition
         {            
             Print("Connected");
         }
-
-        public override void OnDisconnect(Controller controller)
-        {
-            Print("Disconnected");
-            base.OnDisconnect(controller);
-            DisconnectEvent disconnectEvent = new DisconnectEvent(controller);
-            OnDisconnectDetected(disconnectEvent);
-            // stop session via event
-        }        
 
         public bool IsControllerConnected()
         {
@@ -130,17 +119,6 @@ namespace GestureRecognition
                     }
                 }
             }            
-        }
-
-        protected virtual void OnDisconnectDetected(DisconnectEvent disconnectEvent)
-        {
-            EventHandler<DisconnectEvent> handler = DisconnectDetected;
-
-            if(handler != null)
-            {
-                Print("Disconnect Event Called");
-                handler(this, disconnectEvent);
-            }
         }
 
         protected virtual void OnCircleDetected(CircleEvent circle)
