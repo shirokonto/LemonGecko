@@ -1,5 +1,5 @@
-﻿using System;
-using Leap;
+﻿using Leap;
+using System;
 
 namespace GestureRecognition.Events
 {

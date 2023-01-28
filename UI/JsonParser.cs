@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.IO;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace Launcher
 {
@@ -19,7 +19,7 @@ namespace Launcher
         /// <summary>
         /// Constructs a new <c>JsonParser</c> object.
         /// </summary>
-        public JsonParser() 
+        public JsonParser()
         {
 
         }
@@ -31,7 +31,7 @@ namespace Launcher
         {
             string filePath = Properties.Settings.Default.GestureKeyMapping;
             string json = File.ReadAllText(filePath);
-            
+
             screenReaders = JsonConvert.DeserializeObject<List<ScreenReaderItem>>(json);
         }
 
@@ -75,7 +75,7 @@ namespace Launcher
         public ScreenReaderItem GetMappingForScreenReader(string processName)
         {
             List<ScreenReaderItem> items = screenReaders.Where(screenReader => screenReader.Name == processName).ToList();
-            if(items.Count == 1)
+            if (items.Count == 1)
             {
                 return items[0];
             }
@@ -90,10 +90,10 @@ namespace Launcher
         public KeyCodeObj GetCodeForKey(string key)
         {
             List<KeyCodeObj> mapping = keyCodes.Where(keyCode => keyCode.Key == key).ToList();
-            if(mapping.Count == 1)
+            if (mapping.Count == 1)
             {
                 return mapping[0];
-            } 
+            }
             return null;
         }
 

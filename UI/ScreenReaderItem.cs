@@ -30,6 +30,6 @@ namespace Launcher
         /// <summary>Gets and sets the keys for the CircleCounterClockwise gesture.</summary>
         public string CircleCounterClockwise { get; set; }
         /// <summary>Gets and sets the keys for the Punch gesture.</summary>
-        public string Punch { get; set;}
+        public string Punch { get; set; }
     }
 }

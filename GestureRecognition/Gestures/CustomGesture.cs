@@ -3,15 +3,17 @@
 namespace GestureRecognition.Gestures
 {
     /// <summary>Represents the supported types of the custom gestures.</summary>
-    public enum CustomGestureType { 
+    public enum CustomGestureType
+    {
         /// <summary>A straight line movement by the hand.</summary>
-        HAND_SWIPE, 
+        HAND_SWIPE,
         /// <summary>A forward punch movement by the hand.</summary>
-        PUNCH 
+        PUNCH
     };
 
     /// <summary>Represents the possible values of the state of the custom gestures.</summary>
-    public enum GestureState { 
+    public enum GestureState
+    {
         /// <summary>An invalid state.</summary>
         NA,
         /// <summary>The gesture is starting.</summary>

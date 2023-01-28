@@ -1,5 +1,5 @@
-﻿using System;
-using Leap;
+﻿using Leap;
+using System;
 
 namespace GestureRecognition.Gestures
 {
@@ -24,7 +24,7 @@ namespace GestureRecognition.Gestures
         /// <param name="frame"> Frame in which a movement was recognized</param>.
         public HandSwipe(CustomGestureType type, Frame frame) : base(type, frame)
         {
-            if (_handSwipe != null) 
+            if (_handSwipe != null)
             {
                 if (_handSwipe.State.Equals(GestureState.NA))
                 {
@@ -44,7 +44,7 @@ namespace GestureRecognition.Gestures
 
             foreach (Hand hand in _handsForGesture)
             {
-                float xVelocity = hand.PalmVelocity.x;                
+                float xVelocity = hand.PalmVelocity.x;
                 float yVelocity = hand.PalmVelocity.y;
                 if (Math.Abs(xVelocity) > Math.Abs(yVelocity))
                 {

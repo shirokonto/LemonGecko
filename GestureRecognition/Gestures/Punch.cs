@@ -1,5 +1,5 @@
-﻿using System;
-using Leap;
+﻿using Leap;
+using System;
 
 namespace GestureRecognition.Gestures
 {
@@ -18,7 +18,7 @@ namespace GestureRecognition.Gestures
         /// <param name="frame"> Frame in which a movement was recognized</param>.
         public Punch(CustomGestureType type, Frame frame) : base(type, frame)
         {
-            if(_punch != null) 
+            if (_punch != null)
             {
                 if (_punch.State.Equals(GestureState.NA))
                 {
@@ -55,11 +55,11 @@ namespace GestureRecognition.Gestures
                 {
                     return null;
                 }
-                
+
                 for (int i = 0; i < hand.Fingers.Count; i++)
-                {                    
+                {
                     double distance = CalculateDistance(palmPositionVector, hand.Fingers[i].StabilizedTipPosition);
-                    if(hand.Fingers[i].Type == Finger.FingerType.TYPE_INDEX && hand.Fingers[i].IsExtended)
+                    if (hand.Fingers[i].Type == Finger.FingerType.TYPE_INDEX && hand.Fingers[i].IsExtended)
                     {
                         return null;
                     }
@@ -83,7 +83,7 @@ namespace GestureRecognition.Gestures
                         return _punch;
                     }
                 }
-                
+
             }
             return null;
         }

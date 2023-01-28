@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -27,7 +26,7 @@ namespace Launcher.Forms
             keyCodeMappingHelper = new KeyCodeMappingHelper();
             jsonParser = new JsonParser();
             jsonParser.LoadJsonForKeyToGestureMapping();
-            jsonParser.LoadJsonForKeyToCodeMapping();            
+            jsonParser.LoadJsonForKeyToCodeMapping();
             LoadScreenReaderComboBox();
             LoadKeyMappings(selectedScreenReader);
         }
@@ -64,7 +63,7 @@ namespace Launcher.Forms
             firstBox.ReadOnly = true;
             secondBox.ReadOnly = true;
             List<string> commands = keyCodeMappingHelper.GetKeysForCode(gesture);
-            if(commands.Count != 0)
+            if (commands.Count != 0)
             {
                 firstBox.Text = commands[0];
                 secondBox.Clear();
@@ -90,7 +89,7 @@ namespace Launcher.Forms
             //see if the entries where changed
             selectedScreenReader.ScreenTap = keyCodeMappingHelper.GetCodeForKey(ScreenTapTextBox.Text, ScreenTapTextBox2.Text);
             selectedScreenReader.HandSwipeRight = keyCodeMappingHelper.GetCodeForKey(SwipeRightTextBox.Text, SwipeRightTextBox2.Text);
-            selectedScreenReader.HandSwipeLeft = keyCodeMappingHelper.GetCodeForKey(SwipeLeftTextBox.Text,SwipeLeftTextBox2.Text);
+            selectedScreenReader.HandSwipeLeft = keyCodeMappingHelper.GetCodeForKey(SwipeLeftTextBox.Text, SwipeLeftTextBox2.Text);
             selectedScreenReader.HandSwipeUp = keyCodeMappingHelper.GetCodeForKey(SwipeUpTextBox.Text, SwipeUpTextBox2.Text);
             selectedScreenReader.HandSwipeDown = keyCodeMappingHelper.GetCodeForKey(SwipeDownTextBox.Text, SwipeDownTextBox2.Text);
             selectedScreenReader.CircleClockwise = keyCodeMappingHelper.GetCodeForKey(CircleClockwiseTextBox.Text, CircleClockwiseTextBox2.Text);
@@ -116,7 +115,7 @@ namespace Launcher.Forms
                 return;
             }
             if (!currentTextbox.ReadOnly)
-            {                
+            {
                 if ((e.KeyCode.Equals(Keys.Enter) || e.KeyCode.Equals(Keys.Space)) && TextWasChanged)
                 {
                     currentTextbox.ReadOnly = true;
@@ -167,7 +166,7 @@ namespace Launcher.Forms
 
         private void SwipeLeftTextBox_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
-            ChangeKeyInTextBox(sender, e, SwipeLeftTextBox);            
+            ChangeKeyInTextBox(sender, e, SwipeLeftTextBox);
         }
 
         private void SwipeLeftTextBox2_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)

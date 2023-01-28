@@ -44,12 +44,12 @@ namespace GestureRecognition
             controller.SetPolicy(Controller.PolicyFlag.POLICY_BACKGROUND_FRAMES);
 
             controller.EnableGesture(Gesture.GestureType.TYPE_CIRCLE);
-            controller.EnableGesture(Gesture.GestureType.TYPE_SCREEN_TAP);            
+            controller.EnableGesture(Gesture.GestureType.TYPE_SCREEN_TAP);
             controller.AddListener(this);
         }
 
         //destructor
-        ~ LeapListener()
+        ~LeapListener()
         {
             if (controller != null && isConnected)
             {
@@ -63,7 +63,7 @@ namespace GestureRecognition
         /// </summary>
         /// <param name="controller">Connected controller</param>
         public override void OnConnect(Controller controller)
-        {            
+        {
             Print("Leap Motion Controller is Connected");
         }
 
@@ -89,17 +89,18 @@ namespace GestureRecognition
             {
                 gestures = frame.Gestures();
                 foreach (Gesture gesture in gestures)
-                {                    
+                {
                     if (gesture.State.Equals(Gesture.GestureState.STATESTOP))
                     {
                         if (gesture.Type.Equals(Gesture.GestureType.TYPE_CIRCLE))
                         {
                             CircleGesture circle = new CircleGesture(gesture);
                             CircleEvent circleEvent = new CircleEvent(circle);
-                            if(circle.Pointable.Direction.AngleTo(circleEvent.Circle.Normal) <= Math.PI / 2)
+                            if (circle.Pointable.Direction.AngleTo(circleEvent.Circle.Normal) <= Math.PI / 2)
                             {
                                 // Print("Frame: " + frame.Id + " & " + gesture.Type + "(CLOCKWISE)");
-                            } else
+                            }
+                            else
                             {
                                 // Print("Frame: " + frame.Id + " & " + gesture.Type + "(COUNTERCLOCKWISE)");
                             }
@@ -120,7 +121,7 @@ namespace GestureRecognition
                 Gestures.HandSwipe handSwipe = Gestures.HandSwipe.IsHandSwipe(frame);
                 if (handSwipe != null)
                 {
-                    
+
                     if (handSwipe.State.Equals(Gestures.GestureState.END))
                     {
                         HandSwipeEvent swipeEvent = new HandSwipeEvent(handSwipe);
@@ -131,7 +132,7 @@ namespace GestureRecognition
                 }
                 Gestures.Punch punch = Gestures.Punch.IsPunch(frame);
                 if (punch != null)
-                {                    
+                {
                     if (punch.State.Equals(Gestures.GestureState.END))
                     {
                         // Print("Frame: " + frame.Id + " & " + punch.Type);
@@ -140,7 +141,7 @@ namespace GestureRecognition
                         return;
                     }
                 }
-            }            
+            }
         }
 
         /// <summary>
@@ -193,7 +194,7 @@ namespace GestureRecognition
         {
             EventHandler<PunchEvent> handler = PunchDetected;
 
-            if(handler != null)
+            if (handler != null)
             {
                 handler(this, punch);
             }

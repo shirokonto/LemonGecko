@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Diagnostics;
+using System.Linq;
 
 namespace Launcher
 {
@@ -30,9 +30,10 @@ namespace Launcher
             if (screenReaderProcesses.Length == 0)
             {
                 Console.WriteLine("no active screen reader");
-            } else
+            }
+            else
             {
-                foreach(Process process in screenReaderProcesses)
+                foreach (Process process in screenReaderProcesses)
                 {
                     string processName = process.ProcessName;
                     if (process.ProcessName == "jfw")
@@ -41,12 +42,12 @@ namespace Launcher
                     }
                     // search for processName in json and map keys
                     ScreenReaderItem screenReader = jsonParser.GetMappingForScreenReader(processName);
-                    if(screenReader != null)
+                    if (screenReader != null)
                     {
                         activeScreenReaders.Add(screenReader);
                     }
                 }
-            }            
+            }
         }
 
         /// <summary>
@@ -64,8 +65,8 @@ namespace Launcher
         /// <param name="name">The name of the screenreader</param>
         /// <returns><see cref="ScreenReaderItem"/> object or null if there is no match</returns>
         public ScreenReaderItem GetScreenReaderByName(string name)
-        {  
-            if(activeScreenReaders.Count != 0)
+        {
+            if (activeScreenReaders.Count != 0)
             {
                 return activeScreenReaders.Where(i => i.Name.Equals(name)).First();
             }

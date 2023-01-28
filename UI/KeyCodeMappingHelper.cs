@@ -15,7 +15,7 @@ namespace Launcher
         /// <summary>
         /// Constructs a new <c>KeyCodeMappingHelper</c> object.
         /// </summary>
-        public KeyCodeMappingHelper() 
+        public KeyCodeMappingHelper()
         {
             jsonParser = new JsonParser();
             jsonParser.LoadJsonForKeyToGestureMapping();
@@ -32,7 +32,7 @@ namespace Launcher
             List<string> result = new List<string>();
             Match match = RoundAndCurlyBracketsRegex.Match(code);
             while (match.Success)
-            {              
+            {
                 if (match.Value.Length > 1 || !AlphaRegex.IsMatch(code)) // ^+* or (a) or {ENTER} 
                 {
                     if (result.Count == 1 && match.Value.Contains("(")) //second command and (a)
@@ -61,37 +61,37 @@ namespace Launcher
         public string GetCodeForKey(string firstKey, string secondKey)
         {
             string command = "";
-            if(firstKey != "")
+            if (firstKey != "")
                 command = HandleFirstCommand(firstKey);
             if (secondKey != "")
-                command += HandleSecondCommand(secondKey);            
+                command += HandleSecondCommand(secondKey);
             return command;
         }
 
         private string HandleFirstCommand(string key)
         {
-            if(key.Length == 2 && key != "UP" && AlphaRegex.IsMatch(key))
+            if (key.Length == 2 && key != "UP" && AlphaRegex.IsMatch(key))
             {
                 key = key.Remove(1, 1);
                 return key.ToUpper();
             }
-            else 
+            else
             {
                 KeyCodeObj mapping = jsonParser.GetCodeForKey(key.ToUpper());
                 if (mapping != null)
                     return mapping.Code;
                 return null;
-            }            
+            }
         }
 
         private string HandleSecondCommand(string key)
         {
-            if(key.Length == 1 && AlphaRegex.IsMatch(key))
-            {               
+            if (key.Length == 1 && AlphaRegex.IsMatch(key))
+            {
                 key = "(" + key + ")";
                 return key;
             }
-            else if (key.Length == 2 && key != "UP"  && AlphaRegex.IsMatch(key))
+            else if (key.Length == 2 && key != "UP" && AlphaRegex.IsMatch(key))
             {
                 key = key.Remove(1, 1).ToLower();
                 key = "(" + key + ")";
@@ -101,7 +101,7 @@ namespace Launcher
             {
                 KeyCodeObj mapping = jsonParser.GetCodeForKey(key.ToUpper());
                 if (mapping != null)
-                    return mapping.Code;                
+                    return mapping.Code;
             }
             return null;
         }

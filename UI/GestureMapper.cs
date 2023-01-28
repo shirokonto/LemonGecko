@@ -1,5 +1,5 @@
-﻿using System;
-using GestureRecognition;
+﻿using GestureRecognition;
+using System;
 using System.Windows.Forms;
 
 namespace Launcher

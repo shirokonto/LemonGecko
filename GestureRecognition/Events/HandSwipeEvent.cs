@@ -7,7 +7,7 @@ namespace GestureRecognition.Events
     /// <see cref="https://github.com/Ben-Floyd/LeapMotionGestureControl/blob/master/GestureMap/Events/HandSwipeEvent.cs"/>
     /// </summary>
     public class HandSwipeEvent : EventArgs
-    {        
+    {
         private Gestures.HandSwipe _handSwipe;
 
         /// <summary>

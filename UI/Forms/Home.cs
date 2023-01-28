@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
-using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace Launcher.Forms
 {
@@ -31,7 +31,7 @@ namespace Launcher.Forms
         }
 
         private void InitializeScreenReaderSettings()
-        {            
+        {
             FillScreenReaderComboBox();
             CheckControllerState();
         }
@@ -46,7 +46,7 @@ namespace Launcher.Forms
                     ScreenReaderComboBox.Items.Clear();
                     currentScreenReader = null;
                 }
-                SendMessage(ScreenReaderComboBox.Handle, CB_SETCUEBANNER, 0, "No active screen reader");               
+                SendMessage(ScreenReaderComboBox.Handle, CB_SETCUEBANNER, 0, "No active screen reader");
             }
             else
             {
@@ -96,7 +96,7 @@ namespace Launcher.Forms
             else
             {
                 MessageBox.Show("Stop the current session first.", "Attention");
-            }            
+            }
         }
 
         private void StartGestureControlButton_Click(object sender, EventArgs e)
@@ -114,7 +114,8 @@ namespace Launcher.Forms
                 System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.StartGestureControlSound);
                 player.Play();
                 this.ParentForm.WindowState = FormWindowState.Minimized;
-            } else
+            }
+            else
             {
                 MessageBox.Show("Check the state of the controller and screen reader to start a session.", "Attention");
                 return;
@@ -126,20 +127,21 @@ namespace Launcher.Forms
             if (!sessionInProgress)
             {
                 MessageBox.Show("Start a new session first.", "Attention");
-            } else
+            }
+            else
             {
                 mapper.StopGestureControl();
                 sessionInProgress = false;
                 System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.StopGestureControlSound);
                 player.Play();
-            }            
+            }
         }
 
         private void ScreenReaderComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ScreenReaderComboBox.SelectedItem != null)
             {
-                currentScreenReader = activeScreenReaders.GetScreenReaderByName(ScreenReaderComboBox.SelectedItem.ToString());                
+                currentScreenReader = activeScreenReaders.GetScreenReaderByName(ScreenReaderComboBox.SelectedItem.ToString());
             }
         }
     }

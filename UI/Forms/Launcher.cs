@@ -22,7 +22,7 @@ namespace Launcher.Forms
         /// Constructs a new <c>Launcher</c> Object and initializing the needed user interface components for the view.
         /// </summary>
         public Launcher()
-        {            
+        {
             InitializeComponent();
         }
 
@@ -31,7 +31,7 @@ namespace Launcher.Forms
             SetFocusAndCloseOtherForms(HomeButton);
             if ((home == null) || (home.IsDisposed))
                 home = new Home() { Dock = DockStyle.Right };
-            home.MdiParent=this;
+            home.MdiParent = this;
             this.ContentPanel.Controls.Add(home);
             home.Show();
             home.Focus();
@@ -47,7 +47,7 @@ namespace Launcher.Forms
             this.ContentPanel.Controls.Add(settings);
             settings.Show();
             settings.Focus();
-        }   
+        }
 
         private void SetFocusAndCloseOtherForms(Button btn)
         {
@@ -57,18 +57,18 @@ namespace Launcher.Forms
             {
                 for (int i = 0; i <= activeControls.Count; i++)
                 {
-                    if(activeControls[i] is Form)
+                    if (activeControls[i] is Form)
                     {
                         ((Form)activeControls[i]).Close();
                         return;
-                    }                    
+                    }
                     this.ContentPanel.Controls.Remove(activeControls[i]);
                 }
             }
         }
 
         private void HelpBtn_Click(object sender, EventArgs e)
-        {            
+        {
             SetFocusAndCloseOtherForms(HelpBtn);
             if ((helpView == null) || (helpView.IsDisposed))
                 helpView = new HelpView() { Dock = DockStyle.Fill };
