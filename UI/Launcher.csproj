@@ -51,6 +51,15 @@
   <PropertyGroup>
     <ApplicationIcon>LemonGeckoImg.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="LeapCSharp.NET4.0, Version=2.3.1.0, Culture=neutral, PublicKeyToken=6e1b1368e71eba9b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -124,6 +133,7 @@
     <EmbeddedResource Include="Forms\Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="app.manifest" />
     <None Include="GestureKeyMapping.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -181,9 +191,7 @@
   <ItemGroup>
     <None Include="Resources\LemonGeckoImg.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Jsons\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="LemonGeckoImg.ico" />
   </ItemGroup>
